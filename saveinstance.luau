@@ -8,6 +8,23 @@
 -- СЕКЦИЯ 1: ИНИЦИАЛИЗАЦИЯ И БАЗОВЫЕ ФУНКЦИИ (1000+ строк)
 -- ===================================================================
 
+-- В самом начале добавьте, если task не существует
+if not task then
+    -- Эмуляция task для Roblox
+    task = {
+        spawn = function(fn)
+            local thread = coroutine.create(fn)
+            coroutine.resume(thread)
+        end,
+        wait = function(time)
+            if time then
+                local start = os.clock()
+                while os.clock() - start < time do end
+            end
+        end
+    }
+end
+
 --[[
     МЕГА-УНИВЕРСАЛЬНЫЙ SAVEINSTANCE С ДЕОБФУСКАТОРОМ MOONSEC V3
     Версия 10.0 - "God Mode"
@@ -1113,6 +1130,25 @@ end
 -- СЕКЦИЯ 3: КВАНТОВЫЙ МЕНЕДЖЕР ЗАДАЧ (2000+ строк)
 -- ===================================================================
 
+function check_system_requirements()
+    log_info("Проверка системных требований...")
+    -- Простая проверка
+    local has_writefile = pcall(function() return writefile end)
+    local has_readfile = pcall(function() return readfile end)
+    
+    if not (has_writefile and has_readfile) then
+        log_warn("Файловые функции недоступны (запуск в Roblox Studio?)")
+    end
+    
+    return true
+end
+
+function main_save_process()
+    log_info("Запуск основного процесса сохранения...")
+    -- Ваша реализация здесь
+    return "Сохранил все!"
+end
+
 local QUANTUM_TASK_MANAGER = {
     name = "Quantum Task Manager v10.0",
     version = "10.0.0",
@@ -1393,10 +1429,37 @@ function saveinstance(options)
     local start_time = os.clock()
     local start_memory = collectgarbage("count")
     
+ if GOD_MODE_DEOBFUSCATOR.init then
+        GOD_MODE_DEOBFUSCATOR:init()
+    end
+    
+    if QUANTUM_TASK_MANAGER.init then
+        QUANTUM_TASK_MANAGER:init()
+    end
+    
+    if AI_CODE_ANALYZER.init then
+        AI_CODE_ANALYZER:init()
+    end
+
     -- Инициализация систем
-    GOD_MODE_DEOBFUSCATOR:init()
-    QUANTUM_TASK_MANAGER:init()
-    AI_CODE_ANALYZER:init()
+-- Для QUANTUM_TASK_MANAGER
+function QUANTUM_TASK_MANAGER:init()
+    log_info("Инициализация Quantum Task Manager v%s...", self.version)
+    self.state.start_time = os.clock()
+    return true
+end
+
+-- Для AI_CODE_ANALYZER  
+function AI_CODE_ANALYZER:init()
+    log_info("Инициализация AI Code Analyzer v%s...", self.version)
+    return true
+end
+
+-- Для GOD_MODE_SAVEINSTANCE
+function GOD_MODE_SAVEINSTANCE:init()
+    log_info("Инициализация God Mode SaveInstance v%s...", self.version)
+    return true
+end
     
     -- Применение настроек
     if options then
@@ -1593,6 +1656,7 @@ local function auto_initialize()
 end
 
 -- Запуск авто-инициализации
+-- Запуск авто-инициализации
 task.spawn(auto_initialize)
 
 -- Глобальный экспорт
@@ -1600,5 +1664,5 @@ _G.USSI = UltraSaveInstance
 _G.saveinstance = saveinstance
 _G.deobfuscate = deobfuscate
 
--- Возвращаем основной объект
+-- Возвращаем основной объект (уберите лишний текст)
 return UltraSaveInstance
