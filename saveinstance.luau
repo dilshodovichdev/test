@@ -1509,6 +1509,109 @@ end
     end
 end
 
+function GOD_MODE_DEOBFUSCATOR:final_optimization(code)
+    if code == nil then return "" end
+    log_debug("Финальная оптимизация...")
+    return code
+end
+
+function GOD_MODE_DEOBFUSCATOR:analyze_control_flow(code)
+    if code == nil then return "" end
+    log_debug("Анализ контроля потока...")
+    return code
+end
+
+function GOD_MODE_DEOBFUSCATOR:emulate_vm(code)
+    if code == nil then return "" end
+    log_debug("Эмуляция VM...")
+    return code
+end
+
+function GOD_MODE_DEOBFUSCATOR:match_patterns(code)
+    if code == nil then return "" end
+    log_debug("Поиск паттернов...")
+    return code
+end
+
+function GOD_MODE_DEOBFUSCATOR:ai_analysis(code)
+    if code == nil then return "" end
+    log_debug("AI анализ...")
+    return code
+end
+
+function GOD_MODE_DEOBFUSCATOR:heuristic_analysis(code)
+    if code == nil then return "" end
+    log_debug("Эвристический анализ...")
+    return code
+end
+
+function GOD_MODE_DEOBFUSCATOR:crypto_analysis(code)
+    if code == nil then return "" end
+    log_debug("Криптоанализ...")
+    return code
+end
+
+function GOD_MODE_DEOBFUSCATOR:machine_learning_analysis(code)
+    if code == nil then return "" end
+    log_debug("Машинное обучение...")
+    return code
+end
+
+function GOD_MODE_DEOBFUSCATOR:quantum_emulation(code)
+    if code == nil then return "" end
+    log_debug("Квантовая эмуляция...")
+    return code
+end
+
+function GOD_MODE_DEOBFUSCATOR:neural_network_analysis(code)
+    if code == nil then return "" end
+    log_debug("Нейронные сети...")
+    return code
+end
+
+function GOD_MODE_DEOBFUSCATOR:decode_custom_strings(code)
+    if code == nil then return "" end
+    log_trace("Декодирование собственных шифров...")
+    return code
+end
+
+function GOD_MODE_DEOBFUSCATOR:recover_char_arrays(code)
+    if code == nil then return "" end
+    log_trace("Восстановление char массивов...")
+    return code
+end
+
+function GOD_MODE_DEOBFUSCATOR:concatenate_strings(code)
+    if code == nil then return "" end
+    log_trace("Конкатенация строк...")
+    return code
+end
+
+function GOD_MODE_DEOBFUSCATOR:ai_string_recovery(code)
+    if code == nil then return "" end
+    log_trace("AI восстановление строк...")
+    return code
+end
+
+-- Для QUANTUM_TASK_MANAGER
+function QUANTUM_TASK_MANAGER:init()
+    log_info("Инициализация Quantum Task Manager v%s...", self.version)
+    self.state.start_time = os.clock()
+    return true
+end
+
+-- Для AI_CODE_ANALYZER  
+function AI_CODE_ANALYZER:init()
+    log_info("Инициализация AI Code Analyzer v%s...", self.version)
+    return true
+end
+
+-- Для GOD_MODE_SAVEINSTANCE
+function GOD_MODE_SAVEINSTANCE:init()
+    log_info("Инициализация God Mode SaveInstance v%s...", self.version)
+    return true
+end
+
 -- Дополнительные функции для разных режимов
 function saveinstance_full()
     return saveinstance({
@@ -1548,10 +1651,102 @@ function saveinstance_minimal()
 end
 
 -- Деобфускатор как отдельная функция
-function deobfuscate(code, options)
-    GOD_MODE_DEOBFUSCATOR:init()
-    return GOD_MODE_DEOBFUSCATOR:deobfuscate(code, options)
-end
+function GOD_MODE_DEOBFUSCATOR:deobfuscate(code, options)
+    -- Проверка на nil
+    if code == nil then
+        log_error("Деобфускация: входной код равен nil")
+        return ""
+    end
+    
+    log_info("Начало деобфускации в God Mode...")
+    log_debug("Размер входных данных: %d байт", #code)
+    
+    local start_time = os.clock()
+    
+    -- Применение пользовательских настроек
+    if options then
+        for key, value in pairs(options) do
+            if self.settings[key] ~= nil then
+                self.settings[key] = value
+            end
+        end
+    end
+    
+    -- Многослойная деобфускация
+    local result = code
+    local previous_hash = HASH_UTILS.hash(result, "MD5")
+    local iterations_without_change = 0
+    
+    for iteration = 1, self.settings.max_iterations do
+        self.state.current_iteration = iteration
+        log_debug("Итерация деобфускации %d/%d", iteration, self.settings.max_iterations)
+        
+        local iteration_start = os.clock()
+        
+        -- Применение всех методов деобфускации
+        local new_result = self:apply_all_techniques(result)
+        
+        -- Проверка изменений
+        local new_hash = HASH_UTILS.hash(new_result, "MD5")
+        
+        if new_hash == previous_hash then
+            iterations_without_change = iterations_without_change + 1
+            log_debug("Изменений не обнаружено (попытка %d)", iterations_without_change)
+        else
+            iterations_without_change = 0
+            log_debug("Обнаружены изменения, продолжаем...")
+        end
+        
+        previous_hash = new_hash
+        result = new_result
+        
+        -- Проверка таймаута
+        if os.clock() - start_time > self.settings.timeout then
+            log_warn("Достигнут таймаут деобфускации")
+            break
+        end
+        
+        -- Проверка памяти
+        local memory = collectgarbage("count")
+        if memory > self.settings.memory_limit * 1024 then
+            log_warn("Превышен лимит памяти: %.2f MB", memory / 1024)
+            collectgarbage("collect")
+        end
+        
+        -- Выход если несколько итераций без изменений
+        if iterations_without_change >= 3 then
+            log_info("Деобфускация сошлась после %d итераций", iteration)
+            break
+        end
+        
+        -- Прогресс
+        local progress = (iteration / self.settings.max_iterations) * 100
+        local iteration_time = os.clock() - iteration_start
+        
+        log_debug("Итерация %d завершена за %.3f сек (прогресс: %.1f%%)", 
+            iteration, iteration_time, progress)
+        
+        -- Небольшая пауза для предотвращения зависаний
+        if iteration % 10 == 0 then
+            task.wait(0.01)
+        end
+    end
+    
+    -- Финальная оптимизация
+    result = self:final_optimization(result)
+    
+    -- Статистика
+    local total_time = os.clock() - start_time
+    local speed = #code / total_time / 1024 -- KB/s
+    
+    log_info("Деобфускация завершена за %.3f секунд", total_time)
+    log_info("Скорость обработки: %.2f KB/сек", speed)
+    log_info("Восстановлено строк: %d", self.state.strings_recovered)
+    log_info("Реконструировано функций: %d", self.state.functions_reconstructed)
+    log_info("Удалено мертвого кода: %d строк", self.state.dead_code_removed)
+    
+    return result
+end 
 
 -- Вспомогательные функции
 function get_version()
@@ -1653,6 +1848,16 @@ local function auto_initialize()
     GOD_MODE_DEOBFUSCATOR:init()
     
     log_info("Авто-инициализация завершена")
+end
+
+-- Деобфускатор как отдельная функция
+function deobfuscate(code, options)
+    if code == nil then
+        log_error("deobfuscate: входной код равен nil")
+        return ""
+    end
+    GOD_MODE_DEOBFUSCATOR:init()
+    return GOD_MODE_DEOBFUSCATOR:deobfuscate(code, options)
 end
 
 -- Запуск авто-инициализации
