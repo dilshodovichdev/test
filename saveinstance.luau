@@ -10,76 +10,74 @@
 
 -- В самом начале добавьте, если task не существует
 -- В самом начале добавьте, если task не существует
-if not task then
-    -- Эмуляция task для Roblox (без coroutine)
-    task = {
-        spawn = function(fn)
-            -- Используем pcall для безопасности
-            pcall(function()
-                -- В Roblox используем task.spawn
-                if game and game:GetService("RunService") then
-                    -- В настоящем Roblox
-                    local success, result = pcall(fn)
-                    if not success then
-                        warn("Ошибка в task.spawn:", result)
-                    end
-                else
-                    -- Вне Roblox или в окружении без task.spawn
-                    -- Просто вызываем функцию немедленно
-                    local success, result = pcall(fn)
-                    if not success then
-                        print("Ошибка в функции:", result)
-                    end
-                end
-            end)
-        end,
-        wait = function(time)
-            if time then
-                if game and game:GetService("RunService") then
-                    -- В Roblox используем wait()
-                    wait(time)
-                else
-                    -- Простая эмуляция ожидания
-                    local start = os.clock()
-                    while os.clock() - start < time do end
-                end
-            else
-                if game and game:GetService("RunService") then
-                    wait()
-                end
-            end
-        end,
-        delay = function(time, fn)
-            task.spawn(function()
-                task.wait(time)
-                pcall(fn)
-            end)
-        end
-    }
+-- Простая безопасная реализация task.spawn
+local function safeTaskSpawn(fn)
+    if type(fn) ~= "function" then return end
     
-    -- Также добавьте coroutine если его нет
-    if not coroutine then
-        coroutine = {
-            create = function(fn)
-                return {
-                    fn = fn,
-                    status = "suspended"
-                }
-            end,
-            resume = function(co, ...)
-                if co and co.fn then
-                    local success, result = pcall(co.fn, ...)
-                    co.status = success and "dead" or "dead"
-                    return success, result
-                end
-                return false, "coroutine not found"
-            end,
-            status = function(co)
-                return co and co.status or "dead"
+    if game and game:GetService("RunService") then
+        -- В Roblox Studio или игре
+        local success, errorMsg = pcall(function()
+            -- Пробуем использовать встроенный task.spawn если доступен
+            if _G.task and _G.task.spawn then
+                _G.task.spawn(fn)
+            else
+                -- Альтернатива через delay
+                game:GetService("RunService").Heartbeat:Wait()
+                fn()
             end
-        }
+        end)
+        
+        if not success then
+            warn("Ошибка при запуске задачи:", errorMsg)
+        end
+    else
+        -- Вне Roblox
+        pcall(fn)
     end
 end
+
+-- Используйте safeTaskSpawn вместо task.spawn в auto_initialize:
+local function auto_initialize()
+    log_info("Авто-инициализация God Mode SaveInstance v%s...", VERSION_INFO.major)
+    
+    -- Создание папок
+    if writefile then
+        local folders = {
+            "saveinstance_output",
+            "saveinstance_output/scripts",
+            "saveinstance_output/assets",
+            "saveinstance_output/models",
+            "saveinstance_output/logs",
+            "saveinstance_output/cache",
+            "saveinstance_output/temp"
+        }
+        
+        for _, folder in ipairs(folders) do
+            pcall(function()
+                writefile(folder .. "/.keep", "")
+            end)
+        end
+    end
+    
+    -- Настройка логирования
+    MEGA_LOGGER.log_file = "saveinstance_output/logs/saveinstance.log"
+    
+    -- Инициализация систем
+    GOD_MODE_DEOBFUSCATOR:init()
+    
+    log_info("Авто-инициализация завершена")
+end
+
+-- Запуск авто-инициализации БЕЗ task.spawn:
+local function start_initialization()
+    local success, err = pcall(auto_initialize)
+    if not success then
+        print("Ошибка инициализации:", err)
+    end
+end
+
+-- Запускаем напрямую, без task.spawn
+start_initialization()
 
 --[[
     МЕГА-УНИВЕРСАЛЬНЫЙ SAVEINSTANCE С ДЕОБФУСКАТОРОМ MOONSEC V3
@@ -1918,7 +1916,10 @@ end
 
 -- Запуск авто-инициализации
 -- Запуск авто-инициализации
-task.spawn(auto_initialize)
+local success, err = pcall(auto_initialize)
+if not success then
+    print("Ошибка авто-инициализации:", err)
+end
 
 -- Глобальный экспорт
 _G.USSI = UltraSaveInstance
