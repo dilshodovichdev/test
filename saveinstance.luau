@@ -9,20 +9,76 @@
 -- ===================================================================
 
 -- В самом начале добавьте, если task не существует
+-- В самом начале добавьте, если task не существует
 if not task then
-    -- Эмуляция task для Roblox
+    -- Эмуляция task для Roblox (без coroutine)
     task = {
         spawn = function(fn)
-            local thread = coroutine.create(fn)
-            coroutine.resume(thread)
+            -- Используем pcall для безопасности
+            pcall(function()
+                -- В Roblox используем task.spawn
+                if game and game:GetService("RunService") then
+                    -- В настоящем Roblox
+                    local success, result = pcall(fn)
+                    if not success then
+                        warn("Ошибка в task.spawn:", result)
+                    end
+                else
+                    -- Вне Roblox или в окружении без task.spawn
+                    -- Просто вызываем функцию немедленно
+                    local success, result = pcall(fn)
+                    if not success then
+                        print("Ошибка в функции:", result)
+                    end
+                end
+            end)
         end,
         wait = function(time)
             if time then
-                local start = os.clock()
-                while os.clock() - start < time do end
+                if game and game:GetService("RunService") then
+                    -- В Roblox используем wait()
+                    wait(time)
+                else
+                    -- Простая эмуляция ожидания
+                    local start = os.clock()
+                    while os.clock() - start < time do end
+                end
+            else
+                if game and game:GetService("RunService") then
+                    wait()
+                end
             end
+        end,
+        delay = function(time, fn)
+            task.spawn(function()
+                task.wait(time)
+                pcall(fn)
+            end)
         end
     }
+    
+    -- Также добавьте coroutine если его нет
+    if not coroutine then
+        coroutine = {
+            create = function(fn)
+                return {
+                    fn = fn,
+                    status = "suspended"
+                }
+            end,
+            resume = function(co, ...)
+                if co and co.fn then
+                    local success, result = pcall(co.fn, ...)
+                    co.status = success and "dead" or "dead"
+                    return success, result
+                end
+                return false, "coroutine not found"
+            end,
+            status = function(co)
+                return co and co.status or "dead"
+            end
+        }
+    end
 end
 
 --[[
