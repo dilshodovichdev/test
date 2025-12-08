@@ -1,3656 +1,4061 @@
 --!native
 --!optimize 2
--- UniversalSynSaveInstance v10.0 - Ultimate Edition
--- Полная версия с 15K+ строками кода
+--!divine-intellect
+-- https://discord.gg/wx4ThpAsmw
 
--- ===================================================================
--- СЕКЦИЯ 1: ЯДРО СИСТЕМЫ (5000+ строк)
--- ===================================================================
-
-local _G = _G or getfenv()
-local shared = shared or {}
-local getgenv = getgenv or function() return _G end
-
--- Расширенная информация о версии
-local VERSION_INFO = {
-    major = 10,
-    minor = 0,
-    patch = 0,
-    codename = "God Mode",
-    build = 15000,
-    release_date = "2024",
-    author = "UniversalSynSaveInstance Team",
-    website = "https://github.com/UniversalSyn/SaveInstance",
-    discord = "https://discord.gg/wx4ThpAsmw",
-    license = "MIT",
-    
-    features = {
-        "Ultra Deobfuscator Pro Max",
-        "Quantum Task Manager",
-        "AI Code Analysis",
-        "Neural Network Optimization",
-        "Cloud Save Integration",
-        "Real-time Decompilation",
-        "Anti-Detection Shield",
-        "Auto-Update System",
-        "Plugin Architecture",
-        "Cross-Platform Support",
-        "Multi-threading up to 64 threads",
-        "Memory Optimization",
-        "Cache System",
-        "Compression Algorithms",
-        "Encryption Support",
-        "GUI Interface",
-        "Live Monitoring",
-        "Debug Tools",
-        "Performance Profiling",
-        "Security Scanning",
-        "Asset Extraction",
-        "Script Recovery",
-        "Data Mining",
-        "Pattern Recognition",
-        "Heuristic Analysis",
-        "Machine Learning"
-    }
-}
-
--- МЕГА-КОНФИГУРАЦИЯ
-local CONFIG = {
-    -- Ядро системы
-    ENABLE_CORE = true,
-    ENABLE_EXTENSIONS = true,
-    ENABLE_PLUGINS = true,
-    ENABLE_HOOKS = true,
-    ENABLE_MONITORING = true,
-    
-    -- Производительность
-    MAX_THREADS = 64,
-    MAX_MEMORY_MB = 8192,
-    MAX_EXECUTION_TIME = 600,
-    ENABLE_JIT = true,
-    ENABLE_AOT = true,
-    ENABLE_CACHE = true,
-    CACHE_SIZE_MB = 2048,
-    COMPRESSION_LEVEL = 9,
-    
-    -- Безопасность
-    ENABLE_ANTI_DETECT = true,
-    ENABLE_ENCRYPTION = true,
-    ENABLE_STEALTH = true,
-    ENABLE_SANDBOX = true,
-    ENABLE_VIRTUALIZATION = true,
-    ENCRYPTION_KEY_SIZE = 256,
-    
-    -- Деобфускация
-    DEOBFUSCATION_LEVEL = "GOD", -- "LOW", "MEDIUM", "HIGH", "ULTRA", "GOD"
-    ENABLE_AI_ANALYSIS = true,
-    ENABLE_PATTERN_RECOGNITION = true,
-    ENABLE_HEURISTIC_SCANNING = true,
-    ENABLE_NEURAL_NETWORKS = true,
-    
-    -- Сохранение
-    SAVE_MODE = "EVERYTHING", -- "MINIMAL", "BASIC", "STANDARD", "PREMIUM", "ULTIMATE", "EVERYTHING"
-    BACKUP_COUNT = 5,
-    AUTO_BACKUP = true,
-    VERSION_CONTROL = true,
-    
-    -- Сеть
-    ENABLE_CLOUD_SAVE = true,
-    ENABLE_P2P = true,
-    ENABLE_CDN = true,
-    ENABLE_SYNC = true,
-    
-    -- Интерфейс
-    GUI_MODE = "ADVANCED", -- "MINIMAL", "BASIC", "STANDARD", "ADVANCED", "PRO"
-    ENABLE_THEMES = true,
-    ENABLE_ANIMATIONS = true,
-    ENABLE_SOUNDS = true,
-    
-    -- Отладка
-    DEBUG_LEVEL = "INFO", -- "NONE", "ERROR", "WARN", "INFO", "DEBUG", "VERBOSE"
-    ENABLE_PROFILING = true,
-    ENABLE_METRICS = true,
-    ENABLE_TELEMETRY = true,
-    
-    -- Экспериментальное
-    ENABLE_EXPERIMENTAL = true,
-    ENABLE_BETA_FEATURES = true,
-    ENABLE_ALPHA_FEATURES = false,
-    
-    -- Оптимизации
-    ENABLE_OPTIMIZATION = true,
-    ENABLE_DEDUPLICATION = true,
-    ENABLE_COMPRESSION = true,
-    ENABLE_VALIDATION = true,
-    
-    -- Расширенные функции
-    ENABLE_LIVE_EDIT = true,
-    ENABLE_REAL_TIME = true,
-    ENABLE_AUTO_SAVE = true,
-    ENABLE_SCHEDULING = true
-}
-
--- Глобальный реестр системы
-local REGISTRY = {
-    modules = {},
-    services = {},
-    hooks = {},
-    plugins = {},
-    cache = {},
-    state = {
-        initialized = false,
-        running = false,
-        paused = false,
-        stopping = false
-    },
-    
-    metrics = {
-        start_time = os.clock(),
-        operations = 0,
-        memory_used = 0,
-        cpu_time = 0,
-        network_bytes = 0,
-        files_saved = 0,
-        scripts_deobfuscated = 0,
-        assets_extracted = 0,
-        errors_count = 0,
-        warnings_count = 0,
-        cache_hits = 0,
-        cache_misses = 0
-    },
-    
-    statistics = {
-        total_instances = 0,
-        total_scripts = 0,
-        total_assets = 0,
-        total_models = 0,
-        total_textures = 0,
-        total_sounds = 0,
-        total_meshes = 0,
-        total_animations = 0
-    }
-}
-
--- ===================================================================
--- СЕКЦИЯ 2: ПРОДВИНУТАЯ СИСТЕМА ЛОГИРОВАНИЯ (1500+ строк)
--- ===================================================================
-
-local MEGA_LOGGER = {
-    LEVELS = {
-        FATAL = 0,
-        ERROR = 1,
-        WARN = 2,
-        INFO = 3,
-        DEBUG = 4,
-        TRACE = 5,
-        VERBOSE = 6
-    },
-    
-    COLORS = {
-        [0] = Color3.fromRGB(255, 0, 0),      -- FATAL: Красный
-        [1] = Color3.fromRGB(255, 50, 50),    -- ERROR: Светло-красный
-        [2] = Color3.fromRGB(255, 255, 0),    -- WARN: Желтый
-        [3] = Color3.fromRGB(0, 255, 0),      -- INFO: Зеленый
-        [4] = Color3.fromRGB(0, 200, 255),    -- DEBUG: Голубой
-        [5] = Color3.fromRGB(200, 0, 255),    -- TRACE: Фиолетовый
-        [6] = Color3.fromRGB(255, 255, 255)   -- VERBOSE: Белый
-    },
-    
-    -- Настройки
-    log_level = 3, -- INFO по умолчанию
-    log_to_file = true,
-    log_to_console = true,
-    log_to_gui = false,
-    log_to_network = false,
-    max_history = 10000,
-    log_file = "saveinstance.log",
-    
-    -- Внутреннее состояние
-    history = {},
-    buffer = {},
-    gui_initialized = false,
-    network_connected = false
-}
-
--- Инициализация логгера
-function MEGA_LOGGER:init()
-    -- Установка уровня логирования из конфига
-    local level_map = {
-        NONE = 0,
-        ERROR = 1,
-        WARN = 2,
-        INFO = 3,
-        DEBUG = 4,
-        VERBOSE = 6
-    }
-    
-    self.log_level = level_map[CONFIG.DEBUG_LEVEL] or 3
-    
-    -- Создание лог файла
-    if self.log_to_file and writefile then
-        pcall(function()
-            writefile(self.log_file, "")
-        end)
-    end
-    
-    -- Инициализация GUI
-    if self.log_to_gui and game then
-        self:init_gui()
-    end
-    
-    return true
+local function string_find(s, pattern)
+	return string.find(s, pattern, nil, true)
 end
 
--- Основная функция логирования
-function MEGA_LOGGER:log(level, message, ...)
-    -- Проверка уровня
-    if level > self.log_level then
-        return nil
-    end
-    
-    -- Форматирование времени
-    local timestamp = os.date("%Y-%m-%d %H:%M:%S.")
-    local ms = math.floor((os.clock() % 1) * 1000)
-    timestamp = timestamp .. string.format("%03d", ms)
-    
-    -- Уровни
-    local level_names = {"FATAL", "ERROR", "WARN", "INFO", "DEBUG", "TRACE", "VERBOSE"}
-    local level_name = level_names[level + 1] or "UNKNOWN"
-    
-    -- Форматирование сообщения
-    local formatted_message
-    if select('#', ...) > 0 then
-        formatted_message = string.format(message, ...)
-    else
-        formatted_message = tostring(message)
-    end
-    
-    -- Полная запись
-    local full_message = string.format("[%s] [%s] %s", timestamp, level_name, formatted_message)
-    
-    -- Сохранение в историю
-    local log_entry = {
-        timestamp = os.clock(),
-        level = level,
-        level_name = level_name,
-        message = formatted_message,
-        full = full_message
-    }
-    
-    table.insert(self.history, log_entry)
-    
-    -- Ограничение истории
-    if #self.history > self.max_history then
-        table.remove(self.history, 1)
-    end
-    
-    -- Вывод в консоль
-    if self.log_to_console then
-        if game and game:GetService("RunService"):IsStudio() then
-            -- В Roblox Studio с цветами
-            local color = self.COLORS[level]
-            if color then
-                print(full_message)
-            else
-                print(full_message)
-            end
-        else
-            print(full_message)
-        end
-    end
-    
-    -- Запись в файл
-    if self.log_to_file and writefile then
-        pcall(function()
-            appendfile(self.log_file, full_message .. "\n")
-        end)
-    end
-    
-    -- GUI вывод
-    if self.log_to_gui and self.gui_initialized then
-        self:add_to_gui(log_entry)
-    end
-    
-    -- Сетевой лог
-    if self.log_to_network and self.network_connected then
-        self:send_to_network(log_entry)
-    end
-    
-    -- Обновление метрик
-    REGISTRY.metrics.operations = REGISTRY.metrics.operations + 1
-    
-    if level == 0 then -- FATAL
-        REGISTRY.metrics.errors_count = REGISTRY.metrics.errors_count + 1
-    elseif level == 1 then -- ERROR
-        REGISTRY.metrics.errors_count = REGISTRY.metrics.errors_count + 1
-    elseif level == 2 then -- WARN
-        REGISTRY.metrics.warnings_count = REGISTRY.metrics.warnings_count + 1
-    end
-    
-    return log_entry
+local function ArrayToDict(t, hydridMode, valueOverride, typeStrict)
+	local tmp = {}
+
+	if hydridMode then
+		for any1, any2 in t do
+			if type(any1) == "number" then
+				tmp[any2] = valueOverride or true
+			elseif type(any2) == "table" then
+				tmp[any1] = ArrayToDict(any2, hydridMode) -- any1 is Class, any2 is Name
+			else
+				tmp[any1] = any2
+			end
+		end
+	else
+		for _, key in t do
+			if not typeStrict or typeStrict and type(key) == typeStrict then
+				tmp[key] = true
+			end
+		end
+	end
+
+	return tmp
 end
 
--- Вспомогательные функции
-function MEGA_LOGGER:fatal(...) return self:log(0, ...) end
-function MEGA_LOGGER:error(...) return self:log(1, ...) end
-function MEGA_LOGGER:warn(...) return self:log(2, ...) end
-function MEGA_LOGGER:info(...) return self:log(3, ...) end
-function MEGA_LOGGER:debug(...) return self:log(4, ...) end
-function MEGA_LOGGER:trace(...) return self:log(5, ...) end
-function MEGA_LOGGER:verbose(...) return self:log(6, ...) end
+local global_container
+do
+	local filename = "UniversalMethodFinder"
 
--- Алиасы для глобального доступа
-local log_fatal = function(...) return MEGA_LOGGER:fatal(...) end
-local log_error = function(...) return MEGA_LOGGER:error(...) end
-local log_warn = function(...) return MEGA_LOGGER:warn(...) end
-local log_info = function(...) return MEGA_LOGGER:info(...) end
-local log_debug = function(...) return MEGA_LOGGER:debug(...) end
-local log_trace = function(...) return MEGA_LOGGER:trace(...) end
+	local finder
+	finder, global_container = loadstring(
+		game:HttpGet("https://raw.githubusercontent.com/luau/SomeHub/main/" .. filename .. ".luau", true),
+		filename
+	)()
 
--- Инициализация GUI для логов
-function MEGA_LOGGER:init_gui()
-    if not game or not game:GetService("CoreGui") then
-        return false
-    end
-    
-    pcall(function()
-        -- Создание основного GUI
-        local screen_gui = Instance.new("ScreenGui")
-        screen_gui.Name = "MegaLoggerGUI"
-        screen_gui.DisplayOrder = 9999
-        screen_gui.ResetOnSpawn = false
-        
-        -- Основной фрейм
-        local main_frame = Instance.new("Frame")
-        main_frame.Name = "MainFrame"
-        main_frame.Size = UDim2.new(0.4, 0, 0.3, 0)
-        main_frame.Position = UDim2.new(0.6, 0, 0.7, 0)
-        main_frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-        main_frame.BackgroundTransparency = 0.1
-        main_frame.BorderSizePixel = 0
-        main_frame.ClipsDescendants = true
-        
-        -- Заголовок
-        local title = Instance.new("TextLabel")
-        title.Name = "Title"
-        title.Size = UDim2.new(1, 0, 0, 25)
-        title.Position = UDim2.new(0, 0, 0, 0)
-        title.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-        title.Text = "MEGA LOGGER v" .. VERSION_INFO.major
-        title.TextColor3 = Color3.fromRGB(255, 255, 255)
-        title.TextSize = 14
-        title.Font = Enum.Font.SourceSansBold
-        
-        -- Область логов
-        local scroll_frame = Instance.new("ScrollingFrame")
-        scroll_frame.Name = "ScrollFrame"
-        scroll_frame.Size = UDim2.new(1, 0, 1, -25)
-        scroll_frame.Position = UDim2.new(0, 0, 0, 25)
-        scroll_frame.BackgroundTransparency = 1
-        scroll_frame.ScrollBarThickness = 6
-        scroll_frame.ScrollBarImageColor3 = Color3.fromRGB(100, 100, 100)
-        
-        -- Layout
-        local list_layout = Instance.new("UIListLayout")
-        list_layout.Name = "ListLayout"
-        list_layout.SortOrder = Enum.SortOrder.LayoutOrder
-        list_layout.Padding = UDim.new(0, 2)
-        
-        -- Сборка
-        list_layout.Parent = scroll_frame
-        scroll_frame.Parent = main_frame
-        title.Parent = main_frame
-        main_frame.Parent = screen_gui
-        screen_gui.Parent = game:GetService("CoreGui")
-        
-        -- Сохранение ссылок
-        self.gui = {
-            screen = screen_gui,
-            frame = main_frame,
-            scroll = scroll_frame,
-            layout = list_layout,
-            entries = {}
-        }
-        
-        self.gui_initialized = true
-        self:info("GUI логгера инициализирован")
-    end)
-    
-    return self.gui_initialized
+	finder({
+		-- readbinarystring = 'string.find(...,"bin",nil,true)', -- ! Could match some unwanted stuff (getbinaryindex)
+		-- request = 'string.find(...,"request",nil,true) and not string.find(...,"internal",nil,true)',
+		base64encode = 'local a={...}local b=a[1]local function c(a,b)return string.find(a,b,nil,true)end;return c(b,"encode")and(c(b,"base64")or c(string.lower(tostring(a[2])),"base64"))',
+		-- cloneref = 'string.find(...,"clone",nil,true) and string.find(...,"ref",nil,true)',
+		-- decompile = '(string.find(...,"decomp",nil,true) and string.sub(...,#...) ~= "s")',
+		gethiddenproperty = 'string.find(...,"get",nil,true) and string.find(...,"h",nil,true) and string.find(...,"prop",nil,true) and string.sub(...,#...) ~= "s"',
+		gethui = 'string.find(...,"get",nil,true) and string.find(...,"h",nil,true) and string.find(...,"ui",nil,true)',
+		-- getcon = 'string.find(...,"get",nil,true) and (string.find(...,"conn",nil,true) or string.find(...,"sig",nil,true)) and string.sub(...,#(...))=="s"',
+		getnilinstances = 'string.find(...,"nil",nil,true) and string.find(...,"get",nil,true) and string.sub(...,#...) == "s"', -- ! Could match some unwanted stuff
+		getscriptbytecode = 'string.find(...,"get",nil,true) and string.find(...,"bytecode",nil,true)', --  or string.find(...,"dump",nil,true) and string.find(...,"string",nil,true) due to Fluxus (dumpstring returns a function)
+		-- hash = 'local a={...}local b=a[1]local function c(a,b)return string.find(a,b,nil,true)end;return c(b,"hash")and c(string.lower(tostring(a[2])),"crypt")',
+		protectgui = 'string.find(...,"protect",nil,true) and string.find(...,"ui",nil,true) and not string.find(...,"un",nil,true)',
+		setthreadidentity = 'string.find(...,"identity",nil,true) and string.find(...,"set",nil,true)',
+	}, true, 10)
 end
 
--- Добавление записи в GUI
-function MEGA_LOGGER:add_to_gui(log_entry)
-    if not self.gui or not self.gui_initialized then
-        return
-    end
-    
-    pcall(function()
-        local max_entries = 100
-        
-        -- Ограничение количества записей
-        if #self.gui.entries >= max_entries then
-            local oldest = table.remove(self.gui.entries, 1)
-            if oldest then
-                oldest:Destroy()
-            end
-        end
-        
-        -- Создание записи
-        local entry_frame = Instance.new("Frame")
-        entry_frame.Name = "LogEntry"
-        entry_frame.Size = UDim2.new(1, -10, 0, 20)
-        entry_frame.BackgroundTransparency = 1
-        
-        -- Текст
-        local text_label = Instance.new("TextLabel")
-        text_label.Name = "Text"
-        text_label.Size = UDim2.new(1, 0, 1, 0)
-        text_label.BackgroundTransparency = 1
-        text_label.TextColor3 = self.COLORS[log_entry.level] or Color3.fromRGB(255, 255, 255)
-        text_label.Text = string.format("[%s] %s", log_entry.level_name, log_entry.message)
-        text_label.TextSize = 12
-        text_label.Font = Enum.Font.Code
-        text_label.TextXAlignment = Enum.TextXAlignment.Left
-        text_label.TextTruncate = Enum.TextTruncate.AtEnd
-        text_label.TextWrapped = false
-        text_label.LayoutOrder = #self.gui.entries
-        
-        -- Индикатор уровня
-        local level_indicator = Instance.new("Frame")
-        level_indicator.Name = "LevelIndicator"
-        level_indicator.Size = UDim2.new(0, 4, 1, 0)
-        level_indicator.Position = UDim2.new(0, 0, 0, 0)
-        level_indicator.BackgroundColor3 = self.COLORS[log_entry.level] or Color3.fromRGB(255, 255, 255)
-        level_indicator.BorderSizePixel = 0
-        
-        -- Сборка
-        level_indicator.Parent = entry_frame
-        text_label.Parent = entry_frame
-        entry_frame.Parent = self.gui.scroll
-        
-        -- Сохранение ссылки
-        table.insert(self.gui.entries, entry_frame)
-        
-        -- Обновление размеров
-        self.gui.scroll.CanvasSize = UDim2.new(0, 0, 0, self.gui.layout.AbsoluteContentSize.Y)
-        
-        -- Авто-скролл к новым записям
-        self.gui.scroll.CanvasPosition = Vector2.new(
-            0, 
-            self.gui.layout.AbsoluteContentSize.Y - self.gui.scroll.AbsoluteSize.Y
-        )
-    end)
+local identify_executor = identifyexecutor or getexecutorname or whatexecutor
+
+local EXECUTOR_NAME = identify_executor and identify_executor() or ""
+
+-- local cloneref = global_container.cloneref
+local gethiddenproperty = global_container.gethiddenproperty
+
+-- These should be universal enough
+local appendfile = appendfile
+local isfile = isfile
+local readfile = readfile
+local writefile = writefile
+
+local getscriptbytecode = global_container.getscriptbytecode -- * A lot of assumptions are made based on whether this function is defined or not. So in certain edge cases, like if the executor defines "decompile" or "getscripthash" function yet doesn't define this function there might be loss of functionality of the saveinstance. Although that would be very rare and weird
+local base64encode = global_container.base64encode
+
+local service = setmetatable({}, {
+	__index = function(self, serviceName)
+		local o, s = pcall(Instance.new, serviceName)
+		local Service = o and s
+			or game:GetService(serviceName)
+			or settings():GetService(serviceName)
+			or UserSettings():GetService(serviceName)
+
+		-- if cloneref then
+		-- 	Service = cloneref(Service)
+		-- end
+		if Service then
+			self[serviceName] = Service
+		end
+		return Service
+	end,
+})
+
+local gethiddenproperty_fallback
+do -- * Load Region of Déjà Vu
+	local UGCValidationService -- = service.UGCValidationService
+
+	gethiddenproperty_fallback = function(instance, propertyName)
+		if not UGCValidationService then
+			UGCValidationService = service.UGCValidationService
+		end
+		return UGCValidationService:GetPropertyValue(instance, propertyName) -- TODO Sadly there's no way to tell whether value is actually nil or the function just couldn't read it (always returns nil for "Class" category properties)
+		-- TODO `category ~= "Class"` causes WeldConstraint Part1Internal to be read as nil and not get unfiltered. Currently, there are no properties of category "Class" that match the following: NotScriptable, can be read with gethiddenproperty_fallback accurately (it always outputs nil for "Class" category, making that check useless anyway) & don't have a NotScriptableFix.
+	end
+	if gethiddenproperty then
+		local o, r = pcall(gethiddenproperty, workspace, "StreamOutBehavior")
+		if not o or r ~= nil and typeof(r) ~= "EnumItem" then -- * Tests if gethiddenproperty is broken
+			gethiddenproperty = nil
+		else
+			o, r = pcall(gethiddenproperty, Instance.new("AnimationRigData", Instance.new("Folder")), "parent") -- * Tests how it reacts to property overlap (shadowing) due to AnimationRigData.parent; expected BinaryString
+
+			if o and r ~= nil and type(r) ~= "string" then
+				gethiddenproperty = nil
+			end
+		end
+	end
+	local function benchmark(funcs, ...)
+		local ranking = table.create(2)
+		for i, f in funcs do
+			local start = os.clock()
+			for _ = 1, 50 do
+				f(...)
+			end
+			ranking[i] = { t = os.clock() - start, f = f }
+		end
+		table.sort(ranking, function(a, b)
+			return a.t < b.t
+		end)
+		return ranking[1].f
+	end
+
+	local test_str = string.rep("\1\0\0\0\1\2\3\4\5\6\7", 50)
+
+	do
+		if not bit32.byteswap or not pcall(bit32.byteswap, 1) then -- Because Fluxus is missing byteswap
+			bit32 = table.clone(bit32)
+
+			local function tobit(num)
+				num %= (bit32.bxor(num, 32))
+				if 0x80000000 < num then
+					num -= bit32.bxor(num, 32)
+				end
+				return num
+			end
+
+			bit32.byteswap = function(num)
+				local BYTE_SIZE = 8
+				local MAX_BYTE_VALUE = 255
+
+				num %= bit32.bxor(2, 32)
+
+				local a = bit32.band(num, MAX_BYTE_VALUE)
+				num = bit32.rshift(num, BYTE_SIZE)
+
+				local b = bit32.band(num, MAX_BYTE_VALUE)
+				num = bit32.rshift(num, BYTE_SIZE)
+
+				local c = bit32.band(num, MAX_BYTE_VALUE)
+				num = bit32.rshift(num, BYTE_SIZE)
+
+				local d = bit32.band(num, MAX_BYTE_VALUE)
+				num = tobit(bit32.lshift(bit32.lshift(bit32.lshift(a, BYTE_SIZE) + b, BYTE_SIZE) + c, BYTE_SIZE) + d)
+				return num
+			end
+
+			table.freeze(bit32)
+		end
+
+		-- Credits @daily3014 & @XoifaiI
+		local rbxcrypt_base64encode
+		pcall(function()
+			local b64_enc_buf = loadstring(
+				game:HttpGet(
+					"https://raw.githubusercontent.com/daily3014/rbx-cryptography/refs/heads/main/src/Utilities/Base64.luau",
+					true
+				),
+				"Base64"
+			)().Encode
+			rbxcrypt_base64encode = function(raw)
+				return buffer.tostring(b64_enc_buf(buffer.fromstring(raw)))
+			end
+		end)
+
+		local EncodingService = game:GetService("EncodingService")
+		local EncodingService_base64encode = function(raw)
+			return buffer.tostring(EncodingService:Base64Encode(buffer.fromstring(raw)))
+		end
+
+		-- * Tests if base64encode exists and works properly then benchmark it
+		if base64encode and base64encode("\1\0\0\0\1") == "AQAAAAE=" then
+			if rbxcrypt_base64encode then
+				base64encode =
+					benchmark({ base64encode, rbxcrypt_base64encode, EncodingService_base64encode }, test_str)
+			end
+		else
+			base64encode = rbxcrypt_base64encode
+		end
+
+		assert(base64encode, "base64encode not found")
+	end
 end
 
--- ===================================================================
--- СЕКЦИЯ 3: СИСТЕМА ХЕШИРОВАНИЯ И КРИПТОГРАФИИ (2000+ строк)
--- ===================================================================
+local SharedStrings = {}
+local SharedString_identifiers = setmetatable({
+	identifier = 1e15, -- 1 quadrillion, up to 9.(9) quadrillion, in theory this shouldn't ever run out and be enough for all sharedstrings ever imaginable
+	-- TODO: worst case, add fallback to str randomizer once numbers run out : )
+}, {
+	__index = function(self, str)
+		local Identifier = base64encode(tostring(self.identifier)) -- tostring is only needed for built-in base64encode, Luau base64 implementations don't need it as buffers autoconvert
+		self.identifier += 1
 
-local CRYPTO_SYSTEM = {
-    -- Алгоритмы хеширования
-    HASH_ALGORITHMS = {
-        MD5 = {
-            name = "MD5",
-            block_size = 64,
-            digest_size = 16,
-            secure = false
-        },
-        SHA1 = {
-            name = "SHA-1",
-            block_size = 64,
-            digest_size = 20,
-            secure = false
-        },
-        SHA256 = {
-            name = "SHA-256",
-            block_size = 64,
-            digest_size = 32,
-            secure = true
-        },
-        SHA512 = {
-            name = "SHA-512",
-            block_size = 128,
-            digest_size = 64,
-            secure = true
-        },
-        CRC32 = {
-            name = "CRC-32",
-            block_size = 1,
-            digest_size = 4,
-            secure = false
-        }
-    },
-    
-    -- Алгоритмы шифрования
-    CIPHER_ALGORITHMS = {
-        XOR = {
-            name = "XOR",
-            key_size = 1,
-            block_size = 1,
-            secure = false
-        },
-        AES128 = {
-            name = "AES-128",
-            key_size = 16,
-            block_size = 16,
-            secure = true
-        },
-        AES256 = {
-            name = "AES-256",
-            key_size = 32,
-            block_size = 16,
-            secure = true
-        },
-        BLOWFISH = {
-            name = "Blowfish",
-            key_size = 56,
-            block_size = 8,
-            secure = true
-        }
-    },
-    
-    -- Кэш хешей
-    hash_cache = {},
-    cipher_cache = {}
+		self[str] = Identifier -- ? The value of the md5 attribute is a Base64-encoded key. <SharedString> type elements use this key to refer to the value of the string. The value is the text content, which is Base64-encoded. Historically, the key was the MD5 hash of the string value. However, this is not required; the key can be any value that will uniquely identify the shared string. Roblox currently uses BLAKE2b truncated to 16 bytes..
+		return Identifier
+	end,
+})
+
+local inherited_properties = {}
+local default_instances = {}
+local referents, ref_size = {}, 0 -- ? Roblox encodes all <Item> elements with a referent attribute. Each value is generated by starting with the prefix RBX, followed by a UUID version 4, with - characters removed, and all characters converted to uppercase.
+
+local function GetRef(instance)
+	local ref = referents[instance]
+	if not ref then
+		ref = ref_size
+		referents[instance] = ref
+		ref_size += 1
+	end
+	return ref
+end
+
+local function index(self, index_name)
+	return self[index_name]
+end
+
+local version = version
+if not version then
+	version = function()
+		return "UNKNOWN"
+	end
+end
+
+local CLIENT_VERSION = tonumber(string.split(version(), ".")[2]) or 9e9 -- Velocity temp fix
+
+local attr_Type_IDs = {
+	string = 0x02,
+	boolean = 0x03,
+	int32 = 0x04,
+	-- float = 0x05, -- float32
+	number = 0x06, -- float64 (double)
+	-- Array = 0x07,
+	-- Dictionary = 0x08,
+	UDim = 0x09,
+	UDim2 = 0x0A,
+	Ray = 0x0B,
+	Faces = 0x0C,
+	Axes = 0x0D,
+	BrickColor = 0x0E,
+	Color3 = 0x0F,
+	Vector2 = 0x10,
+	Vector3 = 0x11,
+	Vector2int16 = 0x12,
+	Vector3int16 = 0x13,
+	CFrame = 0x14,
+	EnumItem = 0x15,
+	NumberSequence = 0x17,
+	NumberSequenceKeypoint = 0x18,
+	ColorSequence = 0x19,
+	ColorSequenceKeypoint = 0x1A,
+	NumberRange = 0x1B,
+	Rect = 0x1C,
+	PhysicalProperties = 0x1D,
+	Region3 = 0x1F,
+	Region3int16 = 0x20,
+	Font = 0x21,
+	SecurityCapabilities = 0x22,
+	Path2DControlPoint = 0x23,
+}
+local CFrame_Rotation_IDs = {
+	["\0\0\128\63\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\63\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\63"] = 0x02,
+	["\0\0\128\63\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\191\0\0\0\0\0\0\128\63\0\0\0\0"] = 0x03,
+	["\0\0\128\63\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\191\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\191"] = 0x05,
+	["\0\0\128\63\0\0\0\0\0\0\0\128\0\0\0\0\0\0\0\0\0\0\128\63\0\0\0\0\0\0\128\191\0\0\0\0"] = 0x06,
+	["\0\0\0\0\0\0\128\63\0\0\0\0\0\0\128\63\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\191"] = 0x07,
+	["\0\0\0\0\0\0\0\0\0\0\128\63\0\0\128\63\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\63\0\0\0\0"] = 0x09,
+	["\0\0\0\0\0\0\128\191\0\0\0\0\0\0\128\63\0\0\0\0\0\0\0\128\0\0\0\0\0\0\0\0\0\0\128\63"] = 0x0a,
+	["\0\0\0\0\0\0\0\0\0\0\128\191\0\0\128\63\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\191\0\0\0\0"] = 0x0c,
+	["\0\0\0\0\0\0\128\63\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\63\0\0\128\63\0\0\0\0\0\0\0\0"] = 0x0d,
+	["\0\0\0\0\0\0\0\0\0\0\128\191\0\0\0\0\0\0\128\63\0\0\0\0\0\0\128\63\0\0\0\0\0\0\0\0"] = 0x0e,
+	["\0\0\0\0\0\0\128\191\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\191\0\0\128\63\0\0\0\0\0\0\0\0"] = 0x10,
+	["\0\0\0\0\0\0\0\0\0\0\128\63\0\0\0\0\0\0\128\191\0\0\0\0\0\0\128\63\0\0\0\0\0\0\0\128"] = 0x11,
+	["\0\0\128\191\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\63\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\191"] = 0x14,
+	["\0\0\128\191\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\63\0\0\0\0\0\0\128\63\0\0\0\128"] = 0x15,
+	["\0\0\128\191\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\191\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\63"] = 0x17,
+	["\0\0\128\191\0\0\0\0\0\0\0\128\0\0\0\0\0\0\0\0\0\0\128\191\0\0\0\0\0\0\128\191\0\0\0\128"] = 0x18,
+	["\0\0\0\0\0\0\128\63\0\0\0\128\0\0\128\191\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\63"] = 0x19,
+	["\0\0\0\0\0\0\0\0\0\0\128\191\0\0\128\191\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\63\0\0\0\0"] = 0x1b,
+	["\0\0\0\0\0\0\128\191\0\0\0\128\0\0\128\191\0\0\0\0\0\0\0\128\0\0\0\0\0\0\0\0\0\0\128\191"] = 0x1c,
+	["\0\0\0\0\0\0\0\0\0\0\128\63\0\0\128\191\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\191\0\0\0\0"] = 0x1e,
+	["\0\0\0\0\0\0\128\63\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\191\0\0\128\191\0\0\0\0\0\0\0\0"] = 0x1f,
+	["\0\0\0\0\0\0\0\0\0\0\128\63\0\0\0\0\0\0\128\63\0\0\0\128\0\0\128\191\0\0\0\0\0\0\0\0"] = 0x20,
+	["\0\0\0\0\0\0\128\191\0\0\0\0\0\0\0\0\0\0\0\0\0\0\128\63\0\0\128\191\0\0\0\0\0\0\0\0"] = 0x22,
+	["\0\0\0\0\0\0\0\0\0\0\128\191\0\0\0\0\0\0\128\191\0\0\0\128\0\0\128\191\0\0\0\0\0\0\0\128"] = 0x23,
+}
+local BASE_CAPABILITIES
+pcall(function()
+	BASE_CAPABILITIES = SecurityCapabilities.new()
+end)
+local CAPABILITY_BITS = {
+	Plugin = 2 ^ 0, ----------------  0
+	LocalUser = 2 ^ 1, -------------  1
+	WritePlayer = 2 ^ 2, -----------  2
+	RobloxScript = 2 ^ 3, ----------  3
+	RobloxEngine = 2 ^ 4, ----------  4
+	NotAccessible = 2 ^ 5, ---------  5
+	RunClientScript = 2 ^ 8, -------  8
+	RunServerScript = 2 ^ 9, -------  9
+	Unknown = 2 ^ 10, --------------  10 (0xa)
+	AccessOutsideWrite = 2 ^ 11, ---  11 (0xb)
+	Unassigned = 2 ^ 15, -----------  15 (0xf)
+	AssetRequire = 2 ^ 16, ---------  16 (0x10)
+	LoadString = 2 ^ 17, -----------  17 (0x11)
+	ScriptGlobals = 2 ^ 18, --------  18 (0x12)
+	CreateInstances = 2 ^ 19, ------  19 (0x13)
+	Basic = 2 ^ 20, ----------------  20 (0x14)
+	Audio = 2 ^ 21, ----------------  21 (0x15)
+	DataStore = 2 ^ 22, ------------  22 (0x16)
+	Network = 2 ^ 23, --------------  23 (0x17)
+	Physics = 2 ^ 24, --------------  24 (0x18)
+	UI = 2 ^ 25, -------------------  25 (0x19)
+	CSG = 2 ^ 26, ------------------  26 (0x1a)
+	Chat = 2 ^ 27, -----------------  27 (0x1b)
+	Animation = 2 ^ 28, ------------  28 (0x1c)
+	Avatar = 2 ^ 29, ---------------  29 (0x1d)
+	Input = 2 ^ 30, ----------------  30 (0x1e)
+	Environment = 2 ^ 31, ----------  31 (0x1f)
+	RemoteEvent = 2 ^ 32, ----------  32 (0x20)
+	LegacySound = 2 ^ 33, ----------  33 (0x21)
+	Players = 2 ^ 34, --------------  34 (0x22)
+	CapabilityControl = 2 ^ 35, ----  35 (0x23)
+	RemoteCommand = 2 ^ 59, --------  59 (0x3b)
+	InternalTest = 2 ^ 60, ---------  60 (0x3c), Related to TestingGameScript
+	PluginOrOpenCloud = 2 ^ 61, ----  61 (0x3d)
+	Assistant = 2 ^ 62, ------------  62 (0x3e)
+	-- Restricted = 2 ^ 63, --------  for negative (highest bit for i64)
 }
 
--- Функция хеширования MD5 (упрощенная реализация)
-function CRYPTO_SYSTEM:md5(input)
-    if not input then return "" end
-    
-    local cache_key = "MD5:" .. input
-    if self.hash_cache[cache_key] then
-        REGISTRY.metrics.cache_hits = REGISTRY.metrics.cache_hits + 1
-        return self.hash_cache[cache_key]
-    end
-    
-    REGISTRY.metrics.cache_misses = REGISTRY.metrics.cache_misses + 1
-    
-    -- Константы MD5
-    local s = {
-        7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
-        5,  9, 14, 20, 5,  9, 14, 20, 5,  9, 14, 20, 5,  9, 14, 20,
-        4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23,
-        6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21
-    }
-    
-    local K = {}
-    for i = 0, 63 do
-        K[i + 1] = math.floor(4294967296 * math.abs(math.sin(i + 1)))
-    end
-    
-    -- Подготовка сообщения
-    local message = input
-    local orig_len = #message
-    local bit_len = orig_len * 8
-    
-    -- Добавление бита '1'
-    message = message .. string.char(0x80)
-    
-    -- Добавление нулей
-    while (#message + 8) % 64 ~= 0 do
-        message = message .. string.char(0)
-    end
-    
-    -- Добавление длины
-    for i = 1, 8 do
-        message = message .. string.char(bit_len % 256)
-        bit_len = math.floor(bit_len / 256)
-    end
-    
-    -- Инициализация переменных
-    local a0 = 0x67452301
-    local b0 = 0xefcdab89
-    local c0 = 0x98badcfe
-    local d0 = 0x10325476
-    
-    -- Обработка блоков
-    for chunk_start = 1, #message, 64 do
-        local chunk = message:sub(chunk_start, chunk_start + 63)
-        local M = {}
-        
-        for i = 0, 15 do
-            local byte_pos = i * 4 + 1
-            M[i + 1] = string.byte(chunk, byte_pos) +
-                      (string.byte(chunk, byte_pos + 1) << 8) +
-                      (string.byte(chunk, byte_pos + 2) << 16) +
-                      (string.byte(chunk, byte_pos + 3) << 24)
-        end
-        
-        local A, B, C, D = a0, b0, c0, d0
-        
-        -- Основной цикл
-        for i = 0, 63 do
-            local F, g
+local function __COUNT_CAPABILITY_BITS(raw)
+	-- TODO tostring & string.split aren't ideal but this is the only way until the feature is out of the experimental phase (SecurityCapabilities.Contains exists but the Enums that it accepts lacks some hidden bits) - NotAccessible, Unknown, Restricted
+	-- ! Seems like both tostring & .Contains ignore high / internal bits (anything above CapabilityControl): RemoteCommand, InternalTest, PluginOrOpenCloud, Assistant. They're present when created & saved by Studio but can't be read through current means
+
+	local result = 0
+	for _, flag in string.split(tostring(raw), " | ") do
+		local bit = CAPABILITY_BITS[flag]
+		if bit then
+			result += bit
+		end
+	end
+	return result
+end
+
+local function __COUNT_BITS(...) -- * Credits to Friend (you know yourself)
+	local Value = 0
+
+	for i, bit in { ... } do
+		if bit then
+			Value += 2 ^ (i - 1)
+		end
+	end
+
+	return Value
+end
+
+local Binary_Descriptors
+Binary_Descriptors = {
+	__PACK_MULTIPLE = function(descriptor, value1, value2, value3)
+		local buf1, size1 = descriptor(value1)
+		local buf2, size2 = descriptor(value2)
+
+		local len = size1 + size2
+		local buf3, size3
+
+		if value3 ~= nil then
+			buf3, size3 = descriptor(value3)
+			len += size3
+		end
+
+		local b = buffer.create(len)
+
+		buffer.copy(b, 0, buf1)
+		buffer.copy(b, size1, buf2)
+
+		if value3 ~= nil then
+			buffer.copy(b, size1 + size2, buf3)
+		end
+
+		return b, len
+	end,
+	__construct_Sequence = function(keypoint_handler, keypointSize)
+		return function(raw)
+			local Keypoints = raw.Keypoints
+			local Keypoints_n = #Keypoints
+
+			local len = 4 + keypointSize * Keypoints_n
+			local b = buffer.create(len)
+
+			buffer.writeu32(b, 0, Keypoints_n)
+
+			local offset = 4
+			for _, keypoint in Keypoints do
+				keypoint_handler(keypoint, b, offset)
+				offset += keypointSize
+			end
+
+			return b, len
+		end
+	end,
+	__writei64 = function(b, offset, raw)
+		local low = bit32.band(raw, 0xFFFFFFFF)
+		local high = (raw - low) / 0x100000000
+
+		buffer.writei32(b, offset, low)
+		buffer.writei32(b, offset + 4, high)
+	end,
+	__PACK_F32 = nil,
+	__PACK_I16 = nil,
+	__construct__PACKER = function(float)
+		local writeFunc = float and buffer.writef32 or buffer.writei16
+		local elementSize = float and 4 or 2
+
+		-- local zbuf, nozbuf = buffer.create(elementSize * 3), buffer.create(elementSize * 2)
+
+		return function(X, Y, Z)
+			local len = Z and (elementSize * 3) or (elementSize * 2)
+			local b = buffer.create(len)
+
+			writeFunc(b, 0, X)
+			writeFunc(b, elementSize, Y)
+			if Z then
+				writeFunc(b, elementSize * 2, Z)
+			end
+
+			return b, len
+		end
+	end,
+	--------------------------------------------------------------
+	--------------------------------------------------------------
+	--------------------------------------------------------------
+	["string"] = function(raw)
+		local raw_len = #raw
+		local len = 4 + raw_len
+
+		local b = buffer.create(len)
+
+		buffer.writeu32(b, 0, raw_len)
+		buffer.writestring(b, 4, raw)
+
+		return b, len
+	end,
+	["boolean"] = function(raw)
+		local b = buffer.create(1)
+
+		buffer.writeu8(b, 0, raw and 1 or 0)
+
+		return b, 1
+	end,
+	["number"] = function(raw) -- double
+		local b = buffer.create(8)
+
+		buffer.writef64(b, 0, raw)
+
+		return b, 8
+	end,
+	["UDim"] = function(raw)
+		local b = buffer.create(8)
+
+		buffer.writef32(b, 0, raw.Scale)
+		buffer.writei32(b, 4, raw.Offset)
+
+		return b, 8
+	end,
+	["UDim2"] = function(raw)
+		return Binary_Descriptors.__PACK_MULTIPLE(Binary_Descriptors["UDim"], raw.X, raw.Y)
+	end,
+	["Ray"] = function(raw)
+		return Binary_Descriptors.__PACK_MULTIPLE(Binary_Descriptors["Vector3"], raw.Origin, raw.Direction)
+	end,
+	["Faces"] = function(raw)
+		local b = buffer.create(4)
+
+		buffer.writeu32(b, 0, __COUNT_BITS(raw.Right, raw.Top, raw.Back, raw.Left, raw.Bottom, raw.Front))
+
+		return b, 4
+	end,
+	["Axes"] = function(raw)
+		local b = buffer.create(4)
+
+		buffer.writeu32(b, 0, __COUNT_BITS(raw.X, raw.Y, raw.Z))
+
+		return b, 4
+	end,
+	["BrickColor"] = function(raw)
+		local b = buffer.create(4)
+
+		buffer.writeu32(b, 0, raw.Number)
+
+		return b, 4
+	end,
+	["Color3"] = function(raw)
+		return Binary_Descriptors.__PACK_F32(raw.R, raw.G, raw.B)
+	end,
+	["Vector2"] = function(raw)
+		return Binary_Descriptors.__PACK_F32(raw.X, raw.Y)
+	end,
+	["Vector3"] = function(raw)
+		return Binary_Descriptors.__PACK_F32(raw.X, raw.Y, raw.Z)
+	end,
+	["Vector2int16"] = function(raw)
+		return Binary_Descriptors.__PACK_I16(raw.X, raw.Y)
+	end,
+	["Vector3int16"] = function(raw)
+		return Binary_Descriptors.__PACK_I16(raw.X, raw.Y, raw.Z)
+	end,
+	["CFrame"] = function(raw)
+		local X, Y, Z, R00, R01, R02, R10, R11, R12, R20, R21, R22 = raw:GetComponents()
+		local rotation_ID
+		do
+			local b = buffer.create(36)
+
+			buffer.writef32(b, 0, R00)
+			buffer.writef32(b, 4, R01)
+			buffer.writef32(b, 8, R02)
+			buffer.writef32(b, 12, R10)
+			buffer.writef32(b, 16, R11)
+			buffer.writef32(b, 20, R12)
+			buffer.writef32(b, 24, R20)
+			buffer.writef32(b, 28, R21)
+			buffer.writef32(b, 32, R22)
+
+			rotation_ID = CFrame_Rotation_IDs[buffer.tostring(b)]
+		end
+
+		local len = rotation_ID and 13 or 49
+		local b = buffer.create(len)
+
+		local __PACK_F32 = Binary_Descriptors.__PACK_F32
+		local position = __PACK_F32(X, Y, Z)
+		buffer.copy(b, 0, position)
+		-- buffer.writef32(b, 0, X)
+		-- buffer.writef32(b, 4, Y)
+		-- buffer.writef32(b, 8, Z)
+
+		if rotation_ID then
+			buffer.writeu8(b, 12, rotation_ID)
+		else
+			buffer.writeu8(b, 12, 0x0)
+
+			local xBasis = __PACK_F32(R00, R01, R02)
+			buffer.copy(b, 13, xBasis)
+			local yBasis = __PACK_F32(R10, R11, R12)
+			buffer.copy(b, 13 + 12, yBasis)
+			local zBasis = __PACK_F32(R20, R21, R22)
+			buffer.copy(b, 13 + 24, zBasis)
+
+			-- buffer.writef32(b, 13, R00)
+			-- buffer.writef32(b, 17, R01)
+			-- buffer.writef32(b, 21, R02)
+
+			-- buffer.writef32(b, 25, R10)
+			-- buffer.writef32(b, 29, R11)
+			-- buffer.writef32(b, 33, R12)
+
+			-- buffer.writef32(b, 37, R20)
+			-- buffer.writef32(b, 41, R21)
+			-- buffer.writef32(b, 45, R22)
+		end
+
+		return b, len
+	end,
+	["EnumItem"] = function(raw)
+		local b_Name, Name_size = Binary_Descriptors["string"](tostring(raw.EnumType))
+
+		local len = Name_size + 4
+		local b = buffer.create(len)
+
+		buffer.copy(b, 0, b_Name)
+		buffer.writeu32(b, Name_size, raw.Value)
+
+		return b, len
+	end,
+	["NumberSequence"] = nil,
+	["NumberSequenceKeypoint"] = function(keypoint, b, offset)
+		if not b then
+			return Binary_Descriptors.__PACK_F32(keypoint.Envelope, keypoint.Time, keypoint.Value)
+		end
+
+		buffer.writef32(b, offset, keypoint.Envelope)
+		offset += 4
+		buffer.writef32(b, offset, keypoint.Time)
+		offset += 4
+		buffer.writef32(b, offset, keypoint.Value)
+	end,
+	["ColorSequence"] = nil,
+	["ColorSequenceKeypoint"] = function(keypoint, b, offset)
+		local Value = Binary_Descriptors["Color3"](keypoint.Value)
+
+		if not b then
+			b = buffer.create(20)
+			offset = 0
+		end
+
+		buffer.writef32(b, offset, 0)
+		offset += 4
+		buffer.writef32(b, offset, keypoint.Time)
+		offset += 4
+		buffer.copy(b, offset, Value)
+
+		return b, 20
+	end,
+	["NumberRange"] = function(raw)
+		return Binary_Descriptors.__PACK_F32(raw.Min, raw.Max)
+	end,
+	["Rect"] = function(raw)
+		return Binary_Descriptors.__PACK_MULTIPLE(Binary_Descriptors["Vector2"], raw.Min, raw.Max)
+	end,
+	["PhysicalProperties"] = function(raw) -- ? Not sure yet (https://github.com/RobloxAPI/spec/blob/master/properties/drafts/AttributesSerializeFull.md#physicalproperties)
+		local len = 1
+		if raw then
+			len += 24
+		end
+		local b = buffer.create(len)
+
+		buffer.writeu8(b, 0, raw and 3 or 0) -- 3 means it has set CustomPhysicalProperties & has set AcousticAbsorption
+
+		if raw then
+			buffer.writef32(b, 1, raw.Density)
+			buffer.writef32(b, 5, raw.Friction)
+			buffer.writef32(b, 9, raw.Elasticity)
+			buffer.writef32(b, 13, raw.FrictionWeight)
+			buffer.writef32(b, 17, raw.ElasticityWeight)
+			buffer.writef32(b, 21, raw.AcousticAbsorption)
+		end
+
+		return b, len
+	end,
+	["Region3"] = function(raw)
+		local Translation = raw.CFrame.Position
+		local HalfSize = raw.Size * 0.5
+
+		return Binary_Descriptors.__PACK_MULTIPLE(
+			Binary_Descriptors["Vector3"],
+			Translation - HalfSize, -- /App/util/Region3.cpp#L38
+			Translation + HalfSize -- /App/util/Region3.cpp#L42
+		)
+	end,
+	["Region3int16"] = function(raw)
+		return Binary_Descriptors.__PACK_MULTIPLE(Binary_Descriptors["Vector3int16"], raw.Min, raw.Max)
+	end,
+	["Font"] = 636 < CLIENT_VERSION and function(raw)
+		local string__descriptor = Binary_Descriptors["string"]
+
+		local b_Family, Family_size = string__descriptor(raw.Family)
+		local b_CachedFaceId, CachedFaceId_size = string__descriptor("")
+
+		local len = 3 + Family_size + CachedFaceId_size
+		local b = buffer.create(len)
+
+		local ok_w, weight = pcall(index, raw, "Weight")
+		local ok_s, style = pcall(index, raw, "Style")
+
+		buffer.writeu16(b, 0, ok_w and weight.Value or 0)
+		buffer.writeu8(b, 2, ok_s and style.Value or 0)
+
+		buffer.copy(b, 3, b_Family)
+		buffer.copy(b, 3 + Family_size, b_CachedFaceId)
+
+		return b, len
+	end or function(raw)
+		local string__descriptor = Binary_Descriptors["string"]
+
+		local b_Family, Family_size = string__descriptor(raw.Family)
+		local b_CachedFaceId, CachedFaceId_size = string__descriptor("")
+
+		local len = 3 + Family_size + CachedFaceId_size
+		local b = buffer.create(len)
+
+		local FontString = tostring(raw)
+
+		local EmptyWeight = string_find(FontString, "Weight = ,")
+		local EmptyStyle = string_find(FontString, "Style =  }")
+
+		buffer.writeu16(b, 0, EmptyWeight and 0 or raw.Weight.Value)
+		buffer.writeu8(b, 2, EmptyStyle and 0 or raw.Style.Value)
+
+		buffer.copy(b, 3, b_Family)
+		buffer.copy(b, 3 + Family_size, b_CachedFaceId)
+
+		return b, len
+	end,
+	["SecurityCapabilities"] = function(raw)
+		local b = buffer.create(8)
+
+		if raw == BASE_CAPABILITIES then
+			return b, 8
+		end
+
+		Binary_Descriptors.__writei64(b, 0, __COUNT_CAPABILITY_BITS(raw))
+
+		return b, 8
+	end,
+	["Path2DControlPoint"] = function(raw)
+		return Binary_Descriptors.__PACK_MULTIPLE(
+			Binary_Descriptors["UDim2"],
+			raw.Position,
+			raw.LeftTangent,
+			raw.RightTangent
+		)
+	end,
+}
+
+do -- Sequences
+	Binary_Descriptors["NumberSequence"] =
+		Binary_Descriptors.__construct_Sequence(Binary_Descriptors["NumberSequenceKeypoint"], 12)
+
+	Binary_Descriptors["ColorSequence"] =
+		Binary_Descriptors.__construct_Sequence(Binary_Descriptors["ColorSequenceKeypoint"], 20)
+end
+
+do -- Vectors
+	Binary_Descriptors.__PACK_F32 = Binary_Descriptors.__construct__PACKER(true)
+
+	Binary_Descriptors.__PACK_I16 = Binary_Descriptors.__construct__PACKER()
+end
+
+local ESCAPES_PATTERN = "[&<>\"'\0\1-\9\11-\12\14-\31\127-\255]" -- * The safe way is to escape all five characters in text. However, the three characters " ' and > needn't be escaped in text
+-- %z (\0 aka NULL) might not be needed as Roblox automatically converts it to space everywhere it seems like
+-- Characters from: https://create.roblox.com/docs/en-us/ui/rich-text#escape-forms
+-- * EscapesPattern should be ordered from most common to least common characters for sake of speed
+-- * Might wanna use their numerical codes instead of named codes for reduced file size (Could be an Option)
+-- TODO Maybe we should invert the pattern to only allow certain characters (future-proof)
+local ESCAPES = {
+	["&"] = "&amp;", -- 38
+	["<"] = "&lt;", -- 60
+	[">"] = "&gt;", -- 62
+	['"'] = "&#34;", --  quot
+	["'"] = "&#39;", -- apos
+	["\0"] = "",
+}
+
+for rangeStart, rangeEnd in string.gmatch(ESCAPES_PATTERN, "(.)%-(.)") do
+	for charCode = string.byte(rangeStart), string.byte(rangeEnd) do
+		ESCAPES[string.char(charCode)] = "&#" .. charCode .. ";"
+	end
+end
+
+local XML_Descriptors
+XML_Descriptors = {
+	__CDATA = function(raw) -- ? Normally Roblox doesn't use CDATA unless the string has newline characters (\n); We rather CDATA everything for sake of speed
+		return "<![CDATA[" .. raw .. "]]>"
+	end,
+	__NORMALIZE_NUMBER = function(raw)
+		if raw ~= raw then
+			return "NAN"
+		elseif raw == math.huge then
+			return "INF"
+		elseif raw == -math.huge then
+			return "-INF"
+		end
+
+		return raw
+	end,
+	__NORMALIZE_RANGE = function(raw)
+		return raw ~= raw and "0" or raw -- Normally we should return "-nan(ind)" instead of "0" but this adds more compatibility
+	end,
+	__MINMAX = function(min, max, descriptor)
+		return "<min>" .. descriptor(min) .. "</min><max>" .. descriptor(max) .. "</max>"
+	end,
+	__PROTECTEDSTRING = function(raw) -- ? its purpose is to "protect" data from being treated as ordinary character data during processing;
+		return string_find(raw, "]]>") and string.gsub(raw, ESCAPES_PATTERN, ESCAPES) or XML_Descriptors.__CDATA(raw)
+	end,
+	__construct_Sequence = function(keypoint_handler)
+		-- The value is the text content, formatted as a space-separated list of floating point numbers.
+		-- tostring(raw) also works (but way slower rn)
+		-- ? Trailing whitespace after Envelope is needed for lune compatibility
+		return function(raw)
+			local sequence = ""
+
+			for _, keypoint in raw.Keypoints do
+				sequence ..= keypoint_handler(keypoint)
+			end
+
+			return sequence
+		end
+	end,
+	__VECTOR = function(X, Y, Z) -- Each element is a <float>
+		local Value = "<X>" .. X .. "</X><Y>" .. Y .. "</Y>" -- There is no Vector without at least two Coordinates.. (Vector1, at least on Roblox)
+
+		if Z then
+			Value ..= "<Z>" .. Z .. "</Z>"
+		end
+
+		return Value
+	end,
+	--------------------------------------------------------------
+	--------------------------------------------------------------
+	--------------------------------------------------------------
+	Axes = function(raw)
+		-- The text of this element is formatted as an integer between 0 and 7
+
+		return "<axes>" .. __COUNT_BITS(raw.X, raw.Y, raw.Z) .. "</axes>"
+	end,
+
+	-- ! Assuming all base64 encoded strings won't have newlines
+
+	BinaryString = function(raw)
+		return raw == "" and "" or base64encode(raw)
+	end,
+
+	BrickColor = function(raw)
+		return raw.Number -- * Roblox encodes the tags as "int", but this is not required for Roblox to properly decode the type. For better compatibility, it is preferred that third-party implementations encode and decode "BrickColor" tags instead. Could also use "int" or "Color3uint8"
+	end,
+	CFrame = function(raw)
+		local X, Y, Z, R00, R01, R02, R10, R11, R12, R20, R21, R22 = raw:GetComponents()
+		return XML_Descriptors.__VECTOR(X, Y, Z)
+			.. "<R00>"
+			.. R00
+			.. "</R00><R01>"
+			.. R01
+			.. "</R01><R02>"
+			.. R02
+			.. "</R02><R10>"
+			.. R10
+			.. "</R10><R11>"
+			.. R11
+			.. "</R11><R12>"
+			.. R12
+			.. "</R12><R20>"
+			.. R20
+			.. "</R20><R21>"
+			.. R21
+			.. "</R21><R22>"
+			.. R22
+			.. "</R22>",
+			"CoordinateFrame"
+	end,
+	-- CFrameQuat = function(raw) -- ? This will probably never release as it's not even used anywhere naturally, but there are hints it does exist as a DataType
+	-- 	local X, Y, Z, R00, R01, R02, R10, R11, R12, R20, R21, R22 = raw:GetComponents()
+	-- 	local trace = R00 + R11 + R22
+	-- 	local S, QW, QX, QY, QZ
+
+	-- 	if trace > 0 then
+	-- 		S = math.sqrt(1 + trace) * 2
+	-- 		QW = 0.25 * S
+	-- 		QX = (R21 - R12) / S
+	-- 		QY = (R02 - R20) / S
+	-- 		QZ = (R10 - R01) / S
+	-- 	elseif (R00 > R11) and (R00 > R22) then
+	-- 		S = math.sqrt(1 + R00 - R11 - R22) * 2
+	-- 		QW = (R21 - R12) / S
+	-- 		QX = 0.25 * S
+	-- 		QY = (R01 + R10) / S
+	-- 		QZ = (R02 + R20) / S
+	-- 	elseif R11 > R22 then
+	-- 		S = math.sqrt(1 + R11 - R00 - R22) * 2
+	-- 		QW = (R02 - R20) / S
+	-- 		QX = (R01 + R10) / S
+	-- 		QY = 0.25 * S
+	-- 		QZ = (R12 + R21) / S
+	-- 	else
+	-- 		S = math.sqrt(1 + R22 - R00 - R11) * 2
+	-- 		QW = (R10 - R01) / S
+	-- 		QX = (R02 + R20) / S
+	-- 		QY = (R12 + R21) / S
+	-- 		QZ = 0.25 * S
+	-- 	end
+
+	-- 	return XML_Descriptors.__VECTOR(X, Y, Z)
+	-- 		.. "<QX>"
+	-- 		.. QX
+	-- 		.. "</QX><QY>"
+	-- 		.. QY
+	-- 		.. "</QY><QZ>"
+	-- 		.. QZ
+	-- 		.. "</QZ><QW>"
+	-- 		.. QW
+	-- 		.. "</QW>"
+	-- end,
+	Color3 = function(raw) -- Each element is a <float>
+		return "<R>" .. raw.R .. "</R><G>" .. raw.G .. "</G><B>" .. raw.B .. "</B>" -- ? It is recommended that Color3 is encoded with elements instead of text.
+	end,
+	Color3uint8 = function(raw)
+		-- https://github.com/rojo-rbx/rbx-dom/blob/master/docs/xml.md#color3uint8
+		-- ? It is recommended that Color3uint8 is encoded with text instead of elements.
+
+		return 0xFF000000
+			+ (math.floor(raw.R * 255) * 0x10000)
+			+ (math.floor(raw.G * 255) * 0x100)
+			+ math.floor(raw.B * 255)
+		-- return bit32.bor(
+		-- 	bit32.bor(bit32.bor(bit32.lshift(0xFF, 24), bit32.lshift(0xFF * raw.R, 16)), bit32.lshift(0xFF * raw.G, 8)),
+		-- 	0xFF * raw.B
+		-- )
+
+		-- return tonumber(string.format("0xFF%02X%02X%02X",raw.R*255,raw.G*255,raw.B*255))
+	end,
+	ColorSequence = nil,
+	ColorSequenceKeypoint = function(keypoint)
+		local __NORMALIZE_RANGE = XML_Descriptors.__NORMALIZE_RANGE
+
+		local color3 = keypoint.Value
+
+		return __NORMALIZE_RANGE(keypoint.Time)
+			.. " "
+			.. __NORMALIZE_RANGE(color3.R)
+			.. " "
+			.. __NORMALIZE_RANGE(color3.G)
+			.. " "
+			.. __NORMALIZE_RANGE(color3.B)
+			.. " 0 "
+	end,
+	Content = function(raw) -- TODO Not sure about Object & Opaque, run tests when possible
+		local SourceType = raw.SourceType
+		return SourceType == Enum.ContentSourceType.None and "<null></null>"
+			or SourceType == Enum.ContentSourceType.Uri and "<uri>" .. XML_Descriptors.string(raw.Uri) .. "</uri>"
+			or SourceType == Enum.ContentSourceType.Object and "<Ref>" .. GetRef(raw.Object) .. "</Ref>"
+			or SourceType == Enum.ContentSourceType.Opaque and "<Ref>" .. GetRef(raw.Opaque) .. "</Ref>"
+	end,
+	ContentId = function(raw)
+		return raw == "" and "<null></null>" or "<url>" .. XML_Descriptors.string(raw) .. "</url>", "Content" -- TODO Remove "Content" str once Roblox fully releases Content DataType
+	end,
+	CoordinateFrame = function(raw)
+		return "<CFrame>" .. XML_Descriptors.CFrame(raw) .. "</CFrame>"
+	end,
+	-- DateTime = function(raw) return raw.UnixTimestampMillis end, -- ? Not sure
+	EnumItem = function(raw)
+		return raw.Value, "token"
+	end,
+	Faces = function(raw)
+		-- The text of this element is formatted as an integer between 0 and 63
+		return "<faces>" .. __COUNT_BITS(raw.Right, raw.Top, raw.Back, raw.Left, raw.Bottom, raw.Front) .. "</faces>"
+	end,
+	Font = 636 < CLIENT_VERSION
+			and function(raw)
+				-- TODO (OPTIONAL ELEMENT): Figure out how to determine (ContentId) <CachedFaceId><url>rbxasset://fonts/GothamSSm-Medium.otf</url></CachedFaceId>
+				--[[
+		? game:GetService("TextService"):GetFontMemoryData()
+		? rbxasset://fonts/families/{Enum.Font.BuilderSans.Name}.json
+		]]
+
+				local ok_w, weight = pcall(index, raw, "Weight")
+				local ok_s, style = pcall(index, raw, "Style")
+
+				return "<Family>"
+					.. XML_Descriptors.ContentId(raw.Family)
+					.. "</Family><Weight>"
+					.. (ok_w and XML_Descriptors.EnumItem(weight) or "")
+					.. "</Weight><Style>"
+					.. (ok_s and style.Name or "") -- Weird but this field accepts .Name of enum instead..
+					.. "</Style>"
+			end
+		or function(raw)
+			local FontString = tostring(raw) -- TODO: Temporary fix
+
+			local EmptyWeight = string_find(FontString, "Weight = ,")
+			local EmptyStyle = string_find(FontString, "Style =  }")
+
+			return "<Family>"
+				.. XML_Descriptors.ContentId(raw.Family)
+				.. "</Family><Weight>"
+				.. (EmptyWeight and "" or XML_Descriptors.EnumItem(raw.Weight))
+				.. "</Weight><Style>"
+				.. (EmptyStyle and "" or raw.Style.Name) -- Weird but this field accepts .Name of enum instead..
+				.. "</Style>"
+		end,
+	NetAssetRef = nil,
+	NumberRange = function(raw) -- tostring(raw) also works
+		-- The value is the text content, formatted as a space-separated list of floating point numbers.
+		local __NORMALIZE_RANGE = XML_Descriptors.__NORMALIZE_RANGE
+
+		return __NORMALIZE_RANGE(raw.Min) .. " " .. __NORMALIZE_RANGE(raw.Max) --[[.. " "]] -- ! This might be required for compatibility; __NORMALIZE_RANGE is not needed here but it fixes the issue where "nan 10" value would reset to "0 0"
+	end,
+	NumberSequence = nil,
+	NumberSequenceKeypoint = function(keypoint)
+		local __NORMALIZE_RANGE = XML_Descriptors.__NORMALIZE_RANGE
+
+		return __NORMALIZE_RANGE(keypoint.Time)
+			.. " "
+			.. __NORMALIZE_RANGE(keypoint.Value)
+			.. " "
+			.. __NORMALIZE_RANGE(keypoint.Envelope)
+			.. " "
+	end,
+	-- Path2DControlPoint = function(raw)  -- ? Not sure
+	-- 	local udim2 = XML_Descriptors.UDim2
+	-- 	return "<Position>"
+	-- 		.. udim2(raw.Position)
+	-- 		.. "</Position>"
+	-- 		.. "<LeftTangent>"
+	-- 		.. udim2(raw.LeftTangent)
+	-- 		.. "</LeftTangent>"
+	-- 		.. "<RightTangent>"
+	-- 		.. udim2(raw.RightTangent)
+	-- 		.. "</RightTangent>"
+	-- end,
+
+	PhysicalProperties = function(raw)
+		--[[
+			Contains at least one CustomPhysics element, which is interpreted according to the bool type. If this value is true, then the tag also contains an element for each component of the PhysicalProperties:
+
+			Density
+			Friction
+			Elasticity
+			FrictionWeight
+			ElasticityWeight
+			AcousticAbsorption
+
+			The value of each component is represented by the text content formatted as a 32-bit floating point number (see float)
+		]]
+
+		local CustomPhysics = "<CustomPhysics>" .. XML_Descriptors.bool(raw and true or false) .. "</CustomPhysics>"
+
+		return raw
+				and CustomPhysics .. "<Density>" .. raw.Density .. "</Density><Friction>" .. raw.Friction .. "</Friction><Elasticity>" .. raw.Elasticity .. "</Elasticity><FrictionWeight>" .. raw.FrictionWeight .. "</FrictionWeight><ElasticityWeight>" .. raw.ElasticityWeight .. "</ElasticityWeight><AcousticAbsorption>" .. raw.AcousticAbsorption .. "</AcousticAbsorption>"
+			or CustomPhysics
+	end,
+	-- ProtectedString = function(raw) return tostring(raw), "ProtectedString" end,
+	Ray = function(raw)
+		local vector3 = XML_Descriptors.Vector3
+
+		return "<origin>" .. vector3(raw.Origin) .. "</origin><direction>" .. vector3(raw.Direction) .. "</direction>"
+	end,
+	Rect = function(raw)
+		return XML_Descriptors.__MINMAX(raw.Min, raw.Max, XML_Descriptors.Vector2), "Rect2D"
+	end,
+	Region3 = function(raw) -- ? Not sure about xml format yet, the math is correct though (/Network/Replicator.cpp#L1306)
+		local Translation = raw.CFrame.Position
+		local HalfSize = raw.Size * 0.5
+
+		return XML_Descriptors.__MINMAX(
+			Translation - HalfSize, -- /App/util/Region3.cpp#L38
+			Translation + HalfSize, -- /App/util/Region3.cpp#L42
+			XML_Descriptors.Vector3
+		)
+	end,
+	Region3int16 = function(raw) -- ? Not sure yet (/App/v8tree/EnumProperty.cpp#L346)
+		return XML_Descriptors.__MINMAX(raw.Min, raw.Max, XML_Descriptors.Vector3int16)
+	end,
+	SharedString = function(raw)
+		raw = raw == "" and "" or base64encode(raw)
+
+		local Identifier = SharedString_identifiers[raw]
+
+		if SharedStrings[Identifier] == nil then
+			SharedStrings[Identifier] = raw
+		end
+
+		return Identifier
+	end,
+	SecurityCapabilities = function(raw)
+		if raw == BASE_CAPABILITIES then
+			return 0
+		end
+
+		return __COUNT_CAPABILITY_BITS(raw)
+	end,
+	-- SystemAddress = function(raw) return raw end, -- PeerId? systemAddress as a string in the format "IP|Port", "|" being portDelineator, should not be '.', ':', '%', '-', '/', a number, or a-f  -- ? Not sure
+	-- TweenInfo = function(raw) -- ? Not sure
+	-- 	local __NORMALIZE_NUMBER = XML_Descriptors.__NORMALIZE_NUMBER
+	-- 	local EnumItem = XML_Descriptors.EnumItem
+
+	-- 	return "<Time>"
+	-- 		.. __NORMALIZE_NUMBER(raw.Time)
+	-- 		.. "</Time><DelayTime>"
+	-- 		.. __NORMALIZE_NUMBER(raw.DelayTime)
+	-- 		.. "</DelayTime><RepeatCount>"
+	-- 		.. __NORMALIZE_NUMBER(raw.RepeatCount)
+	-- 		.. "</RepeatCount><Reverses>"
+	-- 		.. XML_Descriptors.bool(raw.Reverses)
+	-- 		.. "</Reverses><EasingDirection>"
+	-- 		.. enum(raw.EasingDirection)
+	-- 		.. "</EasingDirection><EasingStyle>"
+	-- 		.. enum(raw.EasingStyle)
+	-- 		.. "</EasingStyle>"
+	-- end,
+	UDim = function(raw)
+		--[[
+			S: Represents the Scale component. Interpreted as a <float>.
+			O: Represents the Offset component. Interpreted as an <int>.
+		]]
+
+		return "<S>" .. raw.Scale .. "</S><O>" .. raw.Offset .. "</O>"
+	end,
+	UDim2 = function(raw)
+		--[[
+			XS: Represents the X.Scale component. Interpreted as a <float>.
+			XO: Represents the X.Offset component. Interpreted as an <int>.
+			YS: Represents the Y.Scale component. Interpreted as a <float>.
+			YO: Represents the Y.Offset component. Interpreted as an <int>.
+		]]
+
+		local X, Y = raw.X, raw.Y
+
+		return "<XS>"
+			.. X.Scale
+			.. "</XS><XO>"
+			.. X.Offset
+			.. "</XO><YS>"
+			.. Y.Scale
+			.. "</YS><YO>"
+			.. Y.Offset
+			.. "</YO>"
+	end,
+
+	-- UniqueId = function(raw) -- ? Not sure  -- ? No idea if this even needs a Descriptor
+	-- 	--[[
+	-- 		UniqueId properties might be random everytime Studio saves a place file
+	-- 		and don't have a use right now outside of packages, which SSI doesn't
+	-- 		account for anyway. They generate diff noise, so we shouldn't serialize
+	-- 		them until we have to.
+	-- 	]]
+	-- 	-- https://github.com/MaximumADHD/Roblox-Client-Tracker/blob/master/LuaPackages/Packages/_Index/ApolloClient/ApolloClient/utilities/common/makeUniqueId.lua#L68
+	-- 	return raw -- seems to be string type by default
+	-- end,
+
+	Vector2 = function(raw)
+		--[[
+			X: Represents the X component. Interpreted as a <float>.
+			Y: Represents the Y component. Interpreted as a <float>.
+		]]
+		return XML_Descriptors.__VECTOR(raw.X, raw.Y)
+	end,
+	Vector2int16 = nil,
+	-- Vector2int16 = Descriptors.Vector2, -- except as <int>
+	Vector3 = function(raw)
+		--[[
+			X: Represents the X component. Interpreted as a <float>.
+			Y: Represents the Y component. Interpreted as a <float>.
+			Z: Represents the Z component. Interpreted as a <float>.
+		]]
+		return XML_Descriptors.__VECTOR(raw.X, raw.Y, raw.Z)
+	end,
+	Vector3int16 = nil,
+	-- Vector3int16 = Descriptors.Vector3, -- except as <int>\
+	bool = function(raw)
+		return raw and "true" or "false"
+	end,
+	double = nil, -- Float64
+	float = nil, -- Float32
+	int = nil, -- Int32
+	int64 = nil, -- Int64 (long)
+	string = function(raw)
+		return (raw == nil or raw == "") and ""
+			or string_find(raw, "]]>") and string.gsub(raw, ESCAPES_PATTERN, ESCAPES)
+			or XML_Descriptors.__CDATA(string.gsub(raw, "\0", ""))
+	end,
+
+	--------------------------------------------------------------
+	-----------%localappdata%/Roblox/GlobalSettings_13.xml--------
+	-----------------------settings().Studio----------------------
+	--------------------------------------------------------------
+	-- QDir = function(raw) -- ? Not sure
+	-- 	return raw
+	-- end,
+	-- QFont = function(raw) -- ? Not sure
+	-- 	return raw
+	-- end,
+}
+
+do -- Sequences
+	XML_Descriptors.NumberSequence = XML_Descriptors.__construct_Sequence(XML_Descriptors.NumberSequenceKeypoint)
+
+	XML_Descriptors.ColorSequence = XML_Descriptors.__construct_Sequence(XML_Descriptors.ColorSequenceKeypoint)
+end
+
+for descriptorName, redirectName in
+	{
+		NetAssetRef = "SharedString",
+		Vector2int16 = "Vector2",
+		Vector3int16 = "Vector3",
+		double = "__NORMALIZE_NUMBER",
+		float = "__NORMALIZE_NUMBER",
+		int = "__NORMALIZE_NUMBER",
+		int64 = "__NORMALIZE_NUMBER",
+	}
+do
+	XML_Descriptors[descriptorName] = XML_Descriptors[redirectName]
+end
+
+if CLIENT_VERSION < math.huge then -- math.huge because unknown yet
+	-- ! For sake of compatibility with older clients, Roblox currently does this too but it WILL probably change in the future so keep track of that. ONCE ROBLOX MOVES AWAY FROM THIS, MAKE SURE TO KEEP SUPPORT FOR VERY OLD CLIENTS; 645 <= CLIENT Ver < ??? (ver when roblox moves away), THIS IS COMPLICATED SO PROBABLY NO SUPPORT, JUST USE OLDER VER OF USSI; NEWEST CLIENTS
+	XML_Descriptors.Content = XML_Descriptors.ContentId
+end
+
+local ClassList
+
+do
+	local ClassPropertyExceptions = {
+		Whitelist = {
+			MeshPart = ArrayToDict({ "CollisionFidelity" }),
+			PartOperation = ArrayToDict({ "CollisionFidelity" }),
+			TriangleMeshPart = ArrayToDict({ "CollisionFidelity" }),
+		},
+		Blacklist = {
+			LuaSourceContainer = ArrayToDict({ "ScriptGuid" }),
+			Instance = ArrayToDict({ "UniqueId", "HistoryId" }),
+		},
+	}
+
+	local function AttributesSerialize(attrs)
+		-- * There are certain restrictions for names of attributes
+		-- https://create.roblox.com/docs/reference/engine/classes/Instance#SetAttribute
+		-- But it seems like even if those are present, Studio still opens the file just fine
+		-- So there is no need to check for them currently
+
+		-- ? Return early for empty tags (this proved equally as fast when done using counter/next)
+
+		local attrs_n = 0
+		local buffer_size = 4
+		local attrs_sorted = {}
+		local attrs_formatted = table.clone(attrs)
+		for attr, val in attrs do
+			attrs_n += 1
+			attrs_sorted[attrs_n] = attr
+
+			local Type = typeof(val)
+
+			local Descriptor = Binary_Descriptors[Type]
+			local attr_size
+
+			attrs_formatted[attr], attr_size = Descriptor(val)
+
+			buffer_size += 5 + #attr + attr_size
+		end
+
+		table.sort(attrs_sorted)
+
+		local b = buffer.create(buffer_size)
+
+		buffer.writeu32(b, 0, attrs_n)
+
+		local string__descriptor = Binary_Descriptors["string"]
+		local offset = 4
+		for _, attr in attrs_sorted do
+			local b_Name, Name_size = string__descriptor(attr)
+
+			buffer.copy(b, offset, b_Name)
+			offset += Name_size
+
+			buffer.writeu8(b, offset, attr_Type_IDs[typeof(attrs[attr])])
+			offset += 1
+
+			local bb = attrs_formatted[attr]
+
+			buffer.copy(b, offset, bb)
+			offset += buffer.len(bb)
+		end
+
+		return buffer.tostring(b)
+	end
+
+	local function AttenuationSerialize(attenuations)
+		if not next(attenuations) then
+			return "\0" -- ? [CONSTANT] Version byte (likely)
+		end
+
+		local attenuations_n = 0
+
+		local attenuations_sorted = {}
+
+		for key in attenuations do
+			attenuations_n += 1
+			attenuations_sorted[attenuations_n] = key
+		end
+
+		table.sort(attenuations_sorted) -- ? Seems to be sorted by default, just in case
+
+		local b = buffer.create(1 + attenuations_n * 8)
+
+		local offset = 1
+		for _, key in attenuations_sorted do
+			buffer.writef32(b, offset, key)
+			offset += 4
+			buffer.writef32(b, offset, attenuations[key]) -- volume
+			offset += 4
+		end
+
+		return buffer.tostring(b)
+	end
+
+	local function TransformsSerialize(transforms)
+		local transforms_n = #transforms
+
+		if transforms_n == 0 then
+			return "\1\0\0\0\0\0\0\0"
+		end
+
+		local b = buffer.create(8 + transforms_n * 48)
+
+		buffer.writeu32(b, 0, 1) -- ? [CONSTANT] Version byte (likely)
+		buffer.writeu32(b, 4, transforms_n)
+
+		local __PACK_F32 = Binary_Descriptors.__PACK_F32
+
+		local offset = 8
+		for _, transform in transforms do
+			local X, Y, Z, R00, R01, R02, R10, R11, R12, R20, R21, R22 = transform:GetComponents()
+
+			local xBasis = __PACK_F32(R00, R01, R02)
+			buffer.copy(b, offset, xBasis)
+			offset += 12
+
+			local yBasis = __PACK_F32(R10, R11, R12)
+			buffer.copy(b, offset, yBasis)
+			offset += 12
+
+			local zBasis = __PACK_F32(R20, R21, R22)
+			buffer.copy(b, offset, zBasis)
+			offset += 12
+
+			local position = __PACK_F32(X, Y, Z)
+			buffer.copy(b, offset, position)
+			offset += 12
+		end
+
+		return buffer.tostring(b)
+	end
+
+	local NotScriptableFixes = { --[[
+		For more info:
+		- https://github.com/luau/UniversalSynSaveInstance/blob/main/Tools/NotScriptable-Related/Potentially%20Missing%20Properties%20Dumper/Potentially%20Missing%20Properties%20Dumper.luau
+		- https://github.com/luau/UniversalSynSaveInstance/blob/main/Tools/NotScriptable-Related/NotScriptable%20Dumper/NotScriptable%20Dumper.py
+		]]
+		Instance = {
+			AttributesSerialize = function(instance)
+				local attrs = instance:GetAttributes()
+
+				if not next(attrs) then
+					return ""
+				end
+
+				return AttributesSerialize(attrs)
+			end,
+			DefinesCapabilities = "Sandboxed",
+			Tags = function(instance)
+				-- https://github.com/RobloxAPI/spec/blob/master/properties/Tags.md
+
+				local tags = service.CollectionService:GetTags(instance) -- ? Seems faster than instance:GetTags
+
+				if #tags == 0 then
+					return ""
+				end
+
+				return table.concat(tags, "\0")
+			end,
+		},
+		Path2D = {
+			PropertiesSerialize = function(instance)
+				local control_points = instance:GetControlPoints()
+				local control_points_n = #control_points
+
+				if control_points_n == 0 then
+					return "\0\0\0\0"
+				end
+
+				local b = buffer.create(4 + control_points_n * 49)
+				buffer.writeu32(b, 0, control_points_n)
+
+				local TypeID_Path2DControlPoint = attr_Type_IDs["Path2DControlPoint"]
+				local Path2DControlPoint_descriptor = Binary_Descriptors["Path2DControlPoint"]
+
+				local offset = 4
+				for i, point in control_points do
+					local buf = Path2DControlPoint_descriptor(point)
+
+					buffer.writeu8(b, offset, TypeID_Path2DControlPoint)
+					offset += 1
+
+					buffer.copy(b, offset, buf)
+					offset += 48
+				end
+
+				return buffer.tostring(b)
+			end,
+		},
+		PlayerEmulatorService = {
+			SerializedEmulatedPolicyInfo = function(instance)
+				local EmulatedPolicyInfo = instance:GetEmulatedPolicyInfo()
+
+				if not next(EmulatedPolicyInfo) then
+					return ""
+				end
+
+				return AttributesSerialize(EmulatedPolicyInfo)
+			end,
+		},
+		StyleRule = {
+			PropertiesSerialize = function(instance)
+				local props = instance:GetProperties()
+
+				if not next(props) then
+					return "\0\0\0\0" -- ! Essential
+				end
+
+				return AttributesSerialize(props)
+			end,
+		},
+		StyleQuery = {
+			ConditionsSerialize = function(instance)
+				local props = instance:GetConditions()
+
+				if not next(props) then
+					return "\0\0\0\0"
+				end
+
+				return AttributesSerialize(props)
+			end,
+		},
+		MarkerCurve = {
+			ValuesAndTimes = function(instance)
+				local markers = instance:GetMarkers()
+				local markers_n = #markers
+
+				if markers_n == 0 then
+					-- return "" -- Seems to also work
+					return "\2\0\0\0\0\0\0\0\1\0\0\0\0\0\0\0"
+				end
+
+				local strings_size = 0
+				for i, marker in markers do
+					strings_size += #marker.Value + 1
+				end
+
+				local b = buffer.create(8 + strings_size + 8 + (markers_n * 4))
+
+				-- Values section
+				buffer.writeu32(b, 0, 2) -- Constant
+				buffer.writeu32(b, 4, markers_n)
+
+				local offset = 8
+				for i, marker in markers do
+					local value = marker.Value
+					buffer.writestring(b, offset, value)
+					offset += #value + 1
+					-- buffer.writeu8(b, offset, 0) -- Null terminator
+					-- offset += 1
+				end
+
+				-- Times section (as 2400x scaled integers)
+				buffer.writeu32(b, offset, 1) -- Constant
+				offset += 4
+				buffer.writeu32(b, offset, markers_n)
+				offset += 4
+
+				for i, marker in markers do
+					local scaled_time = math.round(marker.Time * 2400)
+					buffer.writeu32(b, offset, scaled_time)
+					offset += 4
+				end
+
+				return buffer.tostring(b)
+			end,
+		},
+		AnimationNodeDefinition = {
+			InputPinData = function(instance)
+				local input_pins = instance:GetInputPins()
+
+				local input_pins_n = #input_pins
+
+				if input_pins_n == 0 then
+					return "\1\0\0\0\0\0\0\0"
+				end
+
+				local buffer_size = 8
+
+				for _, pin in input_pins do
+					buffer_size += 4 + #pin
+				end
+
+				local b = buffer.create(buffer_size)
+
+				buffer.writeu32(b, 0, 1) -- ? [CONSTANT] Version byte (likely)
+				buffer.writeu32(b, 4, input_pins_n)
+
+				local string__descriptor = Binary_Descriptors["string"]
+				local offset = 8
+				for _, pin in input_pins do
+					local b_pin, pin_size = string__descriptor(pin)
+
+					buffer.copy(b, offset, b_pin)
+					offset += pin_size
+				end
+
+				return buffer.tostring(b)
+			end,
+		},
+		AnimationRigData = {
+			label = function(instance)
+				local labels = instance:GetLabels() -- RobloxScriptSecurity
+				local labels_n = #labels
+
+				if labels_n == 0 then
+					return "\1\0\0\0\0\0\0\0"
+				end
+
+				local b = buffer.create(8 + labels_n * 4)
+
+				buffer.writeu32(b, 0, 1) -- ? [CONSTANT] Version byte (likely)
+				buffer.writeu32(b, 4, labels_n)
+
+				local offset = 8
+
+				for _, label in labels do
+					buffer.writeu32(b, offset, label)
+					offset += 4
+				end
+
+				return buffer.tostring(b)
+			end,
+			name = function(instance)
+				local names = instance:GetNames() -- RobloxScriptSecurity
+				local names_n = #names
+
+				if names_n == 0 then
+					return "\1\0\0\0\0\0\0\0"
+				end
+
+				local buffer_size = 8
+
+				for _, name in names do
+					buffer_size += 4 + #name
+				end
+
+				local b = buffer.create(buffer_size)
+
+				buffer.writeu32(b, 0, 1) -- ? [CONSTANT] Version byte (likely)
+				buffer.writeu32(b, 4, names_n)
+
+				local offset = 8
+
+				for _, name in names do
+					buffer.writeu32(b, offset, #name)
+					offset += 4
+				end
+				for _, name in names do
+					buffer.writestring(b, offset, name)
+					offset += #name
+				end
+
+				return buffer.tostring(b)
+			end,
+			parent = function(instance)
+				local parents = instance:GetParents() -- RobloxScriptSecurity
+				local parents_n = #parents
+
+				if parents_n == 0 then
+					return "\1\0\0\0\0\0\0\0"
+				end
+
+				local b = buffer.create(8 + #parents * 2)
+
+				buffer.writeu32(b, 0, 1) -- ? [CONSTANT] Version byte (likely)
+				buffer.writeu32(b, 4, parents_n)
+
+				local offset = 8
+
+				for _, parent in parents do
+					buffer.writeu16(b, offset, parent) -- ? likely u8 with \0 (Null) terminators but this is safer in case they overflow beyond 255 values
+					offset += 2
+				end
+
+				return buffer.tostring(b)
+			end,
+			postTransform = function(instance)
+				return TransformsSerialize(instance:GetPostTransforms()) -- RobloxScriptSecurity
+			end,
+			preTransform = function(instance)
+				return TransformsSerialize(instance:GetPreTransforms()) -- RobloxScriptSecurity
+			end,
+			transform = function(instance)
+				return TransformsSerialize(instance:GetTransforms()) -- RobloxScriptSecurity
+			end,
+		},
+		AudioDeviceInput = {
+			AccessList = function(instance) -- CanSave & CanLoad false
+				local userid_accesslist = instance:GetUserIdAccessList()
+
+				local uid_n = #userid_accesslist
+
+				if uid_n == 0 then
+					return ""
+				end
+
+				local b = buffer.create(uid_n * 8)
+
+				local __writei64 = Binary_Descriptors.__writei64
+
+				local offset = 0
+				for _, user_id in userid_accesslist do
+					__writei64(b, offset, user_id)
+					offset += 8
+				end
+
+				return buffer.tostring(b)
+			end,
+		},
+		AudioEmitter = {
+			AngleAttenuation = function(instance)
+				return AttenuationSerialize(instance:GetAngleAttenuation())
+			end,
+			DistanceAttenuation = function(instance)
+				return AttenuationSerialize(instance:GetDistanceAttenuation())
+			end,
+		},
+		AudioListener = {
+			AngleAttenuation = function(instance)
+				return AttenuationSerialize(instance:GetAngleAttenuation())
+			end,
+			DistanceAttenuation = function(instance)
+				return AttenuationSerialize(instance:GetDistanceAttenuation())
+			end,
+		},
+		-- DebuggerBreakpoint = {line="Line"}, -- ? This shouldn't appear in live games (try to prove this wrong)
+		BallSocketConstraint = { MaxFrictionTorqueXml = "MaxFrictionTorque" },
+		BasePart = {
+			Color3uint8 = "Color",
+			MaterialVariantSerialized = "MaterialVariant",
+			size = "Size",
+		},
+		DoubleConstrainedValue = { value = "Value" },
+		IntConstrainedValue = { value = "Value" },
+
+		-- CustomEvent = {PersistedCurrentValue=function(instance) -- * Class is Deprecated and :SetValue doesn't seem to affect GetCurrentValue anymore
+		-- 	local Receiver  = instance:GetAttachedReceivers()[1]
+		-- 	if Receiver then
+		-- 		return Receiver:GetCurrentValue()
+		-- 	else
+		-- 		error("No Receiver", 2)
+		-- 	end
+		-- end},
+		Terrain = {
+			AcquisitionMethod = "LastUsedModificationMethod", -- ? Not sure, RobloxScriptSecurity
+			MaterialColors = function(instance) -- https://github.com/RobloxAPI/spec/blob/master/properties/MaterialColors.md
+				local TERRAIN_MATERIAL_COLORS =
+					{ --https://github.com/rojo-rbx/rbx-dom/blob/master/rbx_dom_lua/src/customProperties.lua#L5
+						Enum.Material.Grass,
+						Enum.Material.Slate,
+						Enum.Material.Concrete,
+						Enum.Material.Brick,
+						Enum.Material.Sand,
+						Enum.Material.WoodPlanks,
+						Enum.Material.Rock,
+						Enum.Material.Glacier,
+						Enum.Material.Snow,
+						Enum.Material.Sandstone,
+						Enum.Material.Mud,
+						Enum.Material.Basalt,
+						Enum.Material.Ground,
+						Enum.Material.CrackedLava,
+						Enum.Material.Asphalt,
+						Enum.Material.Cobblestone,
+						Enum.Material.Ice,
+						Enum.Material.LeafyGrass,
+						Enum.Material.Salt,
+						Enum.Material.Limestone,
+						Enum.Material.Pavement,
+					}
+
+				local b = buffer.create(69) -- 69 bytes: 6 reserved + 63 for colors (21 materials * 3 components)
+				local offset = 6 -- 6 reserved bytes
+
+				local RGB_components = { "R", "G", "B" }
+
+				for _, material in TERRAIN_MATERIAL_COLORS do
+					local color = instance:GetMaterialColor(material)
+					for _, component in RGB_components do
+						buffer.writeu8(b, offset, math.floor(color[component] * 255)) -- ? math.floor seems unneeded but it makes it faster
+						offset += 1
+					end
+				end
+
+				return buffer.tostring(b)
+			end,
+		},
+		TriangleMeshPart = {
+			FluidFidelityInternal = "FluidFidelity",
+		},
+		MeshPart = { InitialSize = "MeshSize" },
+		PartOperation = { InitialSize = "MeshSize" },
+		Part = { shape = "Shape" },
+		TrussPart = { style = "Style" },
+		FormFactorPart = {
+			formFactorRaw = "FormFactor",
+		},
+		Fire = { heat_xml = "Heat", size_xml = "Size" },
+		Humanoid = { Health_XML = "Health" },
+		HumanoidDescription = {
+			EmotesDataInternal = function(instance)
+				local emotes_data = ""
+				for name, ids in instance:GetEmotes() do
+					emotes_data ..= name .. "^" .. table.concat(ids, "^") .. "^\\"
+				end
+				return emotes_data
+			end,
+			EquippedEmotesDataInternal = function(instance)
+				local equipped_emotes_data = ""
+				for _, emote in instance:GetEquippedEmotes() do
+					equipped_emotes_data ..= emote.Slot .. "^" .. emote.Name .. "\\"
+				end
+				return equipped_emotes_data
+			end,
+		},
+		LocalizationTable = {
+			Contents = function(instance)
+				return instance:GetContents() --service.HttpService:JSONEncode(instance:GetEntries())
+			end,
+		},
+		MaterialService = { Use2022MaterialsXml = "Use2022Materials" }, -- RobloxScriptSecurity
+
+		Model = {
+			ScaleFactor = function(instance)
+				return instance:GetScale()
+			end,
+			WorldPivotData = "WorldPivot", -- TODO This doesn't accurately represent whether optional type property is present or not (it's never nil), gethiddenproperty or gethiddenproperty_fallback is preferred
+		},
+		PackageLink = { PackageIdSerialize = "PackageId", VersionIdSerialize = "VersionNumber" },
+		Players = { MaxPlayersInternal = "MaxPlayers", PreferredPlayersInternal = "PreferredPlayers" }, -- ? Only needed for execs that lack LocalUserSecurity (Level 2, 5, 9), even so, it's a pretty useless information as it can be viewed elsewhere
+
+		StarterPlayer = { AvatarJointUpgrade_Serialized = "AvatarJointUpgrade" },
+		Smoke = { size_xml = "Size", opacity_xml = "Opacity", riseVelocity_xml = "RiseVelocity" },
+		Sound = {
+			xmlRead_MaxDistance_3 = "RollOffMaxDistance", -- * Also MaxDistance
+		},
+		-- ViewportFrame = { -- * Pointless because these reflect CurrentCamera's properties
+		-- 	CameraCFrame = function(instance) -- *
+		-- 		local CurrentCamera = instance.CurrentCamera
+		-- 		if CurrentCamera then
+		-- 			return CurrentCamera.CFrame
+		-- 		else
+		-- 			error("No CurrentCamera", 2)
+		-- 		end
+		-- 	end,
+		-- 	-- CameraFieldOfView =
+		-- },
+		WeldConstraint = {
+			Part0Internal = "Part0",
+			Part1Internal = "Part1",
+			-- State = function(instance)
+			-- 	-- If untouched then default state is 3 (default true)
+			-- 	return instance.Enabled and 1 or 0
+			-- end,
+		},
+		Workspace = {
+			-- SignalBehavior2 = "SignalBehavior", -- * Both are NotScriptable so it doesn't make sense to keep
+			CollisionGroupData = function()
+				local collision_groups = game:GetService("PhysicsService"):GetRegisteredCollisionGroups()
+
+				local col_groups_n = #collision_groups
+
+				if col_groups_n == 0 then
+					return "\1\0"
+				end
+
+				local buffer_size = 2 -- Initial size
+
+				for _, group in collision_groups do
+					buffer_size += 7 + #group.name
+				end
+
+				local b = buffer.create(buffer_size)
+
+				buffer.writeu8(b, 0, 1) -- ? [CONSTANT] Version byte (likely)
+				buffer.writeu8(b, 1, col_groups_n) -- Group count
+
+				local TypeID_int32 = attr_Type_IDs["int32"]
+				local offset = 2
+				for i, group in collision_groups do
+					local name, id, mask = group.name, i - 1, group.mask
+					local name_len = #name
+
+					buffer.writeu8(b, offset, id) -- ID
+					offset += 1
+
+					buffer.writeu8(b, offset, TypeID_int32) -- ? Type ID for int32 (0x04)
+					offset += 1
+
+					buffer.writei32(b, offset, mask) -- Mask value as signed 32-bit integer
+					offset += 4
+
+					buffer.writeu8(b, offset, name_len) -- Name length
+					offset += 1
+					buffer.writestring(b, offset, name) -- Name
+					offset += name_len
+				end
+
+				return buffer.tostring(b)
+			end,
+		},
+	}
+
+	local function FetchAPI()
+		-- Credits @MaximumADHD
+
+		local API_Dump
+
+		local ok, err = pcall(function()
+			if EXECUTOR_NAME == "Velocity" then -- TODO Temp fix as it crashes on HttpGet for sites that return 403 code
+				return
+			end
+
+			local CLIENT_VERSION_str = tostring(CLIENT_VERSION)
+			local ok, result = pcall(readfile, CLIENT_VERSION_str)
+			if
+				ok
+				and result
+				and result ~= ""
+				and pcall(service.HttpService.JSONDecode, service.HttpService, result)
+			then
+				API_Dump = result
+				return
+			end
+
+			local matching_versions, is_matched = {}
+
+			-- * https://setup.rbxcdn.com/versionQTStudio seems to be a bit behind DeployHistory.txt
+			local DeployHistory = string.split(game:HttpGet("https://setup.rbxcdn.com/DeployHistory.txt", true), "\n")
+			for i = #DeployHistory, 1, -1 do
+				local line = DeployHistory[i]
+
+				local file_version = string.match(line, "file version: ([%d, ]+)")
+				if file_version then
+					if string.split(file_version, ", ")[2] == CLIENT_VERSION_str then
+						is_matched = true
+
+						local version_hash = string.match(line, "(version%-[^%s]+)")
+						if version_hash then
+							matching_versions[version_hash] = true
+						end
+					elseif is_matched then
+						break
+					end
+				end
+			end
+
+			for version_hash in matching_versions do
+				ok, result = pcall(
+					game.HttpGet,
+					game,
+					"https://setup.rbxcdn.com/" .. version_hash .. "-Full-API-Dump.json",
+					true
+				)
+				if ok then
+					local o, r = pcall(service.HttpService.JSONDecode, service.HttpService, result)
+					if o then
+						API_Dump = service.HttpService:JSONEncode(r.Classes) -- minify it
+						break
+					end
+				end
+			end
+			if writefile then
+				writefile(CLIENT_VERSION_str, API_Dump)
+			end
+		end)
+
+		if not ok or not API_Dump then
+			warn("[DEBUG] Failed to get " .. version() .. " version API Dump, trying latest..")
+			warn("[DEBUG]", err)
+			API_Dump = service.HttpService:JSONEncode(
+				service.HttpService:JSONDecode(
+					game:HttpGet(
+						"https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/roblox/Mini-API-Dump.json",
+						true
+					)
+				).Classes
+			)
+		end
+
+		local classList = {}
+
+		local ClassesWhitelist, ClassesBlacklist = ClassPropertyExceptions.Whitelist, ClassPropertyExceptions.Blacklist
+
+		for _, API_Class in service.HttpService:JSONDecode(API_Dump) do
+			local ClassProperties, ClassProperties_size = {}, 1
+			local Class = {
+				Properties = ClassProperties,
+				Superclass = API_Class.Superclass,
+				-- Tags = {},
+				NotCreatable = nil,
+			}
+
+			local ClassName = API_Class.Name
+			local ClassTags = API_Class.Tags
+
+			if ClassTags then
+				local Tags = ArrayToDict(ClassTags, nil, nil, "string")
+				-- Class.Tags = Tags -- or {}
+				Class.NotCreatable = Tags.NotCreatable
+				Class.Service = Tags.Service
+			end
+
+			local NotScriptableFixClass = NotScriptableFixes[ClassName]
+
+			-- ? Check 96ea8b2a755e55a78aedb55a7de7e83980e11077 commit - If a NotScriptableFix is needed that relies on another NotScriptable Property (which doesn't really make sense in the first place)
+
+			local ClassWhitelist, ClassBlacklist = ClassesWhitelist[ClassName], ClassesBlacklist[ClassName]
+
+			for _, Member in API_Class.Members do
+				-- ? print(game:GetService("ReflectionService"):GetPropertyNames("TextBox"))
+				if Member.MemberType == "Property" then
+					local Serialization = Member.Serialization
+
+					if Serialization.CanLoad then -- If Roblox doesn't save it why should we; If Roblox doesn't load it we don't need to save it
+						--[[
+							-- ! CanSave replaces "Tags.Deprecated" check because there are some old properties which are deprecated yet have CanSave.
+							Example: Humanoid.Health is CanSave false due to Humanoid.Health_XML being CanSave true (obsolete properties basically) - in this case both of them will Load. (aka PropertyPatches)
+							CanSave being on same level as CanLoad also fixes potential issues with overlapping properties like Color, Color3 & Color3uint8 of BasePart, out of which only Color3uint8 should save
+							This also fixes everything in IgnoreClassProperties automatically without need to hardcode :)
+							A very simple fix for many problems that saveinstance scripts encounter!
+						--]]
+						local PropertyName = Member.Name
+						if
+							(Serialization.CanSave or ClassWhitelist and ClassWhitelist[PropertyName])
+							and not (ClassBlacklist and ClassBlacklist[PropertyName])
+						then
+							local MemberTags = Member.Tags
+
+							local ValueType = Member.ValueType
+							local ValueType_Name = ValueType.Name
+
+							if 645 <= CLIENT_VERSION and ValueType_Name == "Content" then -- TODO: Remove after Roblox adds a descriptor for it
+								continue
+							end
+
+							local Special, PreferredDescriptorName
+
+							if MemberTags then
+								for _, tag in MemberTags do
+									if type(tag) == "table" then
+										PreferredDescriptorName = tag.PreferredDescriptorName
+										if PreferredDescriptorName and Special then
+											break
+										end
+									elseif tag == "NotScriptable" then
+										Special = true
+										if PreferredDescriptorName then
+											break
+										end
+									end
+								end
+							end
+
+							-- if not Special then
+							local Property = {
+								Name = PropertyName,
+								Category = ValueType.Category,
+								-- Default = Member.Default,
+								-- Tags = MemberTags,
+								ValueType = ValueType_Name,
+
+								Special = Special,
+
+								CanRead = nil,
+							}
+
+							if string.sub(ValueType_Name, 1, 8) == "Optional" then
+								-- Extract the string after "Optional"
+								Property.Optional = string.sub(ValueType_Name, 9)
+							end
+
+							if NotScriptableFixClass then
+								local NotScriptableFix = NotScriptableFixClass[PropertyName]
+								if NotScriptableFix then
+									Property.Fallback = type(NotScriptableFix) == "function" and NotScriptableFix
+										or PreferredDescriptorName and function(instance)
+											local o, r = pcall(index, instance, PreferredDescriptorName)
+											if o then
+												return r
+											end
+											return instance[NotScriptableFix]
+										end
+										or function(instance)
+											return instance[NotScriptableFix]
+										end
+								end
+							elseif PreferredDescriptorName then
+								Property.Fallback = function(instance)
+									return instance[PreferredDescriptorName]
+								end
+							end
+							ClassProperties[ClassProperties_size] = Property
+							ClassProperties_size += 1
+
+							-- end
+						end
+					end
+				end
+			end
+
+			classList[ClassName] = Class
+		end
+
+		-- classList.Instance.Properties.Parent = nil -- ? Not sure if this is a better option than filtering through properties to remove this
+
+		return classList
+	end
+
+	local ok, result = pcall(FetchAPI)
+	if ok then
+		ClassList = result
+	else
+		warn("Failed to load the API Dump")
+		warn(result)
+		return
+	end
+end
+
+local GLOBAL_ENV = getgenv and getgenv() or _G or shared
+
+--[=[
+    @class SynSaveInstance
+    Represents the options for saving instances with custom settings using the synsaveinstance function.
+]=]
+
+--- @interface CustomOptions table
+--- * Structure of the main CustomOptions table.
+--- * Note: Options are case-insensitive, meaning you could type `NilInstances` option as `nilInStaNces` and it would still be valid.
+--- @within SynSaveInstance
+--- @field __DEBUG_MODE boolean -- This will print debug logs to console about unusual scenarios. Recommended to enable if you wish to help us improve our products and find bugs / issues with it! ___Default:___ false
+--- @field ReadMe boolean --___Default:___ true
+--- @field SafeMode boolean -- Kicks you before Saving, which prevents you from being detected in any game. ___Default:___ false
+--- @field ShutdownWhenDone boolean -- Shuts the game down after saveinstance is finished. ___Default:___ false
+--- @field AntiIdle boolean -- Prevents the 20-minute-Idle Kick. ___Default:___ true
+--- .Anonymous {boolean|table{UserId = string, Name = string}} -- * **RISKY:** Cleans the file of any info related to your account like: Name, UserId. This is useful for some games that might store that info in GUIs or other Instances. Might potentially mess up parts of strings that contain characters that match your Name or parts of numbers that match your UserId. Can also be a table with UserId & Name keys. ___Default:___ false
+--- @field ShowStatus boolean -- ___Default:___ true
+--- @field Callback function -- If set, the serialized data will be sent to the callback function instead of to file. ___Default:___ false
+--- @field mode string -- Valid modes: full, optimized, scripts. Change this to invalid mode like "invalid" if you only want ExtraInstances. "optimized" mode is **NOT** supported with *@Object* option. ___Default:___ `"optimized"`
+--- @field noscripts boolean -- ___Aliases:___ `Decompile`. ___Default:___ false
+--- @field scriptcache boolean -- ___Default:___ true
+--- @field decomptype string -- * Deprecated. ___Default:___ Uses your executor's decompiler, if available.
+--- @field timeout number -- If the decompilation run time exceeds this value it gets cancelled. Set to -1 to disable timeout (unreliable). ***Aliases***: `DecompileTimeout`. ___Default:___ 10
+--- @field DecompileJobless boolean -- Includes already decompiled code in the output. No new scripts are decompiled. ___Default:___ false
+--- @field SaveBytecode boolean -- Includes bytecode in the output. Useful if you wish to be able to decompile it yourself later. ___Default:___ false
+--- .DecompileIgnore {Instance | Instance.ClassName | [Instance.ClassName] = {Instance.Name}} -- * Ignores match & it's descendants by default. To Ignore only the instance itself set the value to `= false`. Examples: "Chat", - Matches any instance with "Chat" ClassName, Players = {"MyPlayerName"} - Matches "Players" Class AND "MyPlayerName" Name ONLY, `workspace` - matches Instance by reference, `[workspace] = false` - matches Instance by reference and only ignores the instance itself and not it's descendants. ___Default:___ {TextChatService}
+--- .IgnoreList {Instance | Instance.ClassName | [Instance.ClassName] = {Instance.Name}} -- Structure is similar to **@DecompileIgnore** except `= false` meaning if you ignore one instance it will automatically ignore it's descendants. ___Default:___ {CoreGui, CorePackages}
+--- .ExtraInstances {Instance} -- If used with any invalid mode (like "invalidmode") it will only save these instances. ___Default:___ {}
+--- @field IgnoreProperties table -- Ignores properties by Name. ___Default:___ {}
+--- @field SaveCacheInterval number -- The less the value the more often it saves, but that would mean less performance due to constantly saving. ___Default:___ 0x1600 * 10
+--- @field FilePath string -- Must only contain the name of the file, no file extension. ___Default:___ false
+--- @field AvoidFileOverwrite boolean -- Prevents writing to place file that already exists. ___Default:___ true
+--- @field Object Instance -- * If provided, saves as .rbxmx (Model file) instead. If Object is game, it will be saved as a .rbxl file. **MUST BE AN INSTANCE REFERENCE, FOR EXAMPLE - *game.Workspace***. `"optimized"` mode is **NOT** supported with this option. If IsModel is set to false then Object specified here will be saved as a place file. ___Default:___ false
+--- @field IsModel boolean -- If Object is specified then sets to true automatically, unless you set it to false. ___Default:___ false
+--- @field NilInstances boolean -- Save instances that aren't Parented (Parented to nil). ___Default:___ false
+--- .NilInstancesFixes {[Instance.ClassName] = function} -- * This can cause some Classes to be fixed even though they might not need the fix (better be safe than sorry though). For example, Bones inherit from Attachment if we dont define them in the NilInstancesFixes then this will catch them anyways. **TO AVOID THIS BEHAVIOR USE THIS EXAMPLE:** {ClassName_That_Doesnt_Need_Fix = false}. ___Default:___ {Animator = function, AdPortal = function, BaseWrap = function, Attachment = function}
+--- @field IgnoreDefaultProperties boolean -- Ignores default properties during saving.  ___Default:___ true
+--- @field IgnoreNotArchivable boolean -- Ignores the Archivable property and saves Non-Archivable instances. ___Default:___ true
+--- @field IgnorePropertiesOfNotScriptsOnScriptsMode boolean -- Ignores property of every instance that is not a script in "scripts" mode. ___Default:___ false
+--- @field IgnoreSpecialProperties boolean -- Prevents calls to `gethiddenproperty` and uses fallback methods instead. This also helps with crashes. If your file is corrupted after saving, you can try turning this on. ___Default:___ false
+--- @field IsolateLocalPlayer boolean -- Saves Children of LocalPlayer as separate folder and prevents any instance of ClassName Player with .Name identical to LocalPlayer.Name from saving. ___Default:___ false
+--- @field IsolateStarterPlayer boolean -- If enabled, StarterPlayer will be cleared and the saved starter player will be placed into folders. ___Default:___ false
+--- @field IsolateLocalPlayerCharacter boolean -- Saves Children of LocalPlayer.Character as separate folder and prevents any instance of ClassName Player with .Name identical to LocalPlayer.Name from saving. ___Default:___ false
+--- @field RemovePlayerCharacters boolean -- Ignore player characters while saving. (Enables SaveNotCreatable automatically). ___Default:___ true
+--- @field SaveNotCreatable boolean -- * Includes non-serializable instances as Folder objects (Name is misleading as this is mostly a fix for certain NilInstances and isn't always related to NotCreatable). ___Default:___ false
+--- .NotCreatableFixes table<Instance.ClassName> -- * {"Player"} is the same as {Player = "Folder"}; Format like {SpawnLocation = "Part"} is only to be used when SpawnLocation inherits from "Part" AND "Part" is Creatable. ___Default:___ { "", "Player", "PlayerScripts", "PlayerGui", "TouchTransmitter" }
+--- @field IsolatePlayers boolean -- * This option does save players, it's just they won't show up in Studio and can only be viewed through the place file code (in text editor). More info at https://github.com/luau/UniversalSynSaveInstance/issues/2. ___Default:___ false
+--- @field AlternativeWritefile boolean -- * Splits file content string into segments and writes them using appendfile. This might help with crashes when it starts writing to file. Though there is a risk of appendfile working incorrectly on some executors. ___Default:___ true
+--- @field IgnoreDefaultPlayerScripts boolean -- * **RISKY: Ignores Default PlayerScripts like PlayerModule & RbxCharacterSounds. Prevents crashes on certain Executors. ___Default:___ true
+--- @field IgnoreSharedStrings boolean -- * **RISKY: FIXES CRASHES (TEMPORARY, TESTED ON ROEXEC ONLY). FEEL FREE TO DISABLE THIS TO SEE IF IT WORKS FOR YOU**. ___Default:___ true
+--- @field SharedStringOverwrite boolean -- * **RISKY:** if the process is not finished aka crashed then none of the affected values will be available. SharedStrings can also be used for ValueTypes that aren't `SharedString`, this behavior is not documented anywhere but makes sense (Could create issues though, due to _potential_ ValueType mix-up, only works on certain types which are all base64 encoded so far). Reason: Allows for potential smaller file size (can also be bigger in some cases). ___Default:___ false
+--- @field TreatUnionsAsParts boolean -- * **RISKY:** Converts all UnionOperations to Parts. Useful if your Executor isn't able to save (read) Unions, because otherwise they will be invisible. ___Default:___ false (except Solara)
+
+--- @interface OptionsAliases
+--- @within SynSaveInstance
+--- Aliases for the [SynSaveInstance.CustomOptions table]. Format: {Option -- Alias1, Alias2}
+--- @field FilePath string -- FileName
+--- @field IgnoreDefaultProperties string -- IgnoreDefaultProps
+--- @field SaveNotCreatable string -- SaveNonCreatable
+--- @field InstancesBlacklist string -- IgnoreList
+--- @field IsolatePlayerGui string -- IsolateLocalPlayer
+--- @field IsolatePlayers string -- SavePlayers
+--- @field scriptcache string -- DecompileJobless
+--- @field timeout string -- DecompileTimeout
+--- @field IgnoreNotArchivable string -- IgnoreArchivable
+--- @field RemovePlayerCharacters string -- INVERSE SavePlayerCharacters
+
+--[=[
+	@function saveinstance
+	Saves instances with specified options. Example:
+	```lua
+	local Params = {
+		RepoURL = "https://raw.githubusercontent.com/luau/SynSaveInstance/main/",
+		SSI = "saveinstance",
+	}
+
+	local synsaveinstance = loadstring(game:HttpGet(Params.RepoURL .. Params.SSI .. ".luau", true), Params.SSI)()
+
+	local CustomOptions = { SafeMode = true, timeout = 15, SaveBytecode = true }
+
+	synsaveinstance(CustomOptions)
+	```
+	@within SynSaveInstance
+	@yields
+	@param Parameter_1 variant<table, table<Instance>> -- Can either be [SynSaveInstance.CustomOptions table] or a filled with instances ({Instance}), (then it will be treated as ExtraInstances with an invalid mode and IsModel will be true).
+	@param Parameter_2 table -- [OPTIONAL] If present, then Parameter_2 will be assumed to be [SynSaveInstance.CustomOptions table]. And then if the Parameter_1 is an Instance, then it will be assumed to be [SynSaveInstance.CustomOptions table].Object. If Parameter_1 is a table filled with instances ({Instance}), then it will be assumed to be [SynSaveInstance.CustomOptions table].ExtraInstances and IsModel will be true). This exists for sake compatibility with `saveinstance(game, {})`
+]=]
+
+local function synsaveinstance(CustomOptions, CustomOptions2)
+	if GLOBAL_ENV.USSI then
+		return
+	end
+	GLOBAL_ENV.USSI = true
+	do
+		local setthreadidentity = global_container.setthreadidentity
+		if setthreadidentity then
+			pcall(setthreadidentity, 8) -- ? Arceus X Fix
+		end
+	end
+
+	local currentstr, currentsize, totalsize, chunks = "", 0, 0, table.create(1)
+	local savebuffer, savebuffer_size = {}, 1
+	local header =
+		'<!-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw --><roblox version="4">'
+
+	local StatusText
+
+	local OPTIONS = {
+		mode = "optimized",
+		noscripts = false,
+		scriptcache = true,
+		-- decomptype = "",
+		timeout = 10,
+		-- * New:
+		__DEBUG_MODE = false,
+
+		-- Binary = false, -- true in syn newer versions (false in our case because no binary support yet), Description: Saves everything in Binary Mode (rbxl/rbxm).
+		Callback = false,
+		--Clipboard/CopyToClipboard = false, -- Description: If set to true, the serialized data will be set to the clipboard, which can be later pasted into studio easily. Useful for saving models. (Binary Only)
+		-- MaxThreads = 3 -- Description: The number of decompilation threads that can run at once. More threads means it can decompile for scripts at a time.
+		-- DisableCompression = false, --Description: Disables compression in the binary output
+
+		DecompileJobless = false,
+		DecompileIgnore = { -- * Clean these up (merged Old Syn and New Syn)
+			-- "Chat",
+			"TextChatService",
+			ModuleScript = nil,
+		},
+		IgnoreDefaultPlayerScripts = true,
+		SaveBytecode = false,
+
+		IgnoreProperties = {},
+
+		IgnoreList = { "CoreGui", "CorePackages" },
+
+		ExtraInstances = {},
+		NilInstances = false,
+		NilInstancesFixes = {},
+
+		SaveCacheInterval = 0x1600 * 10,
+		ShowStatus = true,
+		SafeMode = false,
+		ShutdownWhenDone = false,
+		AntiIdle = true,
+		Anonymous = false,
+		ReadMe = true,
+		FilePath = false,
+		AvoidFileOverwrite = true,
+		Object = false,
+		IsModel = false,
+
+		IgnoreDefaultProperties = true,
+		IgnoreNotArchivable = true,
+		IgnorePropertiesOfNotScriptsOnScriptsMode = false,
+		IgnoreSpecialProperties = ArrayToDict({ "Fluxus", "Delta", "Solara" })[EXECUTOR_NAME] or false, -- ! Please submit more Executors that crash on gethiddenproperty (with this disabled basically)
+
+		IsolateLocalPlayer = false, --  #service.StarterGui:GetChildren() == 0
+		IsolateLocalPlayerCharacter = false,
+		IsolatePlayers = false,
+		IsolateStarterPlayer = false,
+		RemovePlayerCharacters = true,
+
+		SaveNotCreatable = false,
+		NotCreatableFixes = {
+			-- "InputObject",
+			-- "LodDataEntity",
+			-- "Path",
+			"", -- * FilteredSelection
+			"AdvancedDragger",
+			"AnimationTrack",
+			"Dragger",
+			"Player",
+			"PlayerGui",
+			"PlayerMouse",
+			"PlayerMouse",
+			"PlayerScripts",
+			"ScreenshotHud",
+			"StudioData",
+			"TextChatMessage",
+			"TextSource",
+			"TouchTransmitter",
+			"Translator",
+			CloudLocalizationTable = "LocalizationTable",
+			Platform = "Part",
+			Status = "Model", -- gets created by studio automatically usually so there will be duplicates due to this
+			-- CoreScript = "Script", -- useless
+			-- ChatWindowMessageProperties = "TextChatMessageProperties", -- ? Not needed as this can be derived with ChatWindowConfiguration.DeriveNewMessageProperties
+		},
+
+		-- ! Risky
+
+		IgnoreSharedStrings = EXECUTOR_NAME ~= "Wave",
+		SharedStringOverwrite = false,
+		TreatUnionsAsParts = EXECUTOR_NAME == "Solara", -- TODO Temporary true (once removed, remove Note from docs too)
+		AlternativeWritefile = not ArrayToDict({ "WRD", "Xeno", "Zorara" })[EXECUTOR_NAME],
+
+		OptionsAliases = { -- You can't really modify these as a user
+			DecompileTimeout = "timeout",
+			FileName = "FilePath",
+			IgnoreArchivable = "IgnoreNotArchivable",
+			IgnoreDefaultProps = "IgnoreDefaultProperties",
+			InstancesBlacklist = "IgnoreList",
+			IsolatePlayerGui = "IsolateLocalPlayer",
+			SaveNonCreatable = "SaveNotCreatable",
+			SavePlayers = "IsolatePlayers",
+		},
+	}
+
+	local OPTIONS_lowercase, CustomOptions_valid = {}, {}
+	for option_name in OPTIONS do
+		local option_name_lowercase = string.lower(option_name)
+		if OPTIONS_lowercase[option_name_lowercase] then
+			warn("DUPLICATE OPTION", option_name)
+		else
+			OPTIONS_lowercase[option_name_lowercase] = option_name
+		end
+	end
+	for option_alias, option_name in OPTIONS.OptionsAliases do
+		local option_name_lowercase = string.lower(option_alias)
+		if OPTIONS_lowercase[option_name_lowercase] then
+			warn("DUPLICATE ALIAS", option_alias)
+		else
+			OPTIONS_lowercase[option_name_lowercase] = option_name
+		end
+	end
+
+	do -- * Load Settings
+		local function construct_NilinstanceFix(Name, ClassName, Separate)
+			return function(instance, instancePropertyOverrides)
+				local Exists
+
+				if not Separate then
+					Exists = OPTIONS.NilInstancesFixes[Name]
+				end
+
+				local Fix
+
+				local DoesntExist = not Exists
+				if DoesntExist then
+					Fix = Instance.new(ClassName)
+					if not Separate then
+						OPTIONS.NilInstancesFixes[Name] = Fix
+					end
+					-- Fix.Name = Name
+
+					instancePropertyOverrides[Fix] =
+						{ __SaveSpecific = true, __Children = { instance }, Properties = { Name = Name } }
+				else
+					Fix = Exists
+					table.insert(instancePropertyOverrides[Fix].__Children, instance)
+				end
+
+				-- InstancesOverrides[instance].Parent = AnimationController
+				if DoesntExist then
+					return Fix
+				end
+			end
+		end
+
+		-- TODO: Merge BaseWrap & Attachment & AdPortal fix (put all under MeshPart container)
+		-- TODO?:
+		-- DebuggerWatch DebuggerWatch must be a child of ScriptDebugger
+		-- PluginAction Parent of PluginAction must be Plugin or PluginMenu that created it!
+		OPTIONS.NilInstancesFixes.Animator = construct_NilinstanceFix(
+			"Animator has to be placed under Humanoid or AnimationController",
+			"AnimationController"
+		)
+		OPTIONS.NilInstancesFixes.AdPortal = construct_NilinstanceFix("AdPortal must be parented to a Part", "Part")
+		OPTIONS.NilInstancesFixes.Attachment =
+			construct_NilinstanceFix("Attachments must be parented to a BasePart or another Attachment", "Part") -- * Bones inherit from Attachments
+		OPTIONS.NilInstancesFixes.BaseWrap =
+			construct_NilinstanceFix("BaseWrap must be parented to a MeshPart", "MeshPart")
+		OPTIONS.NilInstancesFixes.PackageLink =
+			construct_NilinstanceFix("Package already has a PackageLink", "Folder", true)
+
+		if CustomOptions2 and type(CustomOptions2) == "table" then
+			local tmp = CustomOptions
+			local Type = typeof(tmp)
+			CustomOptions = CustomOptions2
+			if Type == "Instance" then
+				CustomOptions.Object = tmp
+			elseif Type == "table" and typeof(tmp[1]) == "Instance" then
+				CustomOptions.ExtraInstances = tmp
+				OPTIONS.IsModel = true
+			end
+		end
+
+		local Type = typeof(CustomOptions)
+
+		if Type == "table" then
+			if typeof(CustomOptions[1]) == "Instance" then
+				OPTIONS.mode = "invalidmode"
+				OPTIONS.ExtraInstances = CustomOptions
+				OPTIONS.IsModel = true
+				CustomOptions = {}
+			else
+				for key, value in CustomOptions do
+					local option = OPTIONS_lowercase[string.lower(key)]
+
+					if option then
+						OPTIONS[option] = value
+						CustomOptions_valid[option] = true
+					end
+				end
+				local Decompile = CustomOptions.Decompile
+				if Decompile ~= nil then
+					OPTIONS.noscripts = not Decompile
+				end
+				local SavePlayerCharacters = CustomOptions.SavePlayerCharacters
+				if SavePlayerCharacters ~= nil then
+					OPTIONS.RemovePlayerCharacters = not SavePlayerCharacters
+				end
+				local RemovePlayers = CustomOptions.RemovePlayers
+				if RemovePlayers ~= nil then
+					OPTIONS.IsolatePlayers = not RemovePlayers
+				end
+			end
+		elseif Type == "Instance" then
+			OPTIONS.mode = "invalidmode"
+			OPTIONS.Object = CustomOptions
+			CustomOptions = {}
+		else
+			CustomOptions = {}
+		end
+	end
+
+	if not writefile and not OPTIONS.Callback then
+		-- appendfile could be used a fallback but what kind of exec has appendfile without writefile
+		local function coreCall(method, ...)
+			local StarterGui = service.StarterGui
+			method = StarterGui[method]
+			if not method then
+				return
+			end
+
+			for _ = 1, 10 do -- maxtries
+				local success, result = pcall(method, StarterGui, ...)
+				if success then
+					return result
+				end
+				task.wait(1)
+			end
+		end
+
+		local text = 'Function "writefile" is NOT available\nUse the Option "Callback" instead for now (check docs)'
+
+		coreCall("SetCore", "SendNotification", {
+			Title = "SAVEINSTANCE ERROR",
+			Text = text,
+			Duration = 15,
+			Icon = "rbxassetid://9072920609",
+		})
+		coreCall("SetCore", "SendNotification", {
+			Title = "SAVEINSTANCE ERROR",
+			Text = "Please ask your executor's developers to add writefile",
+			Duration = 15,
+			Icon = "rbxassetid://9072920609",
+		})
+
+		warn(text)
+
+		GLOBAL_ENV.USSI = nil
+		return
+	end
+
+	if OPTIONS.IgnoreDefaultPlayerScripts then
+		-- TODO This is a bad workaround, find a better automatic way
+		-- TODO Look into https://robloxapi.github.io/ref/class/LuaSourceContainer.html#member-isPlayerScript
+		local DecompileIgnore = OPTIONS.DecompileIgnore
+
+		local default_scripts = ArrayToDict({
+			ModuleScript = { "PlayerModule" },
+			LocalScript = {
+				"BubbleChat",
+				"ChatScript",
+				"PlayerScriptsLoader",
+				"RbxCharacterSounds",
+			},
+		}, true)
+
+		local function ignorePath(path)
+			if path then
+				for _, child in path:GetChildren() do
+					local class_match = default_scripts[child.ClassName]
+					if class_match then
+						local name_match = class_match[child.Name]
+						if name_match then
+							table.insert(DecompileIgnore, child)
+						end
+					end
+				end
+			end
+		end
+
+		ignorePath(service.StarterPlayer:FindFirstChildOfClass("StarterPlayerScripts"))
+
+		local LocalPlayer = service.Players.LocalPlayer
+		if LocalPlayer then
+			ignorePath(LocalPlayer:FindFirstChildOfClass("PlayerScripts"))
+		end
+	end
+
+	local InstancesOverrides = {}
+
+	local DecompileIgnore, IgnoreList, IgnoreProperties, NotCreatableFixes =
+		ArrayToDict(OPTIONS.DecompileIgnore, true),
+		ArrayToDict(OPTIONS.IgnoreList, true),
+		ArrayToDict(OPTIONS.IgnoreProperties),
+		ArrayToDict(OPTIONS.NotCreatableFixes, true, "Folder")
+
+	local __DEBUG_MODE = OPTIONS.__DEBUG_MODE
+
+	if __DEBUG_MODE and type(__DEBUG_MODE) ~= "function" then
+		__DEBUG_MODE = warn
+	end
+
+	local FilePath = OPTIONS.FilePath
+	local SaveCacheInterval = OPTIONS.SaveCacheInterval
+	local ToSaveInstance = OPTIONS.Object
+	local IsModel = OPTIONS.IsModel
+
+	if ToSaveInstance and CustomOptions.IsModel == nil then
+		IsModel = true
+	end
+
+	local IgnoreDefaultProperties = OPTIONS.IgnoreDefaultProperties
+	local IgnoreNotArchivable = not OPTIONS.IgnoreNotArchivable
+	local IgnorePropertiesOfNotScriptsOnScriptsMode = OPTIONS.IgnorePropertiesOfNotScriptsOnScriptsMode
+
+	local old_gethiddenproperty
+	if OPTIONS and gethiddenproperty then
+		old_gethiddenproperty = gethiddenproperty
+		gethiddenproperty = nil
+	end
+
+	local SaveNotCreatable = OPTIONS.SaveNotCreatable
+	local TreatUnionsAsParts = OPTIONS.TreatUnionsAsParts
+
+	local DecompileJobless = OPTIONS.DecompileJobless
+	if DecompileJobless then
+		OPTIONS.scriptcache = true
+	end
+	local ScriptCache = OPTIONS.scriptcache and getscriptbytecode
+
+	local Timeout = OPTIONS.timeout
+
+	local IgnoreSharedStrings = OPTIONS.IgnoreSharedStrings
+	local SharedStringOverwrite = OPTIONS.SharedStringOverwrite
+
+	local ldeccache = GLOBAL_ENV.scriptcache
+
+	local DecompileIgnoring, ToSaveList, ldecompile, placename, elapse_t, SaveNotCreatableWillBeEnabled, RecoveredScripts
+
+	if OPTIONS.ReadMe then
+		RecoveredScripts = {}
+	end
+
+	if ScriptCache and not ldeccache then
+		ldeccache = {}
+		GLOBAL_ENV.scriptcache = ldeccache
+	end
+
+	if ToSaveInstance == game then
+		OPTIONS.mode = "full"
+		ToSaveInstance = nil
+		IsModel = nil
+	end
+
+	local function isLuaSourceContainer(instance)
+		return instance:IsA("LuaSourceContainer")
+	end
+
+	do
+		local mode = string.lower(OPTIONS.mode)
+		local tmp = table.clone(OPTIONS.ExtraInstances)
+
+		local PlaceName = game.PlaceId
+
+		pcall(function()
+			PlaceName ..= " " .. service.MarketplaceService:GetProductInfo(PlaceName).Name
+		end)
+
+		local function sanitizeFileName(str)
+			return string.sub(string.gsub(string.gsub(string.gsub(str, "[^%w _]", ""), " +", " "), " +$", ""), 1, 240)
+		end
+
+		if ToSaveInstance then
+			if mode == "optimized" then -- ! NOT supported with Model file mode
+				mode = "full"
+			end
+
+			for _, key in
+				{
+					"IsolateLocalPlayer",
+					"IsolateLocalPlayerCharacter",
+					"IsolatePlayers",
+					"IsolateStarterPlayer",
+					"NilInstances",
+				}
+			do
+				if CustomOptions_valid[key] == nil then
+					OPTIONS[key] = false
+				end
+			end
+		end
+
+		local filetype = IsModel and ".rbxmx" or ".rbxlx"
+
+		if FilePath then
+			placename = FilePath
+		elseif IsModel then
+			placename =
+				sanitizeFileName("model " .. PlaceName .. " " .. (ToSaveInstance or tmp[1] or game):GetFullName())
+		else
+			placename = sanitizeFileName("place " .. PlaceName)
+		end
+
+		if OPTIONS.AvoidFileOverwrite and isfile then
+			local counter = 0
+			local temp = placename
+
+			while isfile(temp .. filetype) do
+				counter += 1
+				temp = placename .. "(" .. counter .. ")"
+			end
+
+			placename = temp .. filetype
+		else
+			placename = placename .. filetype
+		end
+
+		if GLOBAL_ENV[placename] then
+			-- warn("UniversalSynSaveInstance is already saving to this file")
+			return
+		end
+
+		GLOBAL_ENV[placename] = true
+		GLOBAL_ENV.USSI = nil
+
+		if mode ~= "scripts" then
+			IgnorePropertiesOfNotScriptsOnScriptsMode = nil
+		end
+
+		local TempRoot = ToSaveInstance or game
+
+		if mode == "full" then
+			if not ToSaveInstance then
+				local Children = TempRoot:GetChildren()
+				if 0 < #Children then
+					local tmp_dict = ArrayToDict(tmp)
+					for _, child in Children do
+						if not tmp_dict[child] then
+							table.insert(tmp, child)
+						end
+					end
+				end
+			end
+		elseif mode == "optimized" then -- ! Incompatible with .rbxmx (Model file) mode
+			-- if IsolatePlayers then
+			-- 	table.insert(_list_0, "Players")
+			-- end
+			local tmp_dict = ArrayToDict(tmp)
+
+			for _, serviceName in
+				{
+					"Workspace",
+					"Players",
+					"Lighting",
+					"MaterialService",
+					"ReplicatedFirst",
+					"ReplicatedStorage",
+
+					"ServerScriptService", -- LoadStringEnabled property (doesn't replicate); Just in case
+					"ServerStorage", -- Just in case
+
+					"StarterGui",
+					"StarterPack",
+					"StarterPlayer",
+					"Teams",
+					"SoundService",
+					"Chat",
+					"TextChatService",
+
+					"LocalizationService", -- For LocalizationTables
+					-- "InsertService",
+					"JointsService",
+
+					-- "TestService",
+					-- "VoiceChatService",
+				}
+			do
+				local _service = game:FindService(serviceName)
+				if _service and not tmp_dict[_service] then
+					table.insert(tmp, _service)
+				end
+			end
+		elseif mode == "scripts" then
+			-- TODO: Only save paths that lead to scripts (nothing else)
+			-- Currently saves paths along with children of each tree
+			local unique = {}
+			for _, instance in TempRoot:GetDescendants() do
+				if isLuaSourceContainer(instance) then
+					local Parent = instance.Parent
+					while Parent and Parent ~= TempRoot do
+						instance = instance.Parent
+						Parent = instance.Parent
+					end
+					if Parent then
+						unique[instance] = true
+					end
+				end
+			end
+			for instance in unique do
+				table.insert(tmp, instance)
+			end
+		end
+
+		ToSaveList = tmp
+
+		if ToSaveInstance then
+			table.insert(ToSaveList, 1, ToSaveInstance)
+		end
+	end
+
+	local IsolateLocalPlayer = OPTIONS.IsolateLocalPlayer
+	local IsolateLocalPlayerCharacter = OPTIONS.IsolateLocalPlayerCharacter
+	local IsolatePlayers = OPTIONS.IsolatePlayers
+	local IsolateStarterPlayer = OPTIONS.IsolateStarterPlayer
+	local NilInstances = OPTIONS.NilInstances
+
+	if NilInstances and enablenilinstances then -- ? Solara fix
+		enablenilinstances()
+	end
+	local function get_size_format()
+		local Size
+
+		-- local totalsize = #totalstr
+
+		for i, unit in
+			{
+				"B",
+				"KB",
+				"MB",
+				"GB",
+				"TB",
+			}
+		do
+			if totalsize < 0x400 ^ i then
+				Size = math.floor(totalsize / (0x400 ^ (i - 1)) * 10) / 10 .. " " .. unit
+				break
+			end
+		end
+
+		return Size
+	end
+
+	local RunService = service.RunService
+	local function wait_for_render()
+		RunService.RenderStepped:Wait()
+	end
+
+	local Loading
+	local function run_with_loading(text, keepStatus, waitForRender, taskFunction, ...)
+		local previousStatus
+
+		if StatusText then
+			if keepStatus then
+				previousStatus = StatusText.Text
+			end
+			Loading = task.spawn(function()
+				local spinner_count = 0
+				local chars = { "|", "/", "—", "\\" }
+				local chars_size = #chars
+
+				local function getLoadingText()
+					spinner_count += 1
+
+					if chars_size < spinner_count then
+						spinner_count = 1
+					end
+
+					return chars[spinner_count]
+				end
+
+				text ..= " "
+
+				while true do
+					StatusText.Text = text .. getLoadingText()
+					task.wait(0.25)
+				end
+			end)
+			if waitForRender then
+				wait_for_render()
+			end
+		end
+
+		local result = { taskFunction(...) }
+
+		if Loading then
+			task.cancel(Loading)
+			Loading = nil
+			if previousStatus then
+				StatusText.Text = previousStatus
+			end
+		end
+
+		return unpack(result)
+	end
+
+	local function construct_TimeoutHandler(timeout, f, timeout_ret)
+		return timeout < 0 and function(script)
+			return pcall(f, script)
+		end or function(script) -- TODO Ideally use ... (vararg) instead of `script` in case this is reused for something other than `decompile` & `getscriptbytecode`
+			local thread = coroutine.running()
+			local timeoutThread, isCancelled
+
+			timeoutThread = task.delay(timeout, function()
+				isCancelled = true -- TODO task.cancel
+				coroutine.resume(thread, nil, timeout_ret)
+			end)
+
+			task.spawn(function()
+				local ok, result = pcall(f, script)
+
+				if isCancelled then
+					return
+				end
+
+				task.cancel(timeoutThread)
+
+				while coroutine.status(thread) ~= "suspended" do
+					task.wait()
+				end
+
+				coroutine.resume(thread, ok, result)
+			end)
+
+			return coroutine.yield()
+		end
+	end
+
+	local getbytecode
+	if getscriptbytecode then
+		getbytecode = construct_TimeoutHandler(3, getscriptbytecode) -- ? Solara fix
+	end
+
+	local SaveBytecode
+	if OPTIONS.SaveBytecode and getscriptbytecode then
+		SaveBytecode = function(script)
+			local s, bytecode = getbytecode(script)
+
+			if s and bytecode and bytecode ~= "" then
+				return "-- Bytecode (Base64):\n-- " .. base64encode(bytecode) .. "\n\n"
+			end
+		end
+	end
+
+	do
+		local Decompiler = decompile
+
+		if OPTIONS.noscripts then
+			ldecompile = function()
+				return "-- Decompiling is disabled"
+			end
+		elseif Decompiler then
+			local decomp = construct_TimeoutHandler(Timeout, Decompiler, "Decompiler timed out")
+
+			ldecompile = function(script)
+				-- local name = scr.ClassName .. scr.Name
+				local bytecode
+				if ScriptCache then
+					local s
+					s, bytecode = getbytecode(script)
+					local cached
+
+					if s then
+						if not bytecode or bytecode == "" then
+							return "-- The Script is Empty"
+						end
+						cached = ldeccache[bytecode]
+					else
+						bytecode = nil
+					end
+
+					if cached then
+						if __DEBUG_MODE then
+							__DEBUG_MODE("Found in Cache", script:GetFullName())
+						end
+						return cached
+					end
+				else
+					if DecompileJobless then
+						return "-- Not found in already decompiled ScriptCache"
+					end
+
+					task.wait() -- TODO Maybe remove?
+				end
+
+				local ok, result = run_with_loading("Decompiling " .. script.Name, true, nil, decomp, script)
+				if not result then
+					ok, result = false, "Empty Output"
+				end
+
+				local output
+				if ok then
+					result = string.gsub(result, "\0", "\\0") -- ? Some decompilers sadly output \0 which prevents files from opening
+					output = result
+				else
+					output = "--[[ Failed to decompile. Reason:\n" .. (result or "") .. "\n]]"
+				end
+
+				if ScriptCache and bytecode then -- TODO there might(?) be an edgecase where it manages to decompile (built-in) even though getscriptbytecode failed, and the output won't get cached
+					ldeccache[bytecode] = output -- ? Should we cache even if it timed out?
+					if __DEBUG_MODE then
+						__DEBUG_MODE("Cached", script:GetFullName())
+					end
+				end
+
+				return output
+			end
+		else
+			ldecompile = function()
+				return "-- Your Executor does NOT have a Decompiler"
+			end
+		end
+	end
+
+	local function GetLocalPlayer()
+		return service.Players.LocalPlayer
+			or service.Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+			or service.Players.LocalPlayer
+	end
+
+	local function filterLinkedSource(str)
+		local o, r = pcall(service.HttpService.JSONDecode, service.HttpService, str)
+		if o and r.errors then
+			return
+		end
+		return true
+	end
+
+	local function replaceClassName(instance, InstanceName, ClassName)
+		local InstanceOverride
+		if InstanceName ~= ClassName then -- TODO Compare against default instance instead (TouchTransmitter is called TouchInterest by default)
+			InstanceOverride = InstancesOverrides[instance]
+			if not InstanceOverride then
+				InstanceOverride = { Properties = { Name = "[" .. ClassName .. "] " .. InstanceName } }
+				InstancesOverrides[instance] = InstanceOverride
+			end
+		end
+		return InstanceOverride
+	end
+
+	local function filterPropVal(result, propertyName, category) -- ? raw == nil thanks to SerializedDefaultAttributes; "can't get value" - due to WriteOnly tag;  "Invalid value for enum " - "StreamingPauseMode" (old games probably) Roexec
+		return result == nil
+			or result == "can't get value"
+			or type(result) == "string"
+				and (category == "Enum" or string_find(result, "Unable to get property " .. propertyName))
+	end
+
+	local __BREAK = "__BREAK" .. service.HttpService:GenerateGUID(false)
+
+	local function ReadProperty(instance, property, propertyName, special, category, optional)
+		local raw = __BREAK
+
+		local InstanceOverride = InstancesOverrides[instance]
+		if InstanceOverride then
+			local PropertiesOverride = InstanceOverride.Properties
+			if PropertiesOverride then
+				local PropertyOverride = PropertiesOverride[propertyName]
+				if PropertyOverride ~= nil then
+					return PropertyOverride
+				end
+			end
+		end
+
+		local CanRead = property.CanRead
+
+		if CanRead == false then -- * Skips because we've checked this property before
+			return __BREAK
+		end
+
+		if special then
+			if gethiddenproperty then
+				local ok, result = pcall(gethiddenproperty, instance, propertyName)
+
+				if ok then
+					raw = result
+				end
+
+				if filterPropVal(raw, propertyName, category) then
+					-- * Skip next time we encounter this too perhaps (unless there's a chance for it to be readable on other instance, somehow)
+
+					if result ~= nil or not optional then
+						if __DEBUG_MODE then
+							__DEBUG_MODE("Filtered", propertyName)
+						end
+						-- Property.Special = false
+						property.CanRead = false
+					end
+
+					return __BREAK -- ? We skip it because even if we use "" it will just reset to default in most cases, unless it's a string tag for example (same as not being defined)
+				end
+			end
+		else
+			if CanRead then
+				raw = instance[propertyName]
+			else -- Assuming CanRead == nil (untested)
+				local ok, result = pcall(index, instance, propertyName)
+
+				if ok then
+					raw = result
+				elseif gethiddenproperty then -- ! Be careful with this 'and gethiddenproperty' logic
+					ok, result = pcall(gethiddenproperty, instance, propertyName)
+
+					if ok then
+						raw = result
+
+						property.Special = true
+					end
+				end
+
+				property.CanRead = ok
+
+				if not ok or filterPropVal(raw, propertyName, category) then
+					return __BREAK
+				end
+			end
+		end
+
+		return raw
+	end
+
+	local function ReturnItem(className, instance)
+		return '<Item class="' .. className .. '" referent="' .. GetRef(instance) .. '"><Properties>' -- TODO: Ideally this shouldn't return <Properties> as well as the line below to close it IF  IgnorePropertiesOfNotScriptsOnScriptsMode is Enabled OR If all properties are default (reduces file size by at least 1.4%)
+	end
+
+	local function ReturnProperty(tag, propertyName, value)
+		return "<" .. tag .. ' name="' .. propertyName .. '">' .. value .. "</" .. tag .. ">"
+	end
+
+	local function ReturnValueAndTag(raw, valueType, descriptor)
+		local value, tag = (descriptor or XML_Descriptors[valueType])(raw)
+
+		return value, tag or valueType
+	end
+
+	local function InheritsFix(fixes, className, instance)
+		local Fix = fixes[className]
+		if Fix then
+			return Fix
+		elseif Fix == nil then
+			for class_name, fix in fixes do
+				if instance:IsA(class_name) then
+					return fix
+				end
+			end
+		end
+	end
+
+	local function GetInheritedProps(className)
+		local cached = inherited_properties[className]
+		if cached then
+			return cached
+		end
+
+		local prop_list = {}
+		local layer = ClassList[className]
+		while layer do
+			local layer_props = layer.Properties
+			table.move(layer_props, 1, #layer_props, #prop_list + 1, prop_list)
+
+			-- for _, prop in layer.Properties do
+			-- 	prop_list[prop_count] = prop -- ? table.clone is needed for case where .Default is modified
+			-- 	prop_count += 1
+			-- end
+
+			layer = ClassList[layer.Superclass]
+		end
+		inherited_properties[className] = prop_list
+		return prop_list
+	end
+
+	local CHUNK_LIMIT = 200 * 1024 * 1024 -- string length overflow prevention
+	local function save_cache(final)
+		local savestr = table.concat(savebuffer)
+		currentstr ..= savestr -- TODO: Causes "not enough memory" error on some exec
+
+		-- writefile(placename, totalstr)
+		-- appendfile(placename, savestr) -- * supposedly causes uneven amount of Tags (e.g. <Item> must be closed with </Item> but sometimes there's more of one than the other). While being under load, the function produces unexpected output?
+		local savestr_len = #savestr
+		totalsize += savestr_len
+		currentsize += savestr_len
+
+		table.clear(savebuffer)
+		savebuffer_size = 1
+
+		if CHUNK_LIMIT < currentsize or final then
+			table.insert(chunks, { size = currentsize, str = currentstr })
+			currentstr, currentsize = "", 0
+		end
+
+		if StatusText then
+			StatusText.Text = "Saving.. Size: " .. get_size_format()
+		end
+		-- ? Needed for at least 1fps (status text)
+		-- task.wait()
+		wait_for_render()
+	end
+
+	local function save_specific(className, properties)
+		local Ref = Instance.new(className) -- ! Assuming anything passed here is Creatable
+		local Item = ReturnItem(Ref.ClassName, Ref)
+
+		for propertyName, val in properties do
+			local whitelisted, value, tag
+
+			-- TODO: Improve all sort of overrides & exceptions in the code (code below is awful)
+			if "Source" == propertyName then
+				tag = "ProtectedString"
+				value = XML_Descriptors.__PROTECTEDSTRING(val)
+				whitelisted = true
+			elseif "Name" == propertyName then
+				whitelisted = true
+				value, tag = ReturnValueAndTag(val, "string") -- * Doubt ValueType will change
+			end
+
+			if whitelisted then
+				Item ..= ReturnProperty(tag, propertyName, value)
+			end
+		end
+		Item ..= "</Properties>"
+		return Item
+	end
+
+	local function save_hierarchy(hierarchy)
+		for _, instance in hierarchy do
+			local InstanceOverride, ClassTagOverride, ClassNameOverride
+
+			if not InstanceOverride then
+				InstanceOverride = InstancesOverrides[instance]
+				if InstanceOverride then
+					ClassTagOverride = InstanceOverride.__ClassName
+				end
+			end
+			local ClassName = instance.ClassName
+
+			local InstanceName = instance.Name
+			local SkipEntirely
+
+			if not ClassTagOverride then -- ! Assuming anything that has __ClassName comes from save_extra
+				if IgnoreNotArchivable and not instance.Archivable then
+					continue
+				end
+
+				SkipEntirely = IgnoreList[instance]
+				if SkipEntirely then
+					continue
+				end
+
+				do
+					local OnIgnoredList = IgnoreList[ClassName]
+					if OnIgnoredList and (OnIgnoredList == true or OnIgnoredList[InstanceName]) then
+						continue
+					end
+				end
+
+				if not DecompileIgnoring then
+					DecompileIgnoring = DecompileIgnore[instance]
+
+					if DecompileIgnoring == nil then
+						local DecompileIgnored = DecompileIgnore[ClassName]
+						if DecompileIgnored then
+							DecompileIgnoring = DecompileIgnored == true or DecompileIgnored[InstanceName]
+						end
+					end
+
+					if DecompileIgnoring then
+						DecompileIgnoring = instance
+					elseif DecompileIgnoring == false then
+						DecompileIgnoring = 1 -- Ignore one instance
+					end
+				end
+
+				do
+					local Fix = NotCreatableFixes[ClassName]
+
+					if Fix then
+						if SaveNotCreatable then
+							ClassName, InstanceOverride = Fix, replaceClassName(instance, InstanceName, ClassName)
+						else
+							continue -- They won't show up in Studio anyway (Enable SaveNotCreatable if you wish to bypass this)
+						end
+					else -- ! Assuming nothing that is a PartOperation or inherits from it is in NotCreatableFixes
+						if TreatUnionsAsParts and instance:IsA("PartOperation") then
+							ClassName, InstanceOverride = "Part", replaceClassName(instance, InstanceName, ClassName)
+							ClassNameOverride = "BasePart" -- * Mutual Superclass for PartOperation and Part; For properties only
+						elseif not ClassList[ClassName] then -- ? API Dump is outdated then
+							if __DEBUG_MODE then
+								__DEBUG_MODE("Class not Found", ClassName)
+							end
+
+							ClassTagOverride = ClassName -- ? To at least retain .ClassName unlike the rest of the class-specific properties
+							ClassName = "Folder" -- ? replaceClassName is not needed because of the ClassTagOverride
+						end
+					end
+				end
+			end
+			-- ? The reason we only save .Name (and few other props in save_specific) is because
+			-- ? we can be sure this is a custom container (ex. NilInstancesFixes)
+			-- ? However, in case of NotCreatableFixes, the Instance might have Tags, Attributes etc. that can potentially be saved (even though it's a Folder)
+			if InstanceOverride and InstanceOverride.__SaveSpecific then
+				savebuffer[savebuffer_size] = save_specific(ClassName, InstanceOverride.Properties) -- ! Assuming anything that has __SaveSpecific will have .Properties
+				savebuffer_size += 1
+			else
+				-- local Properties =
+				savebuffer[savebuffer_size] = ReturnItem(ClassTagOverride or ClassName, instance) -- TODO: Ideally this shouldn't return <Properties> as well as the line below to close it IF  IgnorePropertiesOfNotScriptsOnScriptsMode is ENABLED
+				savebuffer_size += 1
+				if not (IgnorePropertiesOfNotScriptsOnScriptsMode and not isLuaSourceContainer(instance)) then
+					local default_instance, new_def_inst
+
+					if IgnoreDefaultProperties then
+						default_instance = default_instances[ClassName]
+						if not default_instance then
+							local Class = ClassList[ClassName]
+							if not Class.NotCreatable then -- __api_dump_class_not_creatable__ also indicates this
+								-- NotCreatableFixes are exceptions to the check above meaning if we don't keep the NotCreatableFixes updated then Instance.new below might start erroring in the future potentially; HOWEVER IsPropertyModified solves this issue and no updates are really needed as NotCreatableFixes is up-to-date as of VERSION-HERE (which is when IPM gets enabled)
+								local ok, result = pcall(Instance.new, ClassName) -- ! pcall is needed for level 3 execs (for example TestService); EXCEPTION NOTED ABOVE (irrelevant)
+
+								if ok then
+									new_def_inst = result
+
+									default_instance = {}
+
+									default_instances[ClassName] = default_instance
+								else
+									Class.NotCreatable = true
+									if __DEBUG_MODE then
+										__DEBUG_MODE("Failed to create default Instance", ClassName, result)
+									end
+								end
+							elseif __DEBUG_MODE then
+								__DEBUG_MODE("Unable to create default Instance (NotCreatable)", ClassName)
+							end
+						end
+					end
+
+					for _, Property in GetInheritedProps(ClassNameOverride or ClassName) do
+						local PropertyName = Property.Name
+
+						if IgnoreProperties[PropertyName] then
+							continue
+						end
+
+						local ValueType = Property.ValueType
+
+						if IgnoreSharedStrings and ValueType == "SharedString" then -- ? More info in Options
+							continue
+						end
+
+						local Special, Category, Optional = Property.Special, Property.Category, Property.Optional
+
+						local raw = ReadProperty(instance, Property, PropertyName, Special, Category, Optional)
+
+						if raw == __BREAK then -- ! Assuming __BREAK is always returned when there's a failure to read a property
+							local GHPFFailed, Fallback = Property.GHPFFailed, Property.Fallback
+							if GHPFFailed and not Fallback then
+								continue
+							end
+
+							if not GHPFFailed then
+								local ok, result = pcall(gethiddenproperty_fallback, instance, PropertyName) -- * This helps in reading: Vector3int16, OptionalCoordinateFrame DataTypes. It also acts as an almost entire fallback for gethiddenproperty in case it is missing
+								if result == nil and not Optional then
+									ok = nil
+								end
+
+								if ok then
+									raw = result
+								else
+									GHPFFailed = true
+									Property.GHPFFailed = GHPFFailed
+								end
+							end
+
+							if GHPFFailed and Fallback then
+								local ok, result = pcall(Fallback, instance)
+
+								if ok then
+									raw = result
+								else
+									Property.Fallback = nil -- Low level execs might fail due to lack of some Capabilities
+									if __DEBUG_MODE then
+										__DEBUG_MODE("Fix Failed", PropertyName, result)
+									end
+									continue
+								end
+							end
+
+							if raw == __BREAK then
+								continue
+							end
+						end
+
+						if SharedStringOverwrite and ValueType == "BinaryString" then -- TODO: Convert this to table if more types are added
+							ValueType = "SharedString"
+						end
+
+						-- Special = Property.Special -- ? Read TODO below (must be updated if it's used frequently afterwards)
+
+						if
+							default_instance
+							and Property.CanRead
+							and not Property.Special -- TODO: .Special is checked more than once (because it might be updated during ReadProperty)
+							and not (PropertyName == "Source" and isLuaSourceContainer(instance))
+						then -- ? Could be not just "Source" in the future
+							if new_def_inst then
+								default_instance[PropertyName] = index(new_def_inst, PropertyName)
+							end
+							if default_instance[PropertyName] == raw then
+								continue
+							end
+						end
+
+						-- Serialization start
+
+						local tag, value
+						if Category == "Class" then
+							tag = "Ref"
+							if raw then
+								if SaveNotCreatableWillBeEnabled then
+									local Fix = NotCreatableFixes[raw.ClassName]
+									if
+										Fix
+										and (
+											PropertyName == "PlayerToHideFrom"
+											or ValueType ~= "Instance" and ValueType ~= Fix
+										)
+									then
+										-- * To avoid errors
+										continue
+									end
+								end
+
+								value = GetRef(raw)
+							else
+								value = "null"
+							end
+						elseif Category == "Enum" then -- ! We do this order (Enums before Descriptors) specifically because Font Enum might get a Font Descriptor despite having Enum Category, unlike Font DataType which that Descriptor is meant for
+							value, tag = XML_Descriptors.EnumItem(raw)
+						else
+							local Descriptor = XML_Descriptors[ValueType]
+
+							if Descriptor then
+								value, tag = ReturnValueAndTag(raw, ValueType, Descriptor)
+							elseif "ProtectedString" == ValueType then -- TODO: Try fitting this inside Descriptors
+								tag = ValueType
+
+								if PropertyName == "Source" then
+
+                                    local serverScriptOutput = handleServerScripts(instance)
+                                    if serverScriptOutput then
+                                        value = serverScriptOutput
+                                        should_decompile = nil
+                                    else
+
+									if DecompileIgnoring then -- ? Should this really prevent extraction of the original source if present ?
+										if DecompileIgnoring == 1 then
+											DecompileIgnoring = nil
+										end
+										value = "-- Ignored"
+									else
+										local should_decompile = true
+										local LinkedSource
+										local LinkedSource_Url = instance.LinkedSource -- ! Assuming every Class that has ProtectedString Source property also has a LinkedSource property
+										local hasLinkedSource = LinkedSource_Url ~= ""
+										local LinkedSource_type
+										if hasLinkedSource then
+											local Path = instance:GetFullName()
+											if RecoveredScripts then
+												table.insert(RecoveredScripts, Path)
+											end
+
+											LinkedSource = string.match(LinkedSource_Url, "%w+$") -- TODO: No sure if this pattern matches all possible cases. Example is: 'rbxassetid://0&hash=cd73dd2fe5e5013137231c227da3167e'
+											if LinkedSource then
+												if ScriptCache then
+													local cached = ldeccache[LinkedSource]
+
+													if cached then
+														value = cached
+														should_decompile = nil
+													end
+												end
+												if should_decompile then
+													if DecompileJobless then
+														value = "-- Not found in LinkedSource ScriptCache"
+														should_decompile = nil
+													end
+
+													LinkedSource_type = string.find(LinkedSource, "%a") and "hash"
+														or "id"
+
+													local asset = LinkedSource_type .. "=" .. LinkedSource
+
+													local ok, source = pcall(function()
+														-- Credits @halffalse
+														return game:HttpGet(
+															"https://assetdelivery.roproxy.com/v1/asset/?" .. asset
+														)
+													end)
+
+													if ok and filterLinkedSource(source) then
+														if ScriptCache then
+															ldeccache[LinkedSource] = source
+														end
+
+														value = source
+
+														should_decompile = nil
+													end
+												end
+											else --if __DEBUG_MODE then -- * We print this anyway because very important
+												warn(
+													"FAILED TO EXTRACT ORIGINAL SCRIPT SOURCE (OPEN A GITHUB ISSUE): ",
+													instance:GetFullName(),
+													LinkedSource_Url
+												)
+											end
+										end
+
+										if should_decompile then
+											local isLocalScript = instance:IsA("LocalScript")
+											if
+												isLocalScript and instance.RunContext == Enum.RunContext.Server
+												or not isLocalScript
+													and instance:IsA("Script")
+													and instance.RunContext ~= Enum.RunContext.Client
+											then
+												value = "-- [FilteringEnabled] Server Scripts are IMPOSSIBLE to save" -- TODO: Could be not just server scripts in the future
+											else
+												value = ldecompile(instance)
+												if SaveBytecode then
+													local output = SaveBytecode(instance)
+													if output then
+														value = output .. value
+													end
+												end
+											end
+										end
+
+										value = "-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw\n\n"
+											.. (hasLinkedSource and "-- Original Source: https://assetdelivery.roblox.com/v1/asset/?" .. (LinkedSource_type or "id") .. "=" .. (LinkedSource or LinkedSource_Url) .. "\n\n" or "")
+											.. value
+									end
+								end
+								value = XML_Descriptors.__PROTECTEDSTRING(value)
+							else
+								--OptionalCoordinateFrame and so on, we make it dynamic
+
+								if Optional then
+									Descriptor = XML_Descriptors[Optional]
+
+									if Descriptor then
+										if raw == nil then
+											-- * It can be empty, because it's optional
+											-- ? Though why even save it if it's empty considering it's optional
+											continue
+										-- value, tag = "", ValueType
+										else
+											value, tag = ReturnValueAndTag(raw, ValueType, Descriptor)
+										end
+									end
+								end
+							end
+                            end
+						end
+
+						if tag then
+							savebuffer[savebuffer_size] = ReturnProperty(tag, PropertyName, value)
+							savebuffer_size += 1
+						else --if __DEBUG_MODE then -- * We print this anyway because very important
+							warn("UNSUPPORTED TYPE (OPEN A GITHUB ISSUE): ", ValueType, ClassName, PropertyName)
+						end
+					end
+				end
+				savebuffer[savebuffer_size] = "</Properties>"
+				savebuffer_size += 1
+
+				if SaveCacheInterval < savebuffer_size then
+					save_cache()
+				end
+			end
+
+			if SkipEntirely ~= false then -- ? We save instance without it's descendants in this case (== false)
+				local Children = InstanceOverride and InstanceOverride.__Children or instance:GetChildren()
+
+				if #Children ~= 0 then
+					save_hierarchy(Children)
+				end
+			end
+
+			if DecompileIgnoring and DecompileIgnoring == instance then
+				DecompileIgnoring = nil
+			end
+
+			savebuffer[savebuffer_size] = "</Item>"
+			savebuffer_size += 1
+		end
+	end
+
+	local function save_extra(name, instanceOrTable, saveProps, customClassName, source)
+		if not customClassName then
+			customClassName = "Folder"
+		end
+
+		local properties = { Name = name, Source = source }
+		local hierarchy
+
+		if instanceOrTable then
+			if type(instanceOrTable) == "table" then
+				hierarchy = instanceOrTable
+			else
+				hierarchy = instanceOrTable:GetChildren()
+				if saveProps then
+					-- IgnoreList[instanceOrTable] = nil
+					-- IgnoreNotArchivable = false
+
+					InstancesOverrides[instanceOrTable] = {
+						__ClassName = customClassName, -- ! Assuming any class that contains ProtectedString is never passed, because it expects bytecode, not normal code
+						__Children = hierarchy,
+						Properties = properties,
+					}
+
+					save_hierarchy({ instanceOrTable })
+				end
+			end
+		end
+
+		if not saveProps then
+			savebuffer[savebuffer_size] = save_specific(customClassName, properties)
+			savebuffer_size += 1
+			if hierarchy then
+				save_hierarchy(hierarchy)
+			end
+			savebuffer[savebuffer_size] = "</Item>"
+			savebuffer_size += 1
+		end
+	end
+
+    local function handleServerScripts(instance)
+        if isLuaSourceContainer(instance) then
+            local isLocalScript = instance:IsA("LocalScript")
+            local isServerScript = instance:IsA("Script") and instance.RunContext ~= Enum.RunContext.Client
             
-            if i < 16 then
-                F = (B & C) | ((~B) & D)
-                g = i
-            elseif i < 32 then
-                F = (D & B) | ((~D) & C)
-                g = (5 * i + 1) % 16
-            elseif i < 48 then
-                F = B ~ C ~ D
-                g = (3 * i + 5) % 16
-            else
-                F = C ~ (B | (~D))
-                g = (7 * i) % 16
-            end
-            
-            F = (F + A + K[i + 1] + M[g + 1]) & 0xFFFFFFFF
-            A = D
-            D = C
-            C = B
-            B = (B + ((F << s[i + 1]) | (F >> (32 - s[i + 1])))) & 0xFFFFFFFF
-        end
-        
-        a0 = (a0 + A) & 0xFFFFFFFF
-        b0 = (b0 + B) & 0xFFFFFFFF
-        c0 = (c0 + C) & 0xFFFFFFFF
-        d0 = (d0 + D) & 0xFFFFFFFF
-    end
-    
-    -- Формирование результата
-    local function to_hex(num)
-        return string.format("%08x", num)
-    end
-    
-    local result = to_hex(a0) .. to_hex(b0) .. to_hex(c0) .. to_hex(d0)
-    
-    -- Кэширование
-    self.hash_cache[cache_key] = result
-    
-    return result
-end
-
--- SHA-256 (упрощенная реализация)
-function CRYPTO_SYSTEM:sha256(input)
-    if not input then return "" end
-    
-    local cache_key = "SHA256:" .. input
-    if self.hash_cache[cache_key] then
-        return self.hash_cache[cache_key]
-    end
-    
-    -- Константы SHA-256
-    local k = {
-        0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
-        0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
-        0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
-        0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
-        0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
-        0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
-        0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
-        0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
-        0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
-        0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
-        0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3,
-        0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
-        0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
-        0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
-        0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
-        0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
-    }
-    
-    -- Начальные значения
-    local h = {
-        0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
-        0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19
-    }
-    
-    -- Подготовка сообщения
-    local message = input
-    local bit_len = #message * 8
-    
-    -- Добавление бита '1'
-    message = message .. string.char(0x80)
-    
-    -- Добавление нулей
-    while (#message + 8) % 64 ~= 0 do
-        message = message .. string.char(0)
-    end
-    
-    -- Добавление длины (big-endian)
-    for i = 7, 0, -1 do
-        message = message .. string.char((bit_len >> (i * 8)) & 0xFF)
-    end
-    
-    -- Обработка блоков
-    for chunk_start = 1, #message, 64 do
-        local chunk = message:sub(chunk_start, chunk_start + 63)
-        local w = {}
-        
-        -- Заполнение массива w
-        for i = 0, 15 do
-            local byte_pos = i * 4 + 1
-            w[i + 1] = string.byte(chunk, byte_pos + 3) +
-                      (string.byte(chunk, byte_pos + 2) << 8) +
-                      (string.byte(chunk, byte_pos + 1) << 16) +
-                      (string.byte(chunk, byte_pos) << 24)
-        end
-        
-        -- Расширение массива w
-        for i = 17, 64 do
-            local s0 = bit32.bxor(bit32.rrotate(w[i-15], 7), bit32.rrotate(w[i-15], 18), bit32.rshift(w[i-15], 3))
-            local s1 = bit32.bxor(bit32.rrotate(w[i-2], 17), bit32.rrotate(w[i-2], 19), bit32.rshift(w[i-2], 10))
-            w[i] = (w[i-16] + s0 + w[i-7] + s1) & 0xFFFFFFFF
-        end
-        
-        -- Инициализация рабочих переменных
-        local a, b, c, d, e, f, g, hh = h[1], h[2], h[3], h[4], h[5], h[6], h[7], h[8]
-        
-        -- Основной цикл
-        for i = 1, 64 do
-            local S1 = bit32.bxor(bit32.rrotate(e, 6), bit32.rrotate(e, 11), bit32.rrotate(e, 25))
-            local ch = bit32.bxor(bit32.band(e, f), bit32.band(bit32.bnot(e), g))
-            local temp1 = (hh + S1 + ch + k[i] + w[i]) & 0xFFFFFFFF
-            local S0 = bit32.bxor(bit32.rrotate(a, 2), bit32.rrotate(a, 13), bit32.rrotate(a, 22))
-            local maj = bit32.bxor(bit32.band(a, b), bit32.band(a, c), bit32.band(b, c))
-            local temp2 = (S0 + maj) & 0xFFFFFFFF
-            
-            hh = g
-            g = f
-            f = e
-            e = (d + temp1) & 0xFFFFFFFF
-            d = c
-            c = b
-            b = a
-            a = (temp1 + temp2) & 0xFFFFFFFF
-        end
-        
-        -- Обновление хеш-значений
-        h[1] = (h[1] + a) & 0xFFFFFFFF
-        h[2] = (h[2] + b) & 0xFFFFFFFF
-        h[3] = (h[3] + c) & 0xFFFFFFFF
-        h[4] = (h[4] + d) & 0xFFFFFFFF
-        h[5] = (h[5] + e) & 0xFFFFFFFF
-        h[6] = (h[6] + f) & 0xFFFFFFFF
-        h[7] = (h[7] + g) & 0xFFFFFFFF
-        h[8] = (h[8] + hh) & 0xFFFFFFFF
-    end
-    
-    -- Формирование результата
-    local result = ""
-    for i = 1, 8 do
-        result = result .. string.format("%08x", h[i])
-    end
-    
-    -- Кэширование
-    self.hash_cache[cache_key] = result
-    
-    return result
-end
-
--- CRC32
-function CRYPTO_SYSTEM:crc32(input)
-    if not input then return "" end
-    
-    local cache_key = "CRC32:" .. input
-    if self.hash_cache[cache_key] then
-        return self.hash_cache[cache_key]
-    end
-    
-    local crc = 0xFFFFFFFF
-    
-    for i = 1, #input do
-        local byte = string.byte(input, i)
-        crc = bit32.bxor(crc, byte)
-        
-        for _ = 1, 8 do
-            local mask = bit32.band(crc, 1) * 0xEDB88320
-            crc = bit32.bxor(bit32.rshift(crc, 1), mask)
-        end
-    end
-    
-    local result = string.format("%08x", bit32.bxor(crc, 0xFFFFFFFF))
-    self.hash_cache[cache_key] = result
-    
-    return result
-end
-
--- Универсальная функция хеширования
-function CRYPTO_SYSTEM:hash(input, algorithm)
-    algorithm = algorithm or "MD5"
-    
-    if algorithm == "MD5" then
-        return self:md5(input)
-    elseif algorithm == "SHA256" then
-        return self:sha256(input)
-    elseif algorithm == "CRC32" then
-        return self:crc32(input)
-    elseif algorithm == "SHA1" then
-        -- Простая реализация SHA1
-        local md5_hash = self:md5(input)
-        return md5_hash:sub(1, 40) -- Эмуляция SHA1
-    else
-        log_warn("Алгоритм %s не поддерживается, используется MD5", algorithm)
-        return self:md5(input)
-    end
-end
-
--- XOR шифрование/дешифрование
-function CRYPTO_SYSTEM:xor_cipher(data, key)
-    if not data or not key then return data end
-    
-    local result = ""
-    local key_len = #key
-    
-    for i = 1, #data do
-        local data_byte = string.byte(data, i)
-        local key_byte = string.byte(key, (i - 1) % key_len + 1)
-        result = result .. string.char(bit32.bxor(data_byte, key_byte))
-    end
-    
-    return result
-end
-
--- Base64 кодирование
-function CRYPTO_SYSTEM:base64_encode(data)
-    local b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-    local result = ""
-    
-    for i = 1, #data, 3 do
-        local a, b1, c = string.byte(data, i, i + 2)
-        
-        local n = (a or 0) * 0x10000 + (b1 or 0) * 0x100 + (c or 0)
-        
-        for j = 1, 4 do
-            if i + j - 2 <= #data then
-                result = result .. b:sub(math.floor(n / 2 ^ (6 * (4 - j))) % 64 + 1, math.floor(n / 2 ^ (6 * (4 - j))) % 64 + 1)
-            else
-                result = result .. "="
-            end
-        end
-    end
-    
-    return result
-end
-
--- Base64 декодирование
-function CRYPTO_SYSTEM:base64_decode(data)
-    local b = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-    local result = ""
-    
-    data = data:gsub("[^A-Za-z0-9+/=]", "")
-    
-    for i = 1, #data, 4 do
-        local a, b1, c, d = data:sub(i, i + 3):byte(1, 4)
-        
-        local n = 0
-        for j = 1, 4 do
-            local char = data:sub(i + j - 1, i + j - 1)
-            if char ~= "=" then
-                n = n * 64 + (b:find(char) - 1)
-            end
-        end
-        
-        for j = 1, 3 do
-            if i + j - 1 <= #data - (data:sub(-2) == "==" and 2 or data:sub(-1) == "=" and 1 or 0) then
-                result = result .. string.char(math.floor(n / 2 ^ (8 * (3 - j))) % 256)
-            end
-        end
-    end
-    
-    return result
-end
-
--- HEX кодирование
-function CRYPTO_SYSTEM:hex_encode(data)
-    return (data:gsub('.', function(c) 
-        return string.format('%02X', string.byte(c)) 
-    end))
-end
-
--- HEX декодирование
-function CRYPTO_SYSTEM:hex_decode(hex)
-    return (hex:gsub('..', function(cc)
-        return string.char(tonumber(cc, 16))
-    end))
-end
-
--- ===================================================================
--- СЕКЦИЯ 4: СИСТЕМА КЭШИРОВАНИЯ (1500+ строк)
--- ===================================================================
-
-local CACHE_SYSTEM = {
-    -- Настройки кэша
-    settings = {
-        max_size_mb = 1024,
-        max_items = 10000,
-        default_ttl = 3600, -- 1 час в секундах
-        cleanup_interval = 300, -- 5 минут
-        compression = true,
-        encryption = false
-    },
-    
-    -- Внутреннее состояние
-    data = {},
-    metadata = {},
-    access_times = {},
-    sizes = {},
-    total_size = 0,
-    hits = 0,
-    misses = 0,
-    last_cleanup = os.clock()
-}
-
--- Инициализация кэша
-function CACHE_SYSTEM:init(settings)
-    if settings then
-        for key, value in pairs(settings) do
-            if self.settings[key] ~= nil then
-                self.settings[key] = value
-            end
-        end
-    end
-    
-    self.data = {}
-    self.metadata = {}
-    self.access_times = {}
-    self.sizes = {}
-    self.total_size = 0
-    self.hits = 0
-    self.misses = 0
-    self.last_cleanup = os.clock()
-    
-    log_info("Система кэширования инициализирована (лимит: %d MB)", self.settings.max_size_mb)
-    return true
-end
-
--- Добавление в кэш
-function CACHE_SYSTEM:set(key, value, ttl)
-    if not key then return false end
-    
-    ttl = ttl or self.settings.default_ttl
-    
-    -- Расчет размера
-    local size = self:calculate_size(value)
-    local max_size_bytes = self.settings.max_size_mb * 1024 * 1024
-    
-    -- Проверка лимита
-    if size > max_size_bytes * 0.5 then
-        log_warn("Элемент кэша слишком большой (%d bytes), пропущен", size)
-        return false
-    end
-    
-    -- Очистка если нужно место
-    while self.total_size + size > max_size_bytes and #self.access_times > 0 do
-        self:remove_oldest()
-    end
-    
-    -- Проверка лимита по количеству
-    if #self.access_times >= self.settings.max_items then
-        self:remove_oldest()
-    end
-    
-    -- Сохранение данных
-    self.data[key] = value
-    self.metadata[key] = {
-        created = os.clock(),
-        expires = os.clock() + ttl,
-        ttl = ttl,
-        size = size,
-        access_count = 0
-    }
-    
-    self.access_times[key] = os.clock()
-    self.sizes[key] = size
-    self.total_size = self.total_size + size
-    
-    -- Компрессия если включена
-    if self.settings.compression then
-        self:compress_item(key)
-    end
-    
-    -- Шифрование если включено
-    if self.settings.encryption then
-        self:encrypt_item(key)
-    end
-    
-    log_debug("Добавлено в кэш: %s (размер: %d bytes)", tostring(key), size)
-    return true
-end
-
--- Получение из кэша
-function CACHE_SYSTEM:get(key)
-    if not key then return nil end
-    
-    -- Проверка существования
-    if not self.data[key] then
-        self.misses = self.misses + 1
-        return nil
-    end
-    
-    local meta = self.metadata[key]
-    
-    -- Проверка срока действия
-    if os.clock() > meta.expires then
-        self:delete(key)
-        self.misses = self.misses + 1
-        return nil
-    end
-    
-    -- Расшифровка если нужно
-    if self.settings.encryption then
-        self:decrypt_item(key)
-    end
-    
-    -- Декомпрессия если нужно
-    if self.settings.compression then
-        self:decompress_item(key)
-    end
-    
-    -- Обновление метаданных
-    meta.access_count = meta.access_count + 1
-    meta.last_access = os.clock()
-    self.access_times[key] = os.clock()
-    
-    self.hits = self.hits + 1
-    log_trace("Кэш хит: %s (использований: %d)", tostring(key), meta.access_count)
-    
-    return self.data[key]
-end
-
--- Удаление из кэша
-function CACHE_SYSTEM:delete(key)
-    if not self.data[key] then return false end
-    
-    local size = self.sizes[key] or 0
-    
-    self.data[key] = nil
-    self.metadata[key] = nil
-    self.access_times[key] = nil
-    self.sizes[key] = nil
-    
-    self.total_size = math.max(0, self.total_size - size)
-    
-    log_debug("Удалено из кэша: %s", tostring(key))
-    return true
-end
-
--- Очистка устаревших элементов
-function CACHE_SYSTEM:cleanup()
-    local removed = 0
-    local current_time = os.clock()
-    
-    for key, meta in pairs(self.metadata) do
-        if current_time > meta.expires then
-            self:delete(key)
-            removed = removed + 1
-        end
-    end
-    
-    self.last_cleanup = current_time
-    
-    if removed > 0 then
-        log_info("Очистка кэша: удалено %d устаревших элементов", removed)
-    end
-    
-    return removed
-end
-
--- Автоматическая очистка
-function CACHE_SYSTEM:auto_cleanup()
-    if os.clock() - self.last_cleanup > self.settings.cleanup_interval then
-        return self:cleanup()
-    end
-    return 0
-end
-
--- Удаление самого старого элемента
-function CACHE_SYSTEM:remove_oldest()
-    local oldest_key = nil
-    local oldest_time = math.huge
-    
-    for key, time in pairs(self.access_times) do
-        if time < oldest_time then
-            oldest_time = time
-            oldest_key = key
-        end
-    end
-    
-    if oldest_key then
-        self:delete(oldest_key)
-        return true
-    end
-    
-    return false
-end
-
--- Расчет размера элемента
-function CACHE_SYSTEM:calculate_size(value)
-    if type(value) == "string" then
-        return #value
-    elseif type(value) == "number" then
-        return 8 -- размер double
-    elseif type(value) == "boolean" then
-        return 1
-    elseif type(value) == "table" then
-        local size = 0
-        for k, v in pairs(value) do
-            size = size + self:calculate_size(k) + self:calculate_size(v)
-        end
-        return size + 50 -- накладные расходы таблицы
-    else
-        return 50 -- примерный размер для других типов
-    end
-end
-
--- Статистика кэша
-function CACHE_SYSTEM:stats()
-    local item_count = 0
-    for _ in pairs(self.data) do item_count = item_count + 1 end
-    
-    local total_access = 0
-    for _, meta in pairs(self.metadata) do
-        total_access = total_access + meta.access_count
-    end
-    
-    local avg_access = item_count > 0 and total_access / item_count or 0
-    local hit_rate = (self.hits + self.misses) > 0 and (self.hits / (self.hits + self.misses)) * 100 or 0
-    
-    return {
-        items = item_count,
-        total_size_mb = self.total_size / (1024 * 1024),
-        max_size_mb = self.settings.max_size_mb,
-        hits = self.hits,
-        misses = self.misses,
-        hit_rate = hit_rate,
-        avg_access = avg_access,
-        memory_usage = collectgarbage("count") / 1024
-    }
-end
-
--- Полная очистка
-function CACHE_SYSTEM:clear()
-    self.data = {}
-    self.metadata = {}
-    self.access_times = {}
-    self.sizes = {}
-    self.total_size = 0
-    self.hits = 0
-    self.misses = 0
-    
-    collectgarbage("collect")
-    log_info("Кэш полностью очищен")
-    return true
-end
-
--- Простая компрессия (эмуляция)
-function CACHE_SYSTEM:compress_item(key)
-    if type(self.data[key]) == "string" and #self.data[key] > 100 then
-        -- Эмуляция компрессии - замена повторяющихся пробелов
-        local compressed = self.data[key]:gsub("  +", " ")
-        if #compressed < #self.data[key] then
-            self.data[key] = compressed
-            self.sizes[key] = #compressed
-            self.metadata[key].compressed = true
-        end
-    end
-end
-
--- Декомпрессия
-function CACHE_SYSTEM:decompress_item(key)
-    if self.metadata[key] and self.metadata[key].compressed then
-        -- Эмуляция декомпрессии
-        self.metadata[key].compressed = false
-    end
-end
-
--- Шифрование (эмуляция)
-function CACHE_SYSTEM:encrypt_item(key)
-    if self.settings.encryption then
-        self.metadata[key].encrypted = true
-    end
-end
-
--- Дешифрование
-function CACHE_SYSTEM:decrypt_item(key)
-    if self.metadata[key] and self.metadata[key].encrypted then
-        self.metadata[key].encrypted = false
-    end
-end
-
--- ===================================================================
--- СЕКЦИЯ 5: МНОГОЗАДАЧНЫЙ МЕНЕДЖЕР (3000+ строк)
--- ===================================================================
-
-local TASK_MANAGER = {
-    name = "Quantum Task Manager v10.0",
-    version = "10.0.0",
-    
-    settings = {
-        max_workers = 32,
-        max_queue_size = 1000,
-        timeout = 60,
-        retry_attempts = 3,
-        priority_levels = 10,
-        auto_scale = true,
-        load_balancing = true,
-        memory_limit_mb = 512,
-        cpu_limit = 80, -- процент
-        enable_stats = true,
-        enable_monitoring = true
-    },
-    
-    state = {
-        workers = {},
-        tasks = {
-            pending = {},
-            running = {},
-            completed = {},
-            failed = {}
-        },
-        priorities = {},
-        worker_pool = {},
-        is_running = false,
-        is_paused = false,
-        shutdown_requested = false,
-        
-        stats = {
-            total_tasks = 0,
-            completed_tasks = 0,
-            failed_tasks = 0,
-            total_time = 0,
-            avg_time = 0,
-            peak_workers = 0,
-            queue_size = 0,
-            memory_usage = 0,
-            cpu_usage = 0,
-            throughput = 0
-        }
-    }
-}
-
--- Инициализация менеджера задач
-function TASK_MANAGER:init(settings)
-    if settings then
-        for key, value in pairs(settings) do
-            if self.settings[key] ~= nil then
-                self.settings[key] = value
-            end
-        end
-    end
-    
-    -- Инициализация приоритетов
-    self.state.priorities = {}
-    for i = 1, self.settings.priority_levels do
-        self.state.priorities[i] = {}
-    end
-    
-    -- Очистка состояния
-    self.state.workers = {}
-    self.state.tasks = {
-        pending = {},
-        running = {},
-        completed = {},
-        failed = {}
-    }
-    self.state.worker_pool = {}
-    self.state.is_running = false
-    self.state.is_paused = false
-    self.state.shutdown_requested = false
-    
-    -- Сброс статистики
-    self.state.stats = {
-        total_tasks = 0,
-        completed_tasks = 0,
-        failed_tasks = 0,
-        total_time = 0,
-        avg_time = 0,
-        peak_workers = 0,
-        queue_size = 0,
-        memory_usage = 0,
-        cpu_usage = 0,
-        throughput = 0
-    }
-    
-    log_info("Менеджер задач инициализирован (воркеров: %d)", self.settings.max_workers)
-    return true
-end
-
--- Добавление задачи
-function TASK_MANAGER:add_task(func, args, priority, metadata)
-    if not func or type(func) ~= "function" then
-        log_error("Некорректная функция для задачи")
-        return nil
-    end
-    
-    priority = priority or math.floor(self.settings.priority_levels / 2)
-    priority = math.max(1, math.min(self.settings.priority_levels, priority))
-    
-    local task_id = #self.state.tasks.pending + #self.state.tasks.running + #self.state.tasks.completed + #self.state.tasks.failed + 1
-    
-    local task = {
-        id = task_id,
-        func = func,
-        args = args or {},
-        priority = priority,
-        metadata = metadata or {},
-        status = "pending",
-        attempts = 0,
-        created_at = os.clock(),
-        started_at = nil,
-        completed_at = nil,
-        result = nil,
-        error = nil,
-        worker_id = nil
-    }
-    
-    -- Добавление в очередь
-    table.insert(self.state.tasks.pending, task)
-    table.insert(self.state.priorities[priority], task)
-    
-    -- Обновление статистики
-    self.state.stats.total_tasks = self.state.stats.total_tasks + 1
-    self.state.stats.queue_size = #self.state.tasks.pending
-    
-    log_debug("Добавлена задача #%d (приоритет: %d)", task_id, priority)
-    
-    return task_id
-end
-
--- Добавление группы задач
-function TASK_MANAGER:add_batch(tasks)
-    local task_ids = {}
-    
-    for _, task_data in ipairs(tasks) do
-        local task_id = self:add_task(
-            task_data.func,
-            task_data.args,
-            task_data.priority,
-            task_data.metadata
-        )
-        
-        if task_id then
-            table.insert(task_ids, task_id)
-        end
-    end
-    
-    log_info("Добавлено %d задач в батче", #task_ids)
-    return task_ids
-end
-
--- Получение следующей задачи
-function TASK_MANAGER:get_next_task()
-    -- Поиск задачи с наивысшим приоритетом
-    for priority = 1, self.settings.priority_levels do
-        if #self.state.priorities[priority] > 0 then
-            local task = table.remove(self.state.priorities[priority], 1)
-            
-            -- Удаление из pending
-            for i, pending_task in ipairs(self.state.tasks.pending) do
-                if pending_task.id == task.id then
-                    table.remove(self.state.tasks.pending, i)
-                    break
+            if isServerScript then
+                local LinkedSource_Url = instance.LinkedSource
+                if LinkedSource_Url and LinkedSource_Url ~= "" then
+                    -- Это серверный скрипт с LinkedSource
+                    local LinkedSource = string.match(LinkedSource_Url, "%w+$")
+                    if LinkedSource then
+                        return "-- Server Script (LinkedSource): https://assetdelivery.roblox.com/v1/asset/?id=" .. LinkedSource
+                    else
+                        return "-- Server Script (LinkedSource available)"
+                    end
+                else
+                    return "-- [FilteringEnabled] Server Scripts are IMPOSSIBLE to save"
                 end
             end
+        end
+        return nil
+    end
+
+	local function save_game()
+		do
+			if IsModel then
+				--[[
+			-- ? Roblox encodes the following additional attributes. These are not required. Moreover, any defined schemas are ignored, and not required for a file to be valid: xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd"
+			Also http can be converted to https but not sure if Roblox cares
+			-- ? <External>null</External><External>nil</External>  - <External> is a legacy concept that is no longer used.
+		]]
+				header ..= '<Meta name="ExplicitAutoJoints">true</Meta>'
+			end
+			if writefile and not OPTIONS.Callback then
+				writefile(placename, header) -- TODO This is sort of useless if writefile will be used at the end (like if AlternativeWritefile and Callback are unused)
+			end
+		end
+
+		-- TODO Find a better solution for this
+		SaveNotCreatableWillBeEnabled = SaveNotCreatable
+			or (IsolateLocalPlayer or IsolateLocalPlayerCharacter) and IsolateLocalPlayer
+			or IsolatePlayers
+			or NilInstances and global_container.getnilinstances -- ! Make sure this accurately reflects everything below
+
+                if mode == "optimized" or mode == "full" then
+            -- Добавляем ServerScriptService и ServerStorage в список сохранения
+            local serverServices = {"ServerScriptService", "ServerStorage"}
             
-            task.status = "running"
-            task.started_at = os.clock()
-            task.attempts = task.attempts + 1
-            
-            table.insert(self.state.tasks.running, task)
-            
-            log_trace("Задача #%d взята в работу", task.id)
-            return task
-        end
-    end
-    
-    return nil
-end
-
--- Функция воркера
-function TASK_MANAGER:worker_function(worker_id)
-    log_info("Воркер #%d запущен", worker_id)
-    
-    while self.state.is_running and not self.state.shutdown_requested do
-        if self.state.is_paused then
-            wait(0.1)
-            goto continue
-        end
-        
-        local task = self:get_next_task()
-        
-        if not task then
-            -- Нет задач, небольшая пауза
-            wait(0.05)
-            goto continue
-        end
-        
-        task.worker_id = worker_id
-        
-        -- Выполнение задачи
-        local success, result, error = xpcall(
-            function()
-                return task.func(unpack(task.args))
-            end,
-            function(err)
-                return nil, debug.traceback(err, 2)
-            end
-        )
-        
-        -- Обновление статуса задачи
-        task.completed_at = os.clock()
-        task.execution_time = task.completed_at - (task.started_at or task.completed_at)
-        
-        -- Удаление из running
-        for i, running_task in ipairs(self.state.tasks.running) do
-            if running_task.id == task.id then
-                table.remove(self.state.tasks.running, i)
-                break
-            end
-        end
-        
-        if success then
-            task.status = "completed"
-            task.result = result
-            table.insert(self.state.tasks.completed, task)
-            self.state.stats.completed_tasks = self.state.stats.completed_tasks + 1
-            
-            log_debug("Задача #%d завершена успешно за %.3f сек", 
-                task.id, task.execution_time)
-        else
-            if task.attempts < self.settings.retry_attempts then
-                -- Повторная попытка
-                task.status = "pending"
-                task.error = error
-                task.started_at = nil
-                task.worker_id = nil
-                
-                table.insert(self.state.tasks.pending, task)
-                table.insert(self.state.priorities[task.priority], task)
-                
-                log_warn("Задача #%d не удалась, повторная попытка %d/%d: %s",
-                    task.id, task.attempts, self.settings.retry_attempts, error)
-            else
-                -- Задача провалена
-                task.status = "failed"
-                task.error = error
-                table.insert(self.state.tasks.failed, task)
-                self.state.stats.failed_tasks = self.state.stats.failed_tasks + 1
-                
-                log_error("Задача #%d провалена после %d попыток: %s",
-                    task.id, task.attempts, error)
-            end
-        end
-        
-        -- Обновление статистики
-        self.state.stats.total_time = self.state.stats.total_time + task.execution_time
-        self.state.stats.avg_time = self.state.stats.total_time / 
-            (self.state.stats.completed_tasks + self.state.stats.failed_tasks)
-        
-        -- Обновление пикового значения воркеров
-        local current_workers = #self.state.tasks.running
-        if current_workers > self.state.stats.peak_workers then
-            self.state.stats.peak_workers = current_workers
-        end
-        
-        -- Обновление размера очереди
-        self.state.stats.queue_size = #self.state.tasks.pending
-        
-        -- Автомасштабирование
-        if self.settings.auto_scale then
-            self:auto_scale_workers()
-        end
-        
-        -- Контроль памяти
-        local memory = collectgarbage("count") / 1024
-        self.state.stats.memory_usage = memory
-        
-        if memory > self.settings.memory_limit_mb then
-            log_warn("Воркер #%d: превышение памяти (%.1f MB), сборка мусора", 
-                worker_id, memory)
-            collectgarbage("collect")
-        end
-        
-        ::continue::
-    end
-    
-    log_info("Воркер #%d остановлен", worker_id)
-end
-
--- Добавление воркера
-function TASK_MANAGER:add_worker()
-    local worker_id = #self.state.workers + 1
-    
-    local worker_thread = coroutine.create(function()
-        self:worker_function(worker_id)
-    end)
-    
-    table.insert(self.state.workers, worker_thread)
-    self.state.worker_pool[worker_id] = {
-        id = worker_id,
-        thread = worker_thread,
-        status = "idle",
-        tasks_completed = 0,
-        start_time = os.clock()
-    }
-    
-    return worker_id
-end
-
--- Удаление воркера
-function TASK_MANAGER:remove_worker()
-    if #self.state.workers > 0 then
-        local worker = table.remove(self.state.workers)
-        local worker_id = #self.state.workers + 1
-        
-        self.state.worker_pool[worker_id] = nil
-        log_debug("Воркер #%d удален", worker_id)
-        
-        return true
-    end
-    return false
-end
-
--- Автомасштабирование
-function TASK_MANAGER:auto_scale_workers()
-    if not self.settings.auto_scale then return end
-    
-    local pending = #self.state.tasks.pending
-    local running = #self.state.tasks.running
-    local total_workers = #self.state.workers
-    
-    -- Добавление воркеров если много задач в очереди
-    if pending > running * 2 and total_workers < self.settings.max_workers then
-        local to_add = math.min(
-            math.ceil(pending / 10),
-            self.settings.max_workers - total_workers
-        )
-        
-        for i = 1, to_add do
-            self:add_worker()
-        end
-        
-        if to_add > 0 then
-            log_info("Добавлено %d воркеров (всего: %d)", to_add, #self.state.workers)
-        end
-    -- Удаление воркеров если мало задач
-    elseif pending < running / 2 and total_workers > 1 then
-        local to_remove = math.min(
-            math.floor((running - pending) / 5),
-            total_workers - 1
-        )
-        
-        for i = 1, to_remove do
-            self:remove_worker()
-        end
-        
-        if to_remove > 0 then
-            log_info("Удалено %d воркеров (всего: %d)", to_remove, #self.state.workers)
-        end
-    end
-end
-
--- Запуск менеджера
-function TASK_MANAGER:run()
-    if self.state.is_running then
-        log_warn("Менеджер задач уже запущен")
-        return false
-    end
-    
-    log_info("Запуск менеджера задач...")
-    
-    self.state.is_running = true
-    self.state.shutdown_requested = false
-    
-    -- Создание начальных воркеров
-    local initial_workers = math.min(4, self.settings.max_workers)
-    
-    for i = 1, initial_workers do
-        self:add_worker()
-    end
-    
-    -- Запуск воркеров
-    for _, worker in ipairs(self.state.workers) do
-        coroutine.resume(worker)
-    end
-    
-    log_info("Менеджер задач запущен с %d воркерами", #self.state.workers)
-    return true
-end
-
--- Остановка менеджера
-function TASK_MANAGER:stop()
-    if not self.state.is_running then
-        return true
-    end
-    
-    log_info("Остановка менеджера задач...")
-    
-    self.state.shutdown_requested = true
-    self.state.is_running = false
-    
-    -- Ожидание завершения работающих задач
-    local start_wait = os.clock()
-    local max_wait = 10 -- секунд
-    
-    while #self.state.tasks.running > 0 and os.clock() - start_wait < max_wait do
-        wait(0.1)
-    end
-    
-    -- Очистка
-    self.state.workers = {}
-    self.state.worker_pool = {}
-    
-    log_info("Менеджер задач остановлен")
-    return true
-end
-
--- Пауза менеджера
-function TASK_MANAGER:pause()
-    if not self.state.is_running then
-        return false
-    end
-    
-    self.state.is_paused = true
-    log_info("Менеджер задач приостановлен")
-    return true
-end
-
--- Возобновление работы
-function TASK_MANAGER:resume()
-    if not self.state.is_running then
-        return false
-    end
-    
-    self.state.is_paused = false
-    log_info("Менеджер задач возобновил работу")
-    return true
-end
-
--- Ожидание завершения всех задач
-function TASK_MANAGER:wait_for_completion(timeout)
-    timeout = timeout or self.settings.timeout
-    local start_time = os.clock()
-    
-    while self.state.is_running do
-        if #self.state.tasks.pending == 0 and #self.state.tasks.running == 0 then
-            break
-        end
-        
-        if os.clock() - start_time > timeout then
-            log_warn("Таймаут ожидания завершения задач")
-            return false, "timeout"
-        end
-        
-        wait(0.1)
-    end
-    
-    return true
-end
-
--- Получение результатов
-function TASK_MANAGER:get_results()
-    local results = {}
-    
-    for _, task in ipairs(self.state.tasks.completed) do
-        results[task.id] = {
-            success = true,
-            result = task.result,
-            metadata = task.metadata,
-            execution_time = task.execution_time,
-            attempts = task.attempts,
-            worker_id = task.worker_id
-        }
-    end
-    
-    for _, task in ipairs(self.state.tasks.failed) do
-        results[task.id] = {
-            success = false,
-            error = task.error,
-            metadata = task.metadata,
-            execution_time = task.execution_time,
-            attempts = task.attempts,
-            worker_id = task.worker_id
-        }
-    end
-    
-    return results
-end
-
--- Статистика менеджера
-function TASK_MANAGER:get_stats()
-    local stats = table.clone(self.state.stats)
-    
-    stats.pending_tasks = #self.state.tasks.pending
-    stats.running_tasks = #self.state.tasks.running
-    stats.completed_tasks = #self.state.tasks.completed
-    stats.failed_tasks = #self.state.tasks.failed
-    stats.active_workers = #self.state.workers
-    
-    if stats.total_tasks > 0 then
-        stats.success_rate = (stats.completed_tasks / stats.total_tasks) * 100
-        stats.failure_rate = (stats.failed_tasks / stats.total_tasks) * 100
-    else
-        stats.success_rate = 0
-        stats.failure_rate = 0
-    end
-    
-    -- Расчет throughput (задач в секунду)
-    local uptime = os.clock() - (REGISTRY.metrics.start_time or os.clock())
-    if uptime > 0 then
-        stats.throughput = (stats.completed_tasks + stats.failed_tasks) / uptime
-    end
-    
-    return stats
-end
-
--- Очистка всех задач
-function TASK_MANAGER:clear()
-    self.state.tasks = {
-        pending = {},
-        running = {},
-        completed = {},
-        failed = {}
-    }
-    
-    self.state.priorities = {}
-    for i = 1, self.settings.priority_levels do
-        self.state.priorities[i] = {}
-    end
-    
-    log_info("Все задачи очищены")
-    return true
-end
-
--- Полная перезагрузка
-function TASK_MANAGER:reset()
-    self:stop()
-    self:clear()
-    self:init()
-    
-    log_info("Менеджер задач полностью перезагружен")
-    return true
-end
-
--- ===================================================================
--- СЕКЦИЯ 6: УЛЬТРА-ДЕОБФУСКАТОР MOONSEC V3 PRO MAX (4000+ строк)
--- ===================================================================
-
-local ULTRA_DEOBFUSCATOR = {
-    name = "Ultra MoonSec Deobfuscator v10.0",
-    version = "10.0.0",
-    
-    settings = {
-        -- Основные настройки
-        max_iterations = 50,
-        timeout = 30,
-        memory_limit_mb = 1024,
-        enable_cache = true,
-        enable_stats = true,
-        
-        -- Уровни деобфускации
-        deobfuscation_level = 10, -- 1-10
-        string_recovery_level = 10,
-        control_flow_level = 10,
-        vm_emulation_level = 8,
-        pattern_matching_level = 10,
-        
-        -- Включенные методы
-        enable_string_decryption = true,
-        enable_control_flow_recovery = true,
-        enable_vm_emulation = true,
-        enable_pattern_matching = true,
-        enable_heuristic_analysis = true,
-        enable_crypto_analysis = true,
-        enable_dead_code_removal = true,
-        enable_optimization = true,
-        
-        -- Агрессивность
-        aggressive_mode = true,
-        deep_analysis = true,
-        multi_layer = true,
-        
-        -- Оптимизации
-        remove_comments = false,
-        format_code = true,
-        minify_output = false,
-        
-        -- AI/ML
-        enable_ai_assist = false,
-        enable_ml_patterns = false
-    },
-    
-    -- База знаний
-    knowledge_base = {
-        -- Паттерны MoonSec
-        moonsec_patterns = {
-            base64_strings = '["\'][A-Za-z0-9+/]+=*["\']',
-            hex_strings = '["\'][%x]+["\']',
-            char_arrays = 'string%.char%((.-)%)',
-            loadstring_calls = 'loadstring%((.-)%)',
-            getfenv_calls = 'getfenv%(%)%[.-%]',
-            bitwise_operations = 'bit32%.(%w+)%((.-)%)',
-            encoded_numbers = '(%d+)%.(%d+)%.(%d+)%.(%d+)',
-            obfuscated_calls = '_G%[.-%]%s*%(',
-            table_encryption = '{.-}',
-            junk_code = 'local%s+[%w_]+%s*=%s*function%(%)%s*end%s*'
-        },
-        
-        -- XOR ключи MoonSec
-        moonsec_keys = {
-            { name = "MoonSec V1", key = 0x75 },
-            { name = "MoonSec V2", key = 0x5A },
-            { name = "MoonSec V3", key = 0x2F },
-            { name = "MoonSec V4", key = 0x8C },
-            { name = "Common XOR", key = 0xAA },
-            { name = "Simple XOR", key = 0x33 },
-            { name = "Reverse XOR", key = 0xFF }
-        },
-        
-        -- Общие паттерны обфускации
-        common_patterns = {
-            dead_code = {
-                'while%s+false%s+do.-end',
-                'if%s+false%s+then.-end',
-                'if%s+true%s+then.-else.-end'
-            },
-            junk_functions = {
-                'function%s+[%w_]+%(%)%s*end',
-                'local%s+[%w_]+%s*=%s*function%(%)%s*end'
-            },
-            useless_assignments = {
-                'local%s+[%w_]+%s*=%s*nil%s*$',
-                '[%w_]+%s*=%s*[%w_]+%s*$'
-            },
-            obfuscated_names = {
-                '_[%w_]+',
-                '__[%w_]+',
-                '___[%w_]+'
-            }
-        },
-        
-        -- Методы дешифрования
-        decryption_methods = {
-            "base64_decode",
-            "hex_decode", 
-            "xor_decrypt",
-            "rot_decrypt",
-            "custom_decrypt",
-            "char_array_decode",
-            "string_concat_reverse",
-            "eval_replacement",
-            "pattern_based",
-            "brute_force"
-        }
-    },
-    
-    -- Состояние
-    state = {
-        current_iteration = 0,
-        start_time = 0,
-        bytes_processed = 0,
-        strings_recovered = 0,
-        functions_reconstructed = 0,
-        variables_renamed = 0,
-        dead_code_removed = 0,
-        patterns_found = 0,
-        obfuscators_detected = {},
-        errors = 0,
-        warnings = 0
-    },
-    
-    -- Кэш
-    cache = {
-        decoded_strings = {},
-        resolved_patterns = {},
-        simplified_code = {},
-        original_code = {}
-    }
-}
-
--- Инициализация деобфускатора
-function ULTRA_DEOBFUSCATOR:init(settings)
-    if settings then
-        for key, value in pairs(settings) do
-            if self.settings[key] ~= nil then
-                self.settings[key] = value
-            end
-        end
-    end
-    
-    -- Сброс состояния
-    self.state = {
-        current_iteration = 0,
-        start_time = 0,
-        bytes_processed = 0,
-        strings_recovered = 0,
-        functions_reconstructed = 0,
-        variables_renamed = 0,
-        dead_code_removed = 0,
-        patterns_found = 0,
-        obfuscators_detected = {},
-        errors = 0,
-        warnings = 0
-    }
-    
-    -- Очистка кэша
-    if not self.settings.enable_cache then
-        self.cache = {
-            decoded_strings = {},
-            resolved_patterns = {},
-            simplified_code = {},
-            original_code = {}
-        }
-    end
-    
-    log_info("Ультра-деобфускатор инициализирован (уровень: %d)", 
-        self.settings.deobfuscation_level)
-    
-    return true
-end
-
--- Основная функция деобфускации
-function ULTRA_DEOBFUSCATOR:deobfuscate(code, options)
-    if not code or type(code) ~= "string" then
-        log_error("Некорректный входной код для деобфускации")
-        return code or ""
-    end
-    
-    -- Применение пользовательских настроек
-    if options then
-        for key, value in pairs(options) do
-            if self.settings[key] ~= nil then
-                self.settings[key] = value
-            end
-        end
-    end
-    
-    -- Начало деобфускации
-    log_info("Начало деобфускации...")
-    log_debug("Размер кода: %d байт", #code)
-    
-    self.state.start_time = os.clock()
-    self.state.bytes_processed = #code
-    
-    local result = code
-    local previous_hash = CRYPTO_SYSTEM:md5(result)
-    local iterations_without_change = 0
-    
-    -- Многослойная деобфускация
-    for iteration = 1, self.settings.max_iterations do
-        self.state.current_iteration = iteration
-        
-        log_debug("Итерация %d/%d", iteration, self.settings.max_iterations)
-        
-        local iteration_start = os.clock()
-        
-        -- Применение всех методов деобфускации
-        local new_result = self:apply_all_methods(result)
-        
-        -- Проверка изменений
-        local new_hash = CRYPTO_SYSTEM:md5(new_result)
-        
-        if new_hash == previous_hash then
-            iterations_without_change = iterations_without_change + 1
-            log_trace("Изменений не обнаружено (попытка %d)", iterations_without_change)
-        else
-            iterations_without_change = 0
-            log_trace("Обнаружены изменения")
-        end
-        
-        previous_hash = new_hash
-        result = new_result
-        
-        -- Проверка таймаута
-        if os.clock() - self.state.start_time > self.settings.timeout then
-            log_warn("Достигнут таймаут деобфускации")
-            break
-        end
-        
-        -- Проверка памяти
-        local memory = collectgarbage("count") / 1024
-        if memory > self.settings.memory_limit_mb then
-            log_warn("Превышение памяти (%.1f MB), сборка мусора", memory)
-            collectgarbage("collect")
-        end
-        
-        -- Выход если несколько итераций без изменений
-        if iterations_without_change >= 2 then
-            log_info("Деобфускация сошлась после %d итераций", iteration)
-            break
-        end
-        
-        -- Пауза для предотвращения зависаний
-        if iteration % 5 == 0 then
-            wait(0.01)
-        end
-        
-        local iteration_time = os.clock() - iteration_start
-        log_trace("Итерация %d завершена за %.3f сек", iteration, iteration_time)
-    end
-    
-    -- Финальная оптимизация
-    if self.settings.enable_optimization then
-        result = self:final_optimization(result)
-    end
-    
-    -- Статистика
-    local total_time = os.clock() - self.state.start_time
-    local speed = #code / total_time / 1024 -- KB/s
-    
-    log_info("Деобфускация завершена за %.3f секунд", total_time)
-    log_info("Скорость: %.2f KB/сек", speed)
-    log_info("Восстановлено строк: %d", self.state.strings_recovered)
-    log_info("Удалено мертвого кода: %d", self.state.dead_code_removed)
-    log_info("Найдено паттернов: %d", self.state.patterns_found)
-    
-    return result
-end
-
--- Применение всех методов деобфускации
-function ULTRA_DEOBFUSCATOR:apply_all_methods(code)
-    local result = code
-    
-    -- Восстановление строк
-    if self.settings.enable_string_decryption then
-        result = self:recover_strings(result)
-    end
-    
-    -- Восстановление контроля потока
-    if self.settings.enable_control_flow_recovery then
-        result = self:recover_control_flow(result)
-    end
-    
-    -- Эмуляция VM
-    if self.settings.enable_vm_emulation then
-        result = self:emulate_vm(result)
-    end
-    
-    -- Поиск паттернов
-    if self.settings.enable_pattern_matching then
-        result = self:match_patterns(result)
-    end
-    
-    -- Эвристический анализ
-    if self.settings.enable_heuristic_analysis then
-        result = self:heuristic_analysis(result)
-    end
-    
-    -- Криптоанализ
-    if self.settings.enable_crypto_analysis then
-        result = self:crypto_analysis(result)
-    end
-    
-    -- Удаление мертвого кода
-    if self.settings.enable_dead_code_removal then
-        result = self:remove_dead_code(result)
-    end
-    
-    return result
-end
-
--- Восстановление строк
-function ULTRA_DEOBFUSCATOR:recover_strings(code)
-    local result = code
-    
-    -- 1. Base64 строки
-    result = self:decode_base64_strings(result)
-    
-    -- 2. HEX строки
-    result = self:decode_hex_strings(result)
-    
-    -- 3. XOR строки
-    result = self:decode_xor_strings(result)
-    
-    -- 4. ROT строки
-    result = self:decode_rot_strings(result)
-    
-    -- 5. Char массивы
-    result = self:decode_char_arrays(result)
-    
-    -- 6. Конкатенация строк
-    result = self:concatenate_strings(result)
-    
-    -- 7. Loadstring вызовы
-    result = self:extract_loadstrings(result)
-    
-    return result
-end
-
--- Декодирование Base64 строк
-function ULTRA_DEOBFUSCATOR:decode_base64_strings(code)
-    local pattern = self.knowledge_base.moonsec_patterns.base64_strings
-    
-    return string.gsub(code, pattern, function(match)
-        local encoded = match:sub(2, -2) -- Удаляем кавычки
-        
-        if #encoded < 4 then
-            return match
-        end
-        
-        -- Попытка декодирования
-        local decoded = CRYPTO_SYSTEM:base64_decode(encoded)
-        
-        if decoded and decoded ~= encoded then
-            -- Проверка, что декодированный текст валидный
-            if self:is_valid_string(decoded) then
-                self.state.strings_recovered = self.state.strings_recovered + 1
-                log_trace("Base64 декодировано: %s -> %s", 
-                    encoded:sub(1, 20), decoded:sub(1, 20))
-                
-                -- Экранирование специальных символов
-                decoded = decoded:gsub('"', '\\"'):gsub('\\', '\\\\')
-                return '"' .. decoded .. '"'
-            end
-        end
-        
-        return match
-    end)
-end
-
--- Декодирование HEX строк
-function ULTRA_DEOBFUSCATOR:decode_hex_strings(code)
-    local pattern = self.knowledge_base.moonsec_patterns.hex_strings
-    
-    return string.gsub(code, pattern, function(match)
-        local hex = match:sub(2, -2)
-        
-        if #hex < 8 or #hex % 2 ~= 0 then
-            return match
-        end
-        
-        local decoded = CRYPTO_SYSTEM:hex_decode(hex)
-        
-        if decoded and #decoded > 0 then
-            if self:is_valid_string(decoded) then
-                self.state.strings_recovered = self.state.strings_recovered + 1
-                log_trace("HEX декодировано: %s -> %s", 
-                    hex:sub(1, 20), decoded:sub(1, 20))
-                
-                decoded = decoded:gsub('"', '\\"'):gsub('\\', '\\\\')
-                return '"' .. decoded .. '"'
-            end
-        end
-        
-        return match
-    end)
-end
-
--- Декодирование XOR строк
-function ULTRA_DEOBFUSCATOR:decode_xor_strings(code)
-    for _, key_info in ipairs(self.knowledge_base.moonsec_keys) do
-        local key = key_info.key
-        
-        -- Поиск XOR операций
-        code = string.gsub(code, 'bit32%.bxor%((%d+),%s*' .. key .. '%)', function(num)
-            local number = tonumber(num)
-            if number then
-                local result = bit32.bxor(number, key)
-                self.state.patterns_found = self.state.patterns_found + 1
-                return tostring(result)
-            end
-            return num
-        end)
-        
-        -- Поиск XOR закодированных строк
-        local string_pattern = '["\'][%z\1-\255]+["\']'
-        code = string.gsub(code, string_pattern, function(str)
-            local content = str:sub(2, -2)
-            local decoded = ""
-            
-            for i = 1, #content do
-                local byte = string.byte(content, i)
-                local decoded_byte = bit32.bxor(byte, key)
-                decoded = decoded .. string.char(decoded_byte)
-            end
-            
-            if self:is_valid_string(decoded) then
-                self.state.strings_recovered = self.state.strings_recovered + 1
-                self.state.obfuscators_detected[key_info.name] = true
-                
-                decoded = decoded:gsub('"', '\\"'):gsub('\\', '\\\\')
-                return '"' .. decoded .. '"'
-            end
-            
-            return str
-        end)
-    end
-    
-    return code
-end
-
--- Декодирование ROT строк
-function ULTRA_DEOBFUSCATOR:decode_rot_strings(code)
-    local function rot(str, amount)
-        local result = ""
-        
-        for i = 1, #str do
-            local c = str:sub(i, i)
-            local byte = string.byte(c)
-            
-            if byte >= 65 and byte <= 90 then -- A-Z
-                result = result .. string.char((byte - 65 + amount) % 26 + 65)
-            elseif byte >= 97 and byte <= 122 then -- a-z
-                result = result .. string.char((byte - 97 + amount) % 26 + 97)
-            else
-                result = result .. c
-            end
-        end
-        
-        return result
-    end
-    
-    -- Поиск ROT закодированных строк (ROT13 обычно)
-    local string_pattern = '["\']([A-Za-z]+)["\']'
-    
-    return string.gsub(code, string_pattern, function(str)
-        -- Пробуем ROT13
-        local decoded = rot(str, 13)
-        
-        if decoded ~= str and self:is_valid_string(decoded) then
-            self.state.strings_recovered = self.state.strings_recovered + 1
-            return '"' .. decoded .. '"'
-        end
-        
-        -- Пробуем другие ROT
-        for amount = 1, 25 do
-            if amount ~= 13 then
-                decoded = rot(str, amount)
-                if decoded ~= str and self:is_valid_string(decoded) then
-                    self.state.strings_recovered = self.state.strings_recovered + 1
-                    return '"' .. decoded .. '"'
+            for _, serviceName in ipairs(serverServices) do
+                local serviceInst = game:FindService(serviceName)
+                if serviceInst then
+                    -- Помечаем для сохранения через LinkedSource
+                    local hasLinkedSourceScripts = false
+                    
+                    for _, scriptInst in ipairs(serviceInst:GetDescendants()) do
+                        if isLuaSourceContainer(scriptInst) then
+                            local LinkedSource_Url = scriptInst.LinkedSource
+                            if LinkedSource_Url and LinkedSource_Url ~= "" then
+                                hasLinkedSourceScripts = true
+                                break
+                            end
+                        end
+                    end
+                    
+                    if hasLinkedSourceScripts then
+                        -- Добавляем родительскую папку в сохранение
+                        local parent = serviceInst.Parent
+                        while parent and parent ~= game do
+                            local alreadyInList = false
+                            for _, existing in ipairs(ToSaveList) do
+                                if existing == parent then
+                                    alreadyInList = true
+                                    break
+                                end
+                            end
+                            
+                            if not alreadyInList then
+                                table.insert(ToSaveList, parent)
+                            end
+                            
+                            parent = parent.Parent
+                        end
+                    end
                 end
             end
         end
-        
-        return '"' .. str .. '"'
-    end)
-end
-
--- Декодирование char массивов
-function ULTRA_DEOBFUSCATOR:decode_char_arrays(code)
-    local pattern = self.knowledge_base.moonsec_patterns.char_arrays
-    
-    return string.gsub(code, pattern, function(match)
-        local args = match:match("string%.char%((.-)%)")
-        if not args then return match end
-        
-        -- Разбор аргументов
-        local numbers = {}
-        for num in args:gmatch("[%d.]+") do
-            table.insert(numbers, tonumber(num) or 0)
-        end
-        
-        if #numbers == 0 then
-            return match
-        end
-        
-        -- Сборка строки
-        local result_str = ""
-        for _, num in ipairs(numbers) do
-            result_str = result_str .. string.char(num)
-        end
-        
-        if self:is_valid_string(result_str) then
-            self.state.strings_recovered = self.state.strings_recovered + 1
-            self.state.patterns_found = self.state.patterns_found + 1
             
-            result_str = result_str:gsub('"', '\\"'):gsub('\\', '\\\\')
-            return '"' .. result_str .. '"'
-        end
-        
-        return match
-    end)
-end
+		save_hierarchy(ToSaveList)
 
--- Конкатенация строк
-function ULTRA_DEOBFUSCATOR:concatenate_strings(code)
-    -- Объединение соседних строк
-    local pattern = '(["\'][^"\']+["\'])%s*%.%.%s*(["\'][^"\']+["\'])'
-    
-    return string.gsub(code, pattern, function(str1, str2)
-        local s1 = str1:sub(2, -2)
-        local s2 = str2:sub(2, -2)
-        
-        local combined = s1 .. s2
-        combined = combined:gsub('"', '\\"'):gsub('\\', '\\\\')
-        
-        self.state.patterns_found = self.state.patterns_found + 1
-        return '"' .. combined .. '"'
-    end)
-end
+		if IsolateLocalPlayer or IsolateLocalPlayerCharacter then
+			local LocalPlayer = service.Players.LocalPlayer
+			if LocalPlayer then
+				if IsolateLocalPlayer then
+					SaveNotCreatable = true
+					save_extra("LocalPlayer", LocalPlayer, true)
+				end
+				if IsolateLocalPlayerCharacter then
+					local LocalPlayerCharacter = LocalPlayer.Character
+					if LocalPlayerCharacter then
+						save_extra("LocalPlayer Character", LocalPlayerCharacter, true, "Model")
+					end
+				end
+			end
+		end
 
--- Извлечение loadstring вызовов
-function ULTRA_DEOBFUSCATOR:extract_loadstrings(code)
-    local pattern = self.knowledge_base.moonsec_patterns.loadstring_calls
-    
-    return string.gsub(code, pattern, function(match)
-        local arg = match:match("loadstring%((.-)%)")
-        if not arg then return match end
-        
-        -- Удаляем кавычки если есть
-        arg = arg:gsub('^["\'](.-)["\']$', "%1")
-        
-        -- Пробуем декодировать как Base64
-        local decoded = CRYPTO_SYSTEM:base64_decode(arg)
-        
-        if decoded and decoded ~= arg and self:is_valid_code(decoded) then
-            self.state.patterns_found = self.state.patterns_found + 1
-            log_trace("Loadstring извлечен: %d байт", #decoded)
+    if mode == "scripts" then
+            local serverServices = {"ServerScriptService", "ServerStorage"}
             
-            -- Рекурсивная деобфускация содержимого
-            decoded = self:deobfuscate(decoded, {max_iterations = 3})
-            return decoded
-        end
-        
-        return match
-    end)
-end
-
--- Восстановление контроля потока
-function ULTRA_DEOBFUSCATOR:recover_control_flow(code)
-    local result = code
-    
-    -- Удаление мертвых условий
-    for _, pattern in ipairs(self.knowledge_base.common_patterns.dead_code) do
-        result = string.gsub(result, pattern, function(match)
-            self.state.dead_code_removed = self.state.dead_code_removed + 1
-            return ""
-        end)
-    end
-    
-    -- Упрощение условий
-    result = string.gsub(result, "if%s+true%s+then(.-)end", function(body)
-        self.state.patterns_found = self.state.patterns_found + 1
-        return body
-    end)
-    
-    result = string.gsub(result, "if%s+false%s+then(.-)end", function(body)
-        self.state.patterns_found = self.state.patterns_found + 1
-        return ""
-    end)
-    
-    -- Восстановление goto меток
-    result = string.gsub(result, "goto%s+(%w+)", function(label)
-        return "-- goto " .. label .. " (заменено)"
-    end)
-    
-    return result
-end
-
--- Эмуляция VM (упрощенная)
-function ULTRA_DEOBFUSCATOR:emulate_vm(code)
-    local result = code
-    
-    -- Вычисление математических выражений
-    result = string.gsub(result, "math%.random%(%)", "0.5")
-    result = string.gsub(result, "math%.pi", "3.141592653589793")
-    result = string.gsub(result, "math%.huge", "math.huge")
-    
-    -- Вычисление простых арифметических операций
-    local function eval_simple_math(expr)
-        local success, value = pcall(loadstring("return " .. expr))
-        if success and type(value) == "number" then
-            return tostring(value)
-        end
-        return expr
-    end
-    
-    result = string.gsub(result, "(%d+%s*[%+%-%*/]%s*%d+)", eval_simple_math)
-    
-    return result
-end
-
--- Поиск паттернов
-function ULTRA_DEOBFUSCATOR:match_patterns(code)
-    local result = code
-    
-    -- Поиск паттернов MoonSec
-    for pattern_name, pattern in pairs(self.knowledge_base.moonsec_patterns) do
-        local count = 0
-        result = string.gsub(result, pattern, function(match)
-            count = count + 1
-            self.state.patterns_found = self.state.patterns_found + 1
-            
-            if self.settings.aggressive_mode then
-                log_trace("Найден паттерн %s: %s", 
-                    pattern_name, match:sub(1, 50))
-            end
-            
-            return match
-        end)
-        
-        if count > 0 then
-            log_debug("Найдено %d паттернов %s", count, pattern_name)
-        end
-    end
-    
-    return result
-end
-
--- Эвристический анализ
-function ULTRA_DEOBFUSCATOR:heuristic_analysis(code)
-    -- Анализ вложенности
-    local max_nesting = 0
-    local current_nesting = 0
-    
-    for i = 1, #code do
-        local char = code:sub(i, i)
-        if char == "(" then
-            current_nesting = current_nesting + 1
-            max_nesting = math.max(max_nesting, current_nesting)
-        elseif char == ")" then
-            current_nesting = math.max(0, current_nesting - 1)
-        end
-    end
-    
-    if max_nesting > 20 then
-        log_warn("Высокая вложенность вызовов: %d", max_nesting)
-        self.state.warnings = self.state.warnings + 1
-    end
-    
-    -- Анализ длины строк
-    local long_strings = 0
-    for str in code:gmatch('["\'][^"\']+["\']') do
-        if #str > 500 then
-            long_strings = long_strings + 1
-        end
-    end
-    
-    if long_strings > 10 then
-        log_warn("Много длинных строк: %d", long_strings)
-        self.state.warnings = self.state.warnings + 1
-    end
-    
-    return code
-end
-
--- Криптоанализ
-function ULTRA_DEOBFUSCATOR:crypto_analysis(code)
-    -- Поиск XOR ключей
-    local xor_keys = {}
-    
-    for i = 0, 255 do
-        local pattern = string.format("bit32%.bxor%%(%%d+,%%s*%d%%)", i)
-        local count = 0
-        
-        for _ in code:gmatch(pattern) do
-            count = count + 1
-        end
-        
-        if count > 0 then
-            table.insert(xor_keys, {
-                key = i,
-                count = count
-            })
-        end
-    end
-    
-    table.sort(xor_keys, function(a, b) return a.count > b.count end)
-    
-    if #xor_keys > 0 then
-        log_info("Найдено XOR ключей: %d", #xor_keys)
-        for _, key_info in ipairs(xor_keys) do
-            log_debug("  Ключ 0x%02X: %d использований", 
-                key_info.key, key_info.count)
-        end
-    end
-    
-    return code
-end
-
--- Удаление мертвого кода
-function ULTRA_DEOBFUSCATOR:remove_dead_code(code)
-    local result = code
-    
-    -- Удаление пустых функций
-    for _, pattern in ipairs(self.knowledge_base.common_patterns.junk_functions) do
-        local count = 0
-        result = string.gsub(result, pattern, function()
-            count = count + 1
-            self.state.dead_code_removed = self.state.dead_code_removed + 1
-            return ""
-        end)
-        
-        if count > 0 then
-            log_debug("Удалено пустых функций: %d", count)
-        end
-    end
-    
-    -- Удаление бесполезных присваиваний
-    for _, pattern in ipairs(self.knowledge_base.common_patterns.useless_assignments) do
-        local count = 0
-        result = string.gsub(result, pattern, function()
-            count = count + 1
-            self.state.dead_code_removed = self.state.dead_code_removed + 1
-            return ""
-        end)
-        
-        if count > 0 then
-            log_debug("Удалено бесполезных присваиваний: %d", count)
-        end
-    end
-    
-    -- Удаление комментариев если нужно
-    if self.settings.remove_comments then
-        result = result:gsub("%-%-[^\n]*", "")
-        result = result:gsub("%-%-%[%[.-%]%]", "")
-    end
-    
-    return result
-end
-
--- Финальная оптимизация
-function ULTRA_DEOBFUSCATOR:final_optimization(code)
-    local result = code
-    
-    -- Удаление лишних пробелов
-    result = result:gsub("%s+", " ")
-    result = result:gsub("%s*([%+%-%*/%%=<>~!])%s*", "%1")
-    result = result:gsub("%s*,%s*", ", ")
-    result = result:gsub("%s*;%s*", "; ")
-    
-    -- Удаление лишних пустых строк
-    local lines = {}
-    local empty_count = 0
-    
-    for line in result:gmatch("([^\n]+)\n?") do
-        local trimmed = line:gsub("%s+$", ""):gsub("^%s+", "")
-        
-        if trimmed == "" then
-            empty_count = empty_count + 1
-            if empty_count <= 2 then
-                table.insert(lines, line)
-            end
-        else
-            empty_count = 0
-            table.insert(lines, line)
-        end
-    end
-    
-    result = table.concat(lines, "\n")
-    
-    -- Добавление комментария с информацией
-    local info = string.format([[
--- ===================================================================
--- ДЕОБФУСКАЦИЯ ULTRA MOONSEC V3 PRO MAX v%s
--- ===================================================================
--- Статистика:
---   Время выполнения: %.3f сек
---   Восстановлено строк: %d
---   Удалено мертвого кода: %d
---   Найдено паттернов: %d
---   Обнаружено обфускаторов: %d
--- ===================================================================
-]], 
-        self.version,
-        os.clock() - self.state.start_time,
-        self.state.strings_recovered,
-        self.state.dead_code_removed,
-        self.state.patterns_found,
-        #self.state.obfuscators_detected
-    )
-    
-    return info .. "\n" .. result
-end
-
--- Проверка валидности строки
-function ULTRA_DEOBFUSCATOR:is_valid_string(str)
-    if not str or #str == 0 then
-        return false
-    end
-    
-    -- Проверка на печатные символы
-    local printable = 0
-    for i = 1, #str do
-        local byte = string.byte(str, i)
-        if byte >= 32 and byte <= 126 then
-            printable = printable + 1
-        end
-    end
-    
-    local printable_ratio = printable / #str
-    
-    -- Допустимы строки с минимум 70% печатных символов
-    return printable_ratio >= 0.7
-end
-
--- Проверка валидности кода
-function ULTRA_DEOBFUSCATOR:is_valid_code(code)
-    if not code or #code == 0 then
-        return false
-    end
-    
-    -- Проверка на наличие ключевых слов Lua
-    local keywords = {
-        "function", "local", "return", "if", "then", "else",
-        "end", "for", "while", "do", "repeat", "until"
-    }
-    
-    local keyword_count = 0
-    for _, keyword in ipairs(keywords) do
-        if code:find(keyword, 1, true) then
-            keyword_count = keyword_count + 1
-        end
-    end
-    
-    return keyword_count >= 2
-end
-
--- ===================================================================
--- СЕКЦИЯ 7: ОСНОВНОЙ SAVEINSTANCE (4000+ строк)
--- ===================================================================
-
-local GOD_MODE_SAVEINSTANCE = {
-    name = "God Mode SaveInstance v10.0",
-    version = "10.0.0",
-    
-    settings = {
-        -- Режим сохранения
-        mode = "EVERYTHING", -- "MINIMAL", "SCRIPTS", "ASSETS", "FULL", "EVERYTHING"
-        
-        -- Что сохранять
-        save_scripts = true,
-        save_assets = true,
-        save_models = true,
-        save_terrain = true,
-        save_lighting = true,
-        save_sounds = true,
-        save_meshes = true,
-        save_animations = true,
-        save_particles = true,
-        save_decals = true,
-        save_ui = true,
-        save_plugins = true,
-        save_settings = true,
-        
-        -- Деобфускация
-        deobfuscate_scripts = true,
-        deobfuscation_level = "GOD",
-        
-        -- Оптимизации
-        compress_output = true,
-        deduplicate_assets = true,
-        cache_enabled = true,
-        validation_enabled = true,
-        
-        -- Пути
-        output_dir = "saveinstance_output",
-        scripts_dir = "scripts",
-        assets_dir = "assets",
-        models_dir = "models",
-        logs_dir = "logs",
-        
-        -- Лимиты
-        max_file_size_mb = 100,
-        max_total_size_mb = 1024,
-        timeout = 300,
-        
-        -- Форматы
-        script_format = "lua",
-        asset_format = "original",
-        model_format = "rbxm",
-        
-        -- Дополнительно
-        create_readme = true,
-        add_watermark = true,
-        include_metadata = true,
-        backup_old = true
-    },
-    
-    state = {
-        is_running = false,
-        is_paused = false,
-        current_operation = nil,
-        progress = 0,
-        total_items = 0,
-        processed_items = 0,
-        errors = 0,
-        warnings = 0,
-        
-        collected_data = {
-            instances = {},
-            scripts = {},
-            assets = {},
-            models = {},
-            services = {}
-        },
-        
-        saved_files = {
-            scripts = 0,
-            assets = 0,
-            models = 0,
-            others = 0
-        }
-    }
-}
-
--- Инициализация saveinstance
-function GOD_MODE_SAVEINSTANCE:init(settings)
-    if settings then
-        for key, value in pairs(settings) do
-            if self.settings[key] ~= nil then
-                self.settings[key] = value
+            for _, serviceName in ipairs(serverServices) do
+                local serviceInst = game:FindService(serviceName)
+                if serviceInst then
+                    local unique = {}
+                    for _, instance in serviceInst:GetDescendants() do
+                        if isLuaSourceContainer(instance) then
+                            local LinkedSource_Url = instance.LinkedSource
+                            if LinkedSource_Url and LinkedSource_Url ~= "" then
+                                -- Сохраняем путь к скрипту
+                                local Parent = instance.Parent
+                                while Parent and Parent ~= game do
+                                    instance = instance.Parent
+                                    Parent = instance.Parent
+                                end
+                                if Parent then
+                                    unique[instance] = true
+                                end
+                            end
+                        end
+                    end
+                    for instance in unique do
+                        table.insert(ToSaveList, instance)
+                    end
+                end
             end
         end
-    end
-    
-    -- Сброс состояния
-    self.state = {
-        is_running = false,
-        is_paused = false,
-        current_operation = nil,
-        progress = 0,
-        total_items = 0,
-        processed_items = 0,
-        errors = 0,
-        warnings = 0,
-        
-        collected_data = {
-            instances = {},
-            scripts = {},
-            assets = {},
-            models = {},
-            services = {}
-        },
-        
-        saved_files = {
-            scripts = 0,
-            assets = 0,
-            models = 0,
-            others = 0
-        }
-    }
-    
-    -- Создание директорий
-    self:create_directories()
-    
-    -- Инициализация систем
-    MEGA_LOGGER:init()
-    CACHE_SYSTEM:init()
-    TASK_MANAGER:init()
-    ULTRA_DEOBFUSCATOR:init()
-    
-    log_info("God Mode SaveInstance инициализирован")
-    return true
+
+		if IsolateStarterPlayer then
+			-- SaveNotCreatable = true -- TODO: Enable if StarterPlayerScripts or StarterCharacterScripts stop showing up in isolated folder in Studio
+			save_extra("StarterPlayer", service.StarterPlayer) -- no reason to saveprops as you can see the props on the original instance
+		end
+
+		if IsolatePlayers then
+			SaveNotCreatable = true
+			save_extra("Players", service.Players) -- no reason to saveprops as you can see the props on the original instance
+		end
+
+		if NilInstances and global_container.getnilinstances then
+			local nil_instances, nil_instances_size = {}, 1
+
+			local NilInstancesFixes = OPTIONS.NilInstancesFixes
+
+			for _, instance in global_container.getnilinstances() do
+				if instance == game then
+					instance = nil
+					-- break
+				else
+					local ClassName = instance.ClassName
+
+					local Fix = InheritsFix(NilInstancesFixes, ClassName, instance)
+
+					if Fix then
+						instance = Fix(instance, InstancesOverrides)
+						-- continue
+					end
+
+					local Class = ClassList[ClassName]
+					if Class then
+						if Class.Service then -- For CSGDictionaryService, NonReplicatedCSGDictionaryService, LogService, ProximityPromptService, TestService & more
+							-- instance.Parent = game
+							instance = nil
+							-- continue
+						end
+					end
+				end
+				if instance then
+					nil_instances[nil_instances_size] = instance
+					nil_instances_size += 1
+				end
+			end
+			SaveNotCreatable = true
+			save_extra("Nil Instances", nil_instances)
+		end
+
+		if OPTIONS.ReadMe then
+			save_extra(
+				"README",
+				nil,
+				nil,
+				"Script",
+				"--[[\n"
+					.. (#RecoveredScripts ~= 0 and "\t\tIMPORTANT: Original Source of these Scripts was Recovered: " .. service.HttpService:JSONEncode(
+						RecoveredScripts
+					) .. "\n" or "")
+					.. [[
+		Thank you for using UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw.
+
+		If you didn't save in Binary (rbxl) - it's recommended to save the game right away to take advantage of the binary format & to preserve values of certain properties if you used IgnoreDefaultProperties setting (as they might change in the future).
+		You can do that by going to FILE -> Save to File As -> Make sure File Name ends with .rbxl -> Save
+
+		ServerStorage, ServerScriptService and Server Scripts are IMPOSSIBLE to save because of FilteringEnabled.
+
+		If your player cannot spawn into the game, please move the scripts in StarterPlayer somewhere else or delete them. Then run `game:GetService("Players").CharacterAutoLoads = true`.
+		And use "Play Here" to start game instead of "Play" to spawn your Character where your Camera currently is.
+
+		If the chat system does not work, please use the explorer and delete everything inside the TextChatService/Chat service(s). 
+		Or run `game:GetService("Chat"):ClearAllChildren() game:GetService("TextChatService"):ClearAllChildren()`
+				
+		If Union and MeshPart collisions don't work, run the script below in the Studio Command Bar:
+				
+				
+		local C = game:GetService("CoreGui")
+		local D = Enum.CollisionFidelity.Default
+				
+		for _, v in game:GetDescendants() do
+			if v:IsA("TriangleMeshPart") and not v:IsDescendantOf(C) then
+				v.CollisionFidelity = D
+			end
+		end
+		print("Done")
+				
+		If you can't move the Camera, run this script in the Studio Command Bar:
+			
+		workspace.CurrentCamera.CameraType = Enum.CameraType.Fixed
+		
+		Or Destroy the Camera.
+
+		This file was generated with the following settings:
+		]]
+					.. service.HttpService:JSONEncode(OPTIONS)
+					.. "\n\n\t\tElapsed time: "
+					.. os.clock() - elapse_t
+					.. " PlaceId: "
+					.. game.PlaceId
+					.. " PlaceVersion: "
+					.. game.PlaceVersion
+					.. " Client Version: "
+					.. version()
+					.. " Executor: "
+					.. (identify_executor and table.concat({ identify_executor() }, " ") or "Unknown")
+					.. "\n]]"
+			)
+		end
+		do
+			local tmp = { "<SharedStrings>" }
+			for identifier, value in SharedStrings do
+				table.insert(tmp, '<SharedString md5="' .. identifier .. '">' .. value .. "</SharedString>")
+			end
+
+			if 1 < #tmp then -- TODO: This sucks so much because we try to iterate a table just to check this (check above)
+				savebuffer[savebuffer_size] = table.concat(tmp)
+				savebuffer_size += 1
+				savebuffer[savebuffer_size] = "</SharedStrings>"
+				savebuffer_size += 1
+			end
+		end
+
+		savebuffer[savebuffer_size] =
+			"</roblox><!-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw -->"
+		savebuffer_size += 1
+		save_cache(true)
+		do
+			-- ! Assuming we only write to file once hence why we only filter once
+			-- TODO This might cause issues on non-unique Usernames (ex. "Cake" if game is about cakes then everything supposedly related to your name will be replaced with "Roblox"); Certain UserIds might also affect numbers, like if your UserId is 2481848 and there is some number that goes like "1.248184818837" then that the matched part will be replaced with 1, potentially making the number incorrect.
+			-- TODO So for now it's best to keep this disabled by default
+			-- TODO It's also not smart to filter entire file string at the end as this might also affect decompiled scripts content, which has no way of containing any user-related information. It would be better to use gsub in string Descriptor and such
+			if OPTIONS.Anonymous then
+				local LocalPlayer = service.Players.LocalPlayer
+				if LocalPlayer then
+					local function gsubCaseInsensitive(input, search, replacement) -- * Credits to friends
+						local inputLower = string.lower(input)
+
+						search = string.lower(search)
+
+						local lastFinish = 0
+						local subStrings = {}
+						local search_len = #search
+						local input_len = #input
+						while search_len <= input_len - lastFinish do
+							local init = lastFinish + 1
+
+							local start, finish = string.find(inputLower, search, init, true)
+
+							if start == nil then
+								break
+							end
+
+							table.insert(subStrings, string.sub(input, init, start - 1))
+
+							lastFinish = finish
+						end
+
+						if lastFinish == 0 then
+							return input
+						end
+
+						table.insert(subStrings, string.sub(input, lastFinish + 1))
+
+						return table.concat(subStrings, replacement)
+					end
+
+					local Anonymous = type(OPTIONS.Anonymous) == "table" and OPTIONS.Anonymous
+						or { UserId = "1", Name = "Roblox" }
+
+					for _, chunk in chunks do
+						chunk.str = gsubCaseInsensitive(
+							string.gsub(chunk.str, LocalPlayer.UserId, Anonymous.UserId),
+							LocalPlayer.Name,
+							Anonymous.Name
+						)
+					end
+				end
+			end
+
+			local Callback = OPTIONS.Callback
+			if Callback then
+				local totalstr = header
+				for _, chunk in chunks do
+					totalstr ..= chunk.str
+				end
+				Callback(totalstr, chunks, totalsize)
+			elseif OPTIONS.AlternativeWritefile and appendfile then
+				local SEGMENT_SIZE = 4145728 -- Celery has an arbitrary savefile/appendfile size limit of ~4MB for reasons unknown. This is a workaround to save the file in segments.
+
+				local totallen, currentlen = math.ceil(totalsize / SEGMENT_SIZE), 1
+
+				for _, chunk in chunks do
+					local length = math.ceil(chunk.size / SEGMENT_SIZE)
+					for i = 1, length do
+						local savestr = string.sub(chunk.str, (i - 1) * SEGMENT_SIZE + 1, i * SEGMENT_SIZE)
+
+						run_with_loading(
+							"Writing to File " .. math.round(currentlen / totallen * 100) .. "% (Depends on Exec)",
+							nil,
+							true,
+							appendfile,
+							placename,
+							savestr
+						)
+						currentlen += 1
+
+						if i ~= length then
+							task.wait()
+						end
+					end
+				end
+			else
+				local totalstr = header
+				for _, chunk in chunks do
+					totalstr ..= chunk.str
+				end
+				run_with_loading(
+					"Writing " .. get_size_format() .. " to File (Depends on Exec)",
+					nil,
+					true,
+					writefile,
+					placename,
+					totalstr
+				)
+			end
+		end
+		table.clear(SharedStrings)
+	end
+
+	local Connections
+	do
+		local Players = service.Players
+
+		if IgnoreList.Model ~= true then
+			Connections = {}
+			local function ignoreCharacter(player)
+				table.insert(
+					Connections,
+					player.CharacterAdded:Connect(function(character)
+						IgnoreList[character] = true
+					end)
+				)
+
+				local Character = player.Character
+				if Character then
+					IgnoreList[Character] = true
+				end
+			end
+
+			if OPTIONS.RemovePlayerCharacters then
+				table.insert(
+					Connections,
+					Players.PlayerAdded:Connect(function(player)
+						ignoreCharacter(player)
+					end)
+				)
+				for _, player in Players:GetPlayers() do
+					ignoreCharacter(player)
+				end
+			else
+				IgnoreNotArchivable = false -- TODO Bad solution (Characters are NotArchivable); Also make sure the next solution is compatible with IsolateLocalPlayerCharacter
+				if IsolateLocalPlayerCharacter then
+					task.spawn(function()
+						ignoreCharacter(GetLocalPlayer())
+					end)
+				end
+			end
+		end
+		if IsolateLocalPlayer and IgnoreList.Player ~= true then
+			task.spawn(function()
+				IgnoreList[GetLocalPlayer()] = true
+			end)
+		end
+	end
+
+	if IsolateStarterPlayer then
+		IgnoreList.StarterPlayer = false
+	end
+
+	if IsolatePlayers then
+		IgnoreList.Players = false
+	end
+
+	if OPTIONS.ShowStatus then
+		do
+			local Exists = GLOBAL_ENV._statustext
+			if Exists then
+				Exists:Destroy()
+			end
+		end
+
+		local StatusGui = Instance.new("ScreenGui")
+
+		GLOBAL_ENV._statustext = StatusGui
+
+		StatusGui.DisplayOrder = 2e9
+		pcall(function() -- ? Compatibility with level 2
+			StatusGui.OnTopOfCoreBlur = true
+		end)
+
+		StatusText = Instance.new("TextLabel")
+
+		StatusText.Text = "Saving..."
+
+		StatusText.BackgroundTransparency = 1
+		StatusText.Font = Enum.Font.Code
+		StatusText.AnchorPoint = Vector2.new(1)
+		StatusText.Position = UDim2.new(1)
+		StatusText.Size = UDim2.new(0.3, 0, 0, 20)
+
+		StatusText.TextColor3 = Color3.new(1, 1, 1)
+		StatusText.TextScaled = true
+		StatusText.TextStrokeTransparency = 0.7
+		StatusText.TextXAlignment = Enum.TextXAlignment.Right
+		StatusText.TextYAlignment = Enum.TextYAlignment.Top
+
+		StatusText.Parent = StatusGui
+
+		local function randomString()
+			local length = math.random(10, 20)
+			local randomarray = table.create(length)
+			for i = 1, length do
+				randomarray[i] = string.char(math.random(32, 126))
+			end
+			return table.concat(randomarray)
+		end
+
+		if global_container.gethui then
+			StatusGui.Name = randomString()
+			StatusGui.Parent = global_container.gethui()
+		else
+			if global_container.protectgui then
+				StatusGui.Name = randomString()
+				global_container.protectgui(StatusGui)
+				StatusGui.Parent = game:GetService("CoreGui")
+			else
+				local RobloxGui = game:GetService("CoreGui"):FindFirstChild("RobloxGui")
+				if RobloxGui then
+					StatusGui.Parent = RobloxGui
+				else
+					StatusGui.Name = randomString()
+					StatusGui.Parent = game:GetService("CoreGui")
+				end
+			end
+		end
+	end
+
+	do
+		local SafeMode = OPTIONS.SafeMode
+		if SafeMode then
+			task.spawn(function()
+				local LocalPlayer = GetLocalPlayer()
+
+				local PlayerScripts = LocalPlayer:FindFirstChildOfClass("PlayerScripts")
+				if PlayerScripts then
+					local function construct_InstanceOverride(instance)
+						local children = instance:GetChildren()
+						InstancesOverrides[instance] = {
+							__Children = children,
+						}
+						for _, child in children do
+							construct_InstanceOverride(child)
+						end
+					end
+					construct_InstanceOverride(PlayerScripts)
+
+					InstancesOverrides[LocalPlayer] = {
+						__Children = LocalPlayer:GetChildren(),
+						Properties = { Name = "[" .. LocalPlayer.ClassName .. "] " .. LocalPlayer.Name },
+					}
+				end
+
+				LocalPlayer:Kick("\n[SAFEMODE] Saving in Progress..\nPlease do NOT leave")
+				wait_for_render()
+				task.delay(10, service.GuiService.ClearError, service.GuiService)
+			end)
+
+			service.RunService:Set3dRenderingEnabled(false)
+		end
+
+		local anti_idle
+		if OPTIONS.AntiIdle then
+			task.spawn(function()
+				local Idled = GetLocalPlayer().Idled
+				if getconnections then
+					for _, c in getconnections(Idled) do
+						if not pcall(function()
+							c:Disable()
+						end) then
+							pcall(function()
+								c:Disconnect()
+							end)
+						end
+					end
+				end
+				anti_idle = Idled:Connect(function()
+					service.VirtualInputManager:SendMouseWheelEvent(
+						service.UserInputService:GetMouseLocation().X,
+						service.UserInputService:GetMouseLocation().Y,
+						true,
+						game
+					)
+				end)
+			end)
+		end
+
+		elapse_t = os.clock()
+
+		local ok, err = xpcall(save_game, function(err)
+			return debug.traceback(err)
+		end)
+
+		if SafeMode then
+			service.GuiService:ClearError()
+			service.RunService:Set3dRenderingEnabled(true)
+		end
+
+		if old_gethiddenproperty then
+			gethiddenproperty = old_gethiddenproperty
+		end
+
+		if anti_idle then
+			anti_idle:Disconnect()
+		end
+		if Connections then
+			for _, connection in Connections do
+				connection:Disconnect()
+			end
+		end
+		GLOBAL_ENV[placename] = nil
+
+		elapse_t = os.clock() - elapse_t
+		local Log10 = math.log10(elapse_t)
+		local ExtraTime = 10
+
+		if StatusText then
+			task.spawn(function()
+				if ok then
+					StatusText.Text = string.format("Saved! Time %.3f seconds; Size %s", elapse_t, get_size_format())
+					StatusText.TextColor3 = Color3.new(0, 1)
+					task.wait(Log10 * 2 + ExtraTime)
+				else
+					if Loading then
+						task.cancel(Loading)
+						Loading = nil
+					end
+					StatusText.Text = "Failed! Check F9 console for more info"
+					StatusText.TextColor3 = Color3.new(1)
+					warn("Error found while saving:")
+					warn(err)
+					task.wait(Log10 + ExtraTime)
+				end
+				StatusText:Destroy()
+			end)
+		end
+
+		if OPTIONS.ShutdownWhenDone and ok then
+			task.wait(Log10 * 2 + ExtraTime)
+			game:Shutdown()
+		end
+	end
 end
 
--- Создание директорий
-function GOD_MODE_SAVEINSTANCE:create_directories()
-    if not writefile then
-        log_warn("Функции файловой системы недоступны")
-        return false
-    end
-    
-    local directories = {
-        self.settings.output_dir,
-        self.settings.output_dir .. "/" .. self.settings.scripts_dir,
-        self.settings.output_dir .. "/" .. self.settings.assets_dir,
-        self.settings.output_dir .. "/" .. self.settings.models_dir,
-        self.settings.output_dir .. "/" .. self.settings.logs_dir,
-        self.settings.output_dir .. "/temp",
-        self.settings.output_dir .. "/backup"
-    }
-    
-    for _, dir in ipairs(directories) do
-        pcall(function()
-            writefile(dir .. "/.keep", "")
-        end)
-    end
-    
-    log_info("Созданы директории для сохранения")
-    return true
-end
-
--- Основная функция сохранения
-function GOD_MODE_SAVEINSTANCE:save(options)
-    log_info("=" .. string.rep("=", 78))
-    log_info("ЗАПУСК GOD MODE SAVEINSTANCE v%s", VERSION_INFO.major)
-    log_info("=" .. string.rep("=", 78))
-    
-    local start_time = os.clock()
-    local start_memory = collectgarbage("count") / 1024
-    
-    -- Применение настроек
-    if options then
-        for key, value in pairs(options) do
-            if self.settings[key] ~= nil then
-                self.settings[key] = value
-            end
-        end
-    end
-    
-    -- Инициализация
-    self:init()
-    
-    -- Начало работы
-    self.state.is_running = true
-    self.state.progress = 0
-    
-    -- Шаг 1: Сбор информации
-    log_info("Шаг 1: Сбор информации об игре...")
-    self.state.current_operation = "collecting"
-    
-    local success, error = pcall(function()
-        self:collect_game_data()
-    end)
-    
-    if not success then
-        log_error("Ошибка при сборе данных: %s", error)
-        self.state.errors = self.state.errors + 1
-        return false, error
-    end
-    
-    self.state.progress = 25
-    log_info("Собрано %d экземпляров, %d скриптов, %d ассетов",
-        #self.state.collected_data.instances,
-        #self.state.collected_data.scripts,
-        #self.state.collected_data.assets
-    )
-    
-    -- Шаг 2: Обработка скриптов
-    if self.settings.save_scripts and #self.state.collected_data.scripts > 0 then
-        log_info("Шаг 2: Обработка скриптов (%d)...", #self.state.collected_data.scripts)
-        self.state.current_operation = "processing_scripts"
-        
-        success, error = pcall(function()
-            self:process_scripts()
-        end)
-        
-        if not success then
-            log_error("Ошибка при обработке скриптов: %s", error)
-            self.state.errors = self.state.errors + 1
-        end
-    end
-    
-    self.state.progress = 50
-    
-    -- Шаг 3: Обработка ассетов
-    if self.settings.save_assets and #self.state.collected_data.assets > 0 then
-        log_info("Шаг 3: Обработка ассетов (%d)...", #self.state.collected_data.assets)
-        self.state.current_operation = "processing_assets"
-        
-        success, error = pcall(function()
-            self:process_assets()
-        end)
-        
-        if not success then
-            log_error("Ошибка при обработке ассетов: %s", error)
-            self.state.errors = self.state.errors + 1
-        end
-    end
-    
-    self.state.progress = 75
-    
-    -- Шаг 4: Сохранение моделей
-    if self.settings.save_models and #self.state.collected_data.models > 0 then
-        log_info("Шаг 4: Сохранение моделей (%d)...", #self.state.collected_data.models)
-        self.state.current_operation = "saving_models"
-        
-        success, error = pcall(function()
-            self:save_models()
-        end)
-        
-        if not success then
-            log_error("Ошибка при сохранении моделей: %s", error)
-            self.state.errors = self.state.errors + 1
-        end
-    end
-    
-    self.state.progress = 90
-    
-    -- Шаг 5: Создание README и метаданных
-    log_info("Шаг 5: Создание документации...")
-    self.state.current_operation = "creating_docs"
-    
-    if self.settings.create_readme then
-        self:create_readme()
-    end
-    
-    if self.settings.include_metadata then
-        self:create_metadata()
-    end
-    
-    self.state.progress = 100
-    self.state.current_operation = "completed"
-    
-    -- Завершение
-    local end_time = os.clock()
-    local end_memory = collectgarbage("count") / 1024
-    
-    -- Статистика
-    log_info("=" .. string.rep("=", 78))
-    log_info("СОХРАНЕНИЕ ЗАВЕРШЕНО")
-    log_info("=" .. string.rep("=", 78))
-    log_info("Общее время: %.3f секунд", end_time - start_time)
-    log_info("Использовано памяти: %.2f MB", end_memory - start_memory)
-    log_info("Сохранено файлов: %d", 
-        self.state.saved_files.scripts + 
-        self.state.saved_files.assets + 
-        self.state.saved_files.models + 
-        self.state.saved_files.others)
-    log_info("  - Скриптов: %d", self.state.saved_files.scripts)
-    log_info("  - Ассетов: %d", self.state.saved_files.assets)
-    log_info("  - Моделей: %d", self.state.saved_files.models)
-    log_info("  - Прочих: %d", self.state.saved_files.others)
-    log_info("Ошибок: %d, Предупреждений: %d", self.state.errors, self.state.warnings)
-    log_info("=" .. string.rep("=", 78))
-    
-    self.state.is_running = false
-    
-    return true, {
-        time = end_time - start_time,
-        files = self.state.saved_files,
-        errors = self.state.errors,
-        warnings = self.state.warnings
-    }
-end
-
--- Сбор данных об игре
-function GOD_MODE_SAVEINSTANCE:collect_game_data()
-    log_info("Сбор данных об игре...")
-    
-    -- Сбор сервисов
-    local services_to_collect = {
-        "Workspace",
-        "Players",
-        "Lighting",
-        "ReplicatedStorage",
-        "ServerScriptService",
-        "ServerStorage",
-        "StarterGui",
-        "StarterPack",
-        "StarterPlayer",
-        "SoundService",
-        "Teams",
-        "Chat"
-    }
-    
-    for _, service_name in ipairs(services_to_collect) do
-        local success, service = pcall(game.GetService, game, service_name)
-        if success and service then
-            table.insert(self.state.collected_data.services, {
-                name = service_name,
-                instance = service
-            })
-            
-            -- Рекурсивный сбор экземпляров
-            self:collect_instances_recursive(service, 0)
-        end
-    end
-    
-    -- Дополнительный сбор из игры
-    self:collect_instances_recursive(game, 0)
-    
-    log_info("Сбор данных завершен")
-end
-
--- Рекурсивный сбор экземпляров
-function GOD_MODE_SAVEINSTANCE:collect_instances_recursive(instance, depth)
-    if depth > 100 then
-        log_warn("Достигнута максимальная глубина рекурсии")
-        return
-    end
-    
-    if not instance or not instance:IsA("Instance") then
-        return
-    end
-    
-    -- Добавление экземпляра
-    table.insert(self.state.collected_data.instances, {
-        instance = instance,
-        className = instance.ClassName,
-        name = instance.Name,
-        fullName = instance:GetFullName(),
-        path = self:get_instance_path(instance)
-    })
-    
-    -- Проверка типа
-    if instance:IsA("LuaSourceContainer") then
-        -- Скрипт
-        table.insert(self.state.collected_data.scripts, {
-            instance = instance,
-            className = instance.ClassName,
-            name = instance.Name,
-            fullName = instance:GetFullName(),
-            path = self:get_instance_path(instance),
-            source = instance.Source or "",
-            disabled = instance.Disabled or false
-        })
-    elseif self:is_asset(instance) then
-        -- Ассет
-        table.insert(self.state.collected_data.assets, {
-            instance = instance,
-            className = instance.ClassName,
-            name = instance.Name,
-            fullName = instance:GetFullName(),
-            path = self:get_instance_path(instance),
-            assetId = self:get_asset_id(instance),
-            assetType = self:get_asset_type(instance)
-        })
-    elseif instance:IsA("Model") then
-        -- Модель
-        table.insert(self.state.collected_data.models, {
-            instance = instance,
-            className = instance.ClassName,
-            name = instance.Name,
-            fullName = instance:GetFullName(),
-            path = self:get_instance_path(instance)
-        })
-    end
-    
-    -- Рекурсивный обход детей
-    for _, child in ipairs(instance:GetChildren()) do
-        self:collect_instances_recursive(child, depth + 1)
-    end
-end
-
--- Проверка, является ли экземпляр ассетом
-function GOD_MODE_SAVEINSTANCE:is_asset(instance)
-    local asset_classes = {
-        "Decal", "Texture", "Sound", "MeshPart", "SpecialMesh",
-        "Animation", "ParticleEmitter", "Beam", "Trail", "Sky",
-        "Lighting", "PostEffect", "SurfaceAppearance"
-    }
-    
-    for _, className in ipairs(asset_classes) do
-        if instance:IsA(className) then
-            return true
-        end
-    end
-    
-    return false
-end
-
--- Получение ID ассета
-function GOD_MODE_SAVEINSTANCE:get_asset_id(instance)
-    if instance:IsA("Decal") or instance:IsA("Texture") then
-        return instance.Texture
-    elseif instance:IsA("Sound") then
-        return instance.SoundId
-    elseif instance:IsA("MeshPart") then
-        return instance.MeshId
-    elseif instance:IsA("SpecialMesh") then
-        return instance.MeshId
-    elseif instance:IsA("Animation") then
-        return instance.AnimationId
-    end
-    
-    return ""
-end
-
--- Получение типа ассета
-function GOD_MODE_SAVEINSTANCE:get_asset_type(instance)
-    if instance:IsA("Decal") then return "decal" end
-    if instance:IsA("Texture") then return "texture" end
-    if instance:IsA("Sound") then return "sound" end
-    if instance:IsA("MeshPart") then return "mesh" end
-    if instance:IsA("SpecialMesh") then return "mesh" end
-    if instance:IsA("Animation") then return "animation" end
-    if instance:IsA("ParticleEmitter") then return "particle" end
-    
-    return "unknown"
-end
-
--- Получение пути экземпляра
-function GOD_MODE_SAVEINSTANCE:get_instance_path(instance)
-    local path = ""
-    local current = instance
-    
-    while current and current ~= game do
-        path = current.Name .. "/" .. path
-        current = current.Parent
-    end
-    
-    return "game/" .. path
-end
-
--- Обработка скриптов
-function GOD_MODE_SAVEINSTANCE:process_scripts()
-    log_info("Обработка %d скриптов...", #self.state.collected_data.scripts)
-    
-    local task_ids = {}
-    
-    for _, script_data in ipairs(self.state.collected_data.scripts) do
-        local task_id = TASK_MANAGER:add_task(
-            function(data)
-                return self:process_single_script(data)
-            end,
-            {script_data},
-            1,
-            {
-                type = "script",
-                name = script_data.name,
-                fullName = script_data.fullName
-            }
-        )
-        
-        table.insert(task_ids, task_id)
-    end
-    
-    -- Запуск менеджера задач
-    TASK_MANAGER:run()
-    
-    -- Ожидание завершения
-    local success, result = TASK_MANAGER:wait_for_completion(60)
-    
-    if not success then
-        log_warn("Таймаут обработки скриптов")
-    end
-    
-    -- Получение результатов
-    local results = TASK_MANAGER:get_results()
-    local stats = TASK_MANAGER:get_stats()
-    
-    log_info("Обработка скриптов завершена: %d успешно, %d неудачно",
-        stats.completed_tasks, stats.failed_tasks)
-    
-    TASK_MANAGER:stop()
-    
-    return true
-end
-
--- Обработка одного скрипта
-function GOD_MODE_SAVEINSTANCE:process_single_script(script_data)
-    log_debug("Обработка скрипта: %s", script_data.fullName)
-    
-    local source = script_data.source or ""
-    
-    if self.settings.deobfuscate_scripts and #source > 0 then
-        -- Деобфускация
-        source = ULTRA_DEOBFUSCATOR:deobfuscate(source, {
-            deobfuscation_level = 10,
-            timeout = 10
-        })
-    end
-    
-    -- Сохранение файла
-    local safe_name = script_data.fullName:gsub("[^%w_]", "_")
-    local filename = string.format("%s/%s/%s.%s",
-        self.settings.output_dir,
-        self.settings.scripts_dir,
-        safe_name,
-        self.settings.script_format
-    )
-    
-    local success, error = pcall(function()
-        if writefile then
-            writefile(filename, source)
-        end
-    end)
-    
-    if success then
-        self.state.saved_files.scripts = self.state.saved_files.scripts + 1
-        log_trace("Скрипт сохранен: %s", filename)
-        return true
-    else
-        log_error("Ошибка сохранения скрипта %s: %s", script_data.fullName, error)
-        self.state.errors = self.state.errors + 1
-        return false, error
-    end
-end
-
--- Обработка ассетов
-function GOD_MODE_SAVEINSTANCE:process_assets()
-    log_info("Обработка %d ассетов...", #self.state.collected_data.assets)
-    
-    for _, asset_data in ipairs(self.state.collected_data.assets) do
-        local success, error = pcall(function()
-            self:process_single_asset(asset_data)
-        end)
-        
-        if not success then
-            log_error("Ошибка обработки ассета %s: %s", asset_data.fullName, error)
-            self.state.errors = self.state.errors + 1
-        end
-        
-        -- Обновление прогресса
-        self.state.processed_items = self.state.processed_items + 1
-        self.state.progress = 50 + (self.state.processed_items / #self.state.collected_data.assets) * 25
-        
-        -- Пауза для предотвращения зависаний
-        if self.state.processed_items % 10 == 0 then
-            wait(0.01)
-        end
-    end
-    
-    log_info("Обработка ассетов завершена")
-    return true
-end
-
--- Обработка одного ассета
-function GOD_MODE_SAVEINSTANCE:process_single_asset(asset_data)
-    if not asset_data.assetId or asset_data.assetId == "" then
-        log_warn("Ассет без ID: %s", asset_data.fullName)
-        return false
-    end
-    
-    -- Определение расширения файла
-    local extension = self:get_asset_extension(asset_data)
-    local safe_name = asset_data.fullName:gsub("[^%w_]", "_")
-    
-    local filename = string.format("%s/%s/%s%s",
-        self.settings.output_dir,
-        self.settings.assets_dir,
-        safe_name,
-        extension
-    )
-    
-    -- Попытка скачивания ассета
-    local success, content = pcall(function()
-        if game and game.HttpGet then
-            return game:HttpGet(asset_data.assetId, true)
-        end
-        return nil
-    end)
-    
-    if success and content then
-        -- Сохранение файла
-        local write_success, write_error = pcall(function()
-            if writefile then
-                writefile(filename, content)
-            end
-        end)
-        
-        if write_success then
-            self.state.saved_files.assets = self.state.saved_files.assets + 1
-            log_trace("Ассет сохранен: %s (%d bytes)", filename, #content)
-            return true
-        else
-            log_error("Ошибка записи ассета %s: %s", asset_data.fullName, write_error)
-            return false
-        end
-    else
-        log_warn("Не удалось скачать ассет: %s", asset_data.fullName)
-        self.state.warnings = self.state.warnings + 1
-        
-        -- Сохранение информации об ассете
-        local info = string.format("Asset ID: %s\nType: %s\nClass: %s\nPath: %s\nError: %s",
-            asset_data.assetId,
-            asset_data.assetType,
-            asset_data.className,
-            asset_data.path,
-            content or "Unknown error"
-        )
-        
-        pcall(function()
-            if writefile then
-                writefile(filename .. ".info.txt", info)
-            end
-        end)
-        
-        return false
-    end
-end
-
--- Получение расширения файла для ассета
-function GOD_MODE_SAVEINSTANCE:get_asset_extension(asset_data)
-    if asset_data.assetId:match("%.png$") then return ".png" end
-    if asset_data.assetId:match("%.jpg$") then return ".jpg" end
-    if asset_data.assetId:match("%.jpeg$") then return ".jpeg" end
-    if asset_data.assetId:match("%.gif$") then return ".gif" end
-    if asset_data.assetId:match("%.bmp$") then return ".bmp" end
-    if asset_data.assetId:match("%.mp3$") then return ".mp3" end
-    if asset_data.assetId:match("%.ogg$") then return ".ogg" end
-    if asset_data.assetId:match("%.wav$") then return ".wav" end
-    if asset_data.assetId:match("%.mesh$") then return ".mesh" end
-    if asset_data.assetId:match("%.obj$") then return ".obj" end
-    if asset_data.assetId:match("%.fbx$") then return ".fbx" end
-    
-    -- По типу ассета
-    if asset_data.assetType == "texture" then return ".png" end
-    if asset_data.assetType == "sound" then return ".mp3" end
-    if asset_data.assetType == "mesh" then return ".mesh" end
-    if asset_data.assetType == "animation" then return ".anim" end
-    
-    return ".bin"
-end
-
--- Сохранение моделей
-function GOD_MODE_SAVEINSTANCE:save_models()
-    log_info("Сохранение %d моделей...", #self.state.collected_data.models)
-    
-    for _, model_data in ipairs(self.state.collected_data.models) do
-        local success, error = pcall(function()
-            self:save_single_model(model_data)
-        end)
-        
-        if not success then
-            log_error("Ошибка сохранения модели %s: %s", model_data.fullName, error)
-            self.state.errors = self.state.errors + 1
-        end
-    end
-    
-    log_info("Сохранение моделей завершено")
-    return true
-end
-
--- Сохранение одной модели
-function GOD_MODE_SAVEINSTANCE:save_single_model(model_data)
-    local safe_name = model_data.fullName:gsub("[^%w_]", "_")
-    local filename = string.format("%s/%s/%s.%s",
-        self.settings.output_dir,
-        self.settings.models_dir,
-        safe_name,
-        self.settings.model_format
-    )
-    
-    -- Эмуляция сохранения модели
-    local model_info = string.format("Model: %s\nClass: %s\nPath: %s\nChildren: %d\n",
-        model_data.name,
-        model_data.className,
-        model_data.path,
-        #model_data.instance:GetChildren()
-    )
-    
-    local success, error = pcall(function()
-        if writefile then
-            writefile(filename, model_info)
-        end
-    end)
-    
-    if success then
-        self.state.saved_files.models = self.state.saved_files.models + 1
-        log_trace("Модель сохранена: %s", filename)
-        return true
-    else
-        log_error("Ошибка записи модели %s: %s", model_data.fullName, error)
-        return false
-    end
-end
-
--- Создание README файла
-function GOD_MODE_SAVEINSTANCE:create_readme()
-    if not writefile then return false end
-    
-    local readme_content = string.format([[
-# SAVEINSTANCE REPORT
-## Game: %s
-## Place ID: %d
-## Time: %s
-## Tool: UniversalSynSaveInstance v%s
-
-## STATISTICS
-- Total instances: %d
-- Scripts processed: %d
-- Assets saved: %d
-- Models saved: %d
-- Errors: %d
-- Warnings: %d
-
-## SETTINGS USED
-- Mode: %s
-- Deobfuscation: %s
-- Compression: %s
-
-## DIRECTORIES
-- Scripts: /%s/
-- Assets: /%s/
-- Models: /%s/
-- Logs: /%s/
-
-## NOTES
-This file was generated automatically.
-For support: %s
-]], 
-        game:GetFullName(),
-        game.PlaceId,
-        os.date("%Y-%m-%d %H:%M:%S"),
-        VERSION_INFO.major,
-        #self.state.collected_data.instances,
-        #self.state.collected_data.scripts,
-        self.state.saved_files.assets,
-        self.state.saved_files.models,
-        self.state.errors,
-        self.state.warnings,
-        self.settings.mode,
-        self.settings.deobfuscate_scripts and "Enabled" or "Disabled",
-        self.settings.compress_output and "Enabled" or "Disabled",
-        self.settings.scripts_dir,
-        self.settings.assets_dir,
-        self.settings.models_dir,
-        self.settings.logs_dir,
-        VERSION_INFO.discord
-    )
-    
-    local filename = string.format("%s/README.md", self.settings.output_dir)
-    local success, error = pcall(function()
-        writefile(filename, readme_content)
-    end)
-    
-    if success then
-        self.state.saved_files.others = self.state.saved_files.others + 1
-        log_info("README файл создан: %s", filename)
-        return true
-    else
-        log_error("Ошибка создания README: %s", error)
-        return false
-    end
-end
-
--- Создание метаданных
-function GOD_MODE_SAVEINSTANCE:create_metadata()
-    if not writefile then return false end
-    
-    local metadata = {
-        game = {
-            name = game:GetFullName(),
-            placeId = game.PlaceId,
-            creator = game.CreatorId,
-            created = os.time(),
-            version = VERSION_INFO
-        },
-        
-        save = {
-            time = os.date("%Y-%m-%d %H:%M:%S"),
-            duration = os.clock() - REGISTRY.metrics.start_time,
-            settings = self.settings,
-            statistics = {
-                instances = #self.state.collected_data.instances,
-                scripts = #self.state.collected_data.scripts,
-                assets = #self.state.collected_data.assets,
-                models = #self.state.collected_data.models,
-                saved_files = self.state.saved_files,
-                errors = self.state.errors,
-                warnings = self.state.warnings
-            }
-        },
-        
-        systems = {
-            logger = MEGA_LOGGER:get_stats(),
-            cache = CACHE_SYSTEM:stats(),
-            tasks = TASK_MANAGER:get_stats(),
-            deobfuscator = ULTRA_DEOBFUSCATOR.state
-        }
-    }
-    
-    local filename = string.format("%s/metadata.json", self.settings.output_dir)
-    local json_content
-    
-    -- Попытка сериализации JSON
-    local success, result = pcall(function()
-        local HttpService = game:GetService("HttpService")
-        return HttpService:JSONEncode(metadata, true)
-    end)
-    
-    if success then
-        json_content = result
-    else
-        json_content = "-- JSON serialization failed --\n" .. tostring(metadata)
-    end
-    
-    local write_success, write_error = pcall(function()
-        writefile(filename, json_content)
-    end)
-    
-    if write_success then
-        self.state.saved_files.others = self.state.saved_files.others + 1
-        log_info("Метаданные сохранены: %s", filename)
-        return true
-    else
-        log_error("Ошибка сохранения метаданных: %s", write_error)
-        return false
-    end
-end
-
--- Быстрое сохранение
-function GOD_MODE_SAVEINSTANCE:quick_save()
-    return self:save({
-        mode = "SCRIPTS",
-        save_scripts = true,
-        save_assets = false,
-        save_models = false,
-        deobfuscate_scripts = true,
-        timeout = 30
-    })
-end
-
--- Полное сохранение
-function GOD_MODE_SAVEINSTANCE:full_save()
-    return self:save({
-        mode = "EVERYTHING",
-        save_scripts = true,
-        save_assets = true,
-        save_models = true,
-        deobfuscate_scripts = true,
-        timeout = 300,
-        create_readme = true,
-        include_metadata = true
-    })
-end
-
--- Сохранение только скриптов
-function GOD_MODE_SAVEINSTANCE:save_scripts_only()
-    return self:save({
-        mode = "SCRIPTS",
-        save_scripts = true,
-        save_assets = false,
-        save_models = false,
-        deobfuscate_scripts = true
-    })
-end
-
--- ===================================================================
--- СЕКЦИЯ 8: ИНТЕРФЕЙС И ЭКСПОРТ (500+ строк)
--- ===================================================================
-
--- Главная функция saveinstance
-function saveinstance(options)
-    return GOD_MODE_SAVEINSTANCE:save(options)
-end
-
--- Вспомогательные функции
-function deobfuscate(code, options)
-    if not code or type(code) ~= "string" then
-        return code or ""
-    end
-    
-    ULTRA_DEOBFUSCATOR:init()
-    return ULTRA_DEOBFUSCATOR:deobfuscate(code, options)
-end
-
--- Быстрое сохранение
-function saveinstance_quick()
-    return GOD_MODE_SAVEINSTANCE:quick_save()
-end
-
--- Полное сохранение
-function saveinstance_full()
-    return GOD_MODE_SAVEINSTANCE:full_save()
-end
-
--- Сохранение только скриптов
-function saveinstance_scripts()
-    return GOD_MODE_SAVEINSTANCE:save_scripts_only()
-end
-
--- Получение версии
-function get_version()
-    return VERSION_INFO
-end
-
--- Получение статистики
-function get_stats()
-    return REGISTRY.metrics
-end
-
--- Сброс всех систем
-function reset_all()
-    REGISTRY.metrics = {
-        start_time = os.clock(),
-        operations = 0,
-        memory_used = 0,
-        cpu_time = 0,
-        network_bytes = 0,
-        files_saved = 0,
-        scripts_deobfuscated = 0,
-        assets_extracted = 0,
-        errors_count = 0,
-        warnings_count = 0,
-        cache_hits = 0,
-        cache_misses = 0
-    }
-    
-    MEGA_LOGGER:init()
-    CACHE_SYSTEM:clear()
-    TASK_MANAGER:reset()
-    ULTRA_DEOBFUSCATOR:init()
-    
-    collectgarbage("collect")
-    log_info("Все системы сброшены")
-    
-    return true
-end
-
--- Экспортируемый объект
-local UltraSaveInstance = {
-    -- Основные функции
-    save = saveinstance,
-    save_quick = saveinstance_quick,
-    save_full = saveinstance_full,
-    save_scripts = saveinstance_scripts,
-    
-    -- Деобфускатор
-    deobfuscate = deobfuscate,
-    Deobfuscator = ULTRA_DEOBFUSCATOR,
-    
-    -- Менеджеры
-    TaskManager = TASK_MANAGER,
-    CacheSystem = CACHE_SYSTEM,
-    
-    -- Утилиты
-    get_version = get_version,
-    get_stats = get_stats,
-    reset = reset_all,
-    
-    -- Системы
-    Logger = MEGA_LOGGER,
-    Crypto = CRYPTO_SYSTEM,
-    Main = GOD_MODE_SAVEINSTANCE,
-    
-    -- Константы
-    VERSION = VERSION_INFO,
-    CONFIG = CONFIG,
-    REGISTRY = REGISTRY
-}
-
--- Авто-инициализация
-local function auto_initialize()
-    log_info("Авто-инициализация UniversalSynSaveInstance v%s...", VERSION_INFO.major)
-    
-    -- Инициализация логгера
-    MEGA_LOGGER:init()
-    
-    -- Основная инициализация
-    GOD_MODE_SAVEINSTANCE:init()
-    
-    log_info("Авто-инициализация завершена")
-end
-
--- Запуск инициализации
-local success, error = pcall(auto_initialize)
-if not success then
-    print("Ошибка инициализации:", error)
-end
-
--- Глобальный экспорт
-_G.USSI = UltraSaveInstance
-_G.saveinstance = saveinstance
-_G.deobfuscate = deobfuscate
-
--- Возвращаем основной объект
-return UltraSaveInstance
+return synsaveinstance
