@@ -3272,13 +3272,6 @@ local function synsaveinstance(CustomOptions, CustomOptions2)
 								tag = ValueType
 
 								if PropertyName == "Source" then
-
-                                    local serverScriptOutput = handleServerScripts(instance)
-                                    if serverScriptOutput then
-                                        value = serverScriptOutput
-                                        should_decompile = nil
-                                    else
-
 									if DecompileIgnoring then -- ? Should this really prevent extraction of the original source if present ?
 										if DecompileIgnoring == 1 then
 											DecompileIgnoring = nil
@@ -3387,7 +3380,6 @@ local function synsaveinstance(CustomOptions, CustomOptions2)
 									end
 								end
 							end
-                            end
 						end
 
 						if tag then
@@ -3462,29 +3454,6 @@ local function synsaveinstance(CustomOptions, CustomOptions2)
 		end
 	end
 
-    local function handleServerScripts(instance)
-        if isLuaSourceContainer(instance) then
-            local isLocalScript = instance:IsA("LocalScript")
-            local isServerScript = instance:IsA("Script") and instance.RunContext ~= Enum.RunContext.Client
-            
-            if isServerScript then
-                local LinkedSource_Url = instance.LinkedSource
-                if LinkedSource_Url and LinkedSource_Url ~= "" then
-                    -- Это серверный скрипт с LinkedSource
-                    local LinkedSource = string.match(LinkedSource_Url, "%w+$")
-                    if LinkedSource then
-                        return "-- Server Script (LinkedSource): https://assetdelivery.roblox.com/v1/asset/?id=" .. LinkedSource
-                    else
-                        return "-- Server Script (LinkedSource available)"
-                    end
-                else
-                    return "-- [FilteringEnabled] Server Scripts are IMPOSSIBLE to save"
-                end
-            end
-        end
-        return nil
-    end
-
 	local function save_game()
 		do
 			if IsModel then
@@ -3506,49 +3475,6 @@ local function synsaveinstance(CustomOptions, CustomOptions2)
 			or IsolatePlayers
 			or NilInstances and global_container.getnilinstances -- ! Make sure this accurately reflects everything below
 
-                if mode == "optimized" or mode == "full" then
-            -- Добавляем ServerScriptService и ServerStorage в список сохранения
-            local serverServices = {"ServerScriptService", "ServerStorage"}
-            
-            for _, serviceName in ipairs(serverServices) do
-                local serviceInst = game:FindService(serviceName)
-                if serviceInst then
-                    -- Помечаем для сохранения через LinkedSource
-                    local hasLinkedSourceScripts = false
-                    
-                    for _, scriptInst in ipairs(serviceInst:GetDescendants()) do
-                        if isLuaSourceContainer(scriptInst) then
-                            local LinkedSource_Url = scriptInst.LinkedSource
-                            if LinkedSource_Url and LinkedSource_Url ~= "" then
-                                hasLinkedSourceScripts = true
-                                break
-                            end
-                        end
-                    end
-                    
-                    if hasLinkedSourceScripts then
-                        -- Добавляем родительскую папку в сохранение
-                        local parent = serviceInst.Parent
-                        while parent and parent ~= game do
-                            local alreadyInList = false
-                            for _, existing in ipairs(ToSaveList) do
-                                if existing == parent then
-                                    alreadyInList = true
-                                    break
-                                end
-                            end
-                            
-                            if not alreadyInList then
-                                table.insert(ToSaveList, parent)
-                            end
-                            
-                            parent = parent.Parent
-                        end
-                    end
-                end
-            end
-        end
-            
 		save_hierarchy(ToSaveList)
 
 		if IsolateLocalPlayer or IsolateLocalPlayerCharacter then
@@ -3566,36 +3492,6 @@ local function synsaveinstance(CustomOptions, CustomOptions2)
 				end
 			end
 		end
-
-    if mode == "scripts" then
-            local serverServices = {"ServerScriptService", "ServerStorage"}
-            
-            for _, serviceName in ipairs(serverServices) do
-                local serviceInst = game:FindService(serviceName)
-                if serviceInst then
-                    local unique = {}
-                    for _, instance in serviceInst:GetDescendants() do
-                        if isLuaSourceContainer(instance) then
-                            local LinkedSource_Url = instance.LinkedSource
-                            if LinkedSource_Url and LinkedSource_Url ~= "" then
-                                -- Сохраняем путь к скрипту
-                                local Parent = instance.Parent
-                                while Parent and Parent ~= game do
-                                    instance = instance.Parent
-                                    Parent = instance.Parent
-                                end
-                                if Parent then
-                                    unique[instance] = true
-                                end
-                            end
-                        end
-                    end
-                    for instance in unique do
-                        table.insert(ToSaveList, instance)
-                    end
-                end
-            end
-        end
 
 		if IsolateStarterPlayer then
 			-- SaveNotCreatable = true -- TODO: Enable if StarterPlayerScripts or StarterCharacterScripts stop showing up in isolated folder in Studio
