@@ -3586,7 +3586,7 @@ local function synsaveinstance(CustomOptions, CustomOptions2)
 		This file was generated with the following settings:
 		]]
 					.. service.HttpService:JSONEncode(OPTIONS)
-					.. "\n\n\t\tElapsed time: "
+					.. "\n\n\t\ttime: "
 					.. os.clock() - elapse_t
 					.. " PlaceId: "
 					.. game.PlaceId
@@ -3614,7 +3614,7 @@ local function synsaveinstance(CustomOptions, CustomOptions2)
 		end
 
 		savebuffer[savebuffer_size] =
-			"</roblox><!-- Saved by UniversalSynSaveInstance (Join to Copy Games) https://discord.gg/wx4ThpAsmw -->"
+			"</roblox><!-- Saved by Pulse Save Instance. (will update soon)"
 		savebuffer_size += 1
 		save_cache(true)
 		do
@@ -3863,7 +3863,7 @@ local function synsaveinstance(CustomOptions, CustomOptions2)
 					}
 				end
 
-				LocalPlayer:Kick("\n[SAFEMODE] Saving in Progress..\nPlease do NOT leave")
+				LocalPlayer:Kick("\n[SAFEMODE] Saving in Progress..\nPlease do NOT leave (DO NOT DO THIS)")
 				wait_for_render()
 				task.delay(10, service.GuiService.ClearError, service.GuiService)
 			end)
@@ -3929,7 +3929,7 @@ local function synsaveinstance(CustomOptions, CustomOptions2)
 		if StatusText then
 			task.spawn(function()
 				if ok then
-					StatusText.Text = string.format("Saved! Time %.3f seconds; Size %s", elapse_t, get_size_format())
+					StatusText.Text = string.format("Saved! (lets goooo) Time %.3f seconds; Size %s", elapse_t, get_size_format())
 					StatusText.TextColor3 = Color3.new(0, 1)
 					task.wait(Log10 * 2 + ExtraTime)
 				else
@@ -3937,9 +3937,9 @@ local function synsaveinstance(CustomOptions, CustomOptions2)
 						task.cancel(Loading)
 						Loading = nil
 					end
-					StatusText.Text = "Failed! Check F9 console for more info"
+					StatusText.Text = "Error! Check F9 console for info."
 					StatusText.TextColor3 = Color3.new(1)
-					warn("Error found while saving:")
+					warn("Error:")
 					warn(err)
 					task.wait(Log10 + ExtraTime)
 				end
